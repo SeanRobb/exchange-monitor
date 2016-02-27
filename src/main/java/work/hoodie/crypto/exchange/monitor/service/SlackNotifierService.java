@@ -1,8 +1,8 @@
-package work.hoodie.crypto.poloniex.monitor.service;
+package work.hoodie.crypto.exchange.monitor.service;
 
 
 import org.springframework.web.client.RestTemplate;
-import work.hoodie.crypto.poloniex.monitor.domain.SlackMessage;
+import work.hoodie.crypto.exchange.monitor.domain.SlackMessage;
 
 public class SlackNotifierService {
     private RestTemplate restTemplate;

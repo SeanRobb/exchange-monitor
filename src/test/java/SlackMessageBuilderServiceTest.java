@@ -4,8 +4,8 @@ import com.xeiam.xchange.dto.trade.UserTrade;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
-import work.hoodie.crypto.poloniex.monitor.domain.SlackMessage;
-import work.hoodie.crypto.poloniex.monitor.service.SlackMessageBuilderService;
+import work.hoodie.crypto.exchange.monitor.domain.SlackMessage;
+import work.hoodie.crypto.exchange.monitor.service.SlackMessageBuilderService;
 
 import java.math.BigDecimal;
 import java.util.Date;

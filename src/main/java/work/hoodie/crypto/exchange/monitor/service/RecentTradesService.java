@@ -1,4 +1,4 @@
-package work.hoodie.crypto.poloniex.monitor.service;
+package work.hoodie.crypto.exchange.monitor.service;
 
 import com.xeiam.xchange.dto.trade.UserTrade;
 import com.xeiam.xchange.dto.trade.UserTrades;

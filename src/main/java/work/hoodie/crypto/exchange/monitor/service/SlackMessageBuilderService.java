@@ -1,10 +1,10 @@
-package work.hoodie.crypto.poloniex.monitor.service;
+package work.hoodie.crypto.exchange.monitor.service;
 
 import com.xeiam.xchange.currency.CurrencyPair;
 import com.xeiam.xchange.dto.Order.OrderType;
 import com.xeiam.xchange.dto.trade.UserTrade;
 import org.springframework.stereotype.Component;
-import work.hoodie.crypto.poloniex.monitor.domain.SlackMessage;
+import work.hoodie.crypto.exchange.monitor.domain.SlackMessage;
 
 import java.math.BigDecimal;
 

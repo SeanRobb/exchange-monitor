@@ -1,4 +1,4 @@
-package work.hoodie.crypto.poloniex.monitor.domain;
+package work.hoodie.crypto.exchange.monitor.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

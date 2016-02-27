@@ -4,7 +4,7 @@ import com.xeiam.xchange.poloniex.PoloniexExchange;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
-import work.hoodie.crypto.poloniex.monitor.service.ExchangeFinderService;
+import work.hoodie.crypto.exchange.monitor.service.ExchangeFinderService;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

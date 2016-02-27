@@ -1,11 +1,11 @@
-package work.hoodie.crypto.poloniex.monitor.config;
+package work.hoodie.crypto.exchange.monitor.config;
 
 import com.xeiam.xchange.ExchangeSpecification;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import work.hoodie.crypto.poloniex.monitor.service.ExchangeFinderService;
+import work.hoodie.crypto.exchange.monitor.service.ExchangeFinderService;
 
 import javax.annotation.PostConstruct;
 

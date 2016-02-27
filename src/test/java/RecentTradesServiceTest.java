@@ -10,7 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
-import work.hoodie.crypto.poloniex.monitor.service.RecentTradesService;
+import work.hoodie.crypto.exchange.monitor.service.RecentTradesService;
 
 import java.util.ArrayList;
 import java.util.Date;

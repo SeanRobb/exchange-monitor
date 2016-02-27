@@ -1,14 +1,14 @@
-package work.hoodie.crypto.poloniex.monitor;
+package work.hoodie.crypto.exchange.monitor;
 
 import com.xeiam.xchange.dto.trade.UserTrade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import work.hoodie.crypto.poloniex.monitor.domain.SlackMessage;
-import work.hoodie.crypto.poloniex.monitor.service.RecentTradesService;
-import work.hoodie.crypto.poloniex.monitor.service.SlackMessageBuilderService;
-import work.hoodie.crypto.poloniex.monitor.service.SlackNotifierService;
+import work.hoodie.crypto.exchange.monitor.domain.SlackMessage;
+import work.hoodie.crypto.exchange.monitor.service.RecentTradesService;
+import work.hoodie.crypto.exchange.monitor.service.SlackMessageBuilderService;
+import work.hoodie.crypto.exchange.monitor.service.SlackNotifierService;
 
 import java.util.List;
 

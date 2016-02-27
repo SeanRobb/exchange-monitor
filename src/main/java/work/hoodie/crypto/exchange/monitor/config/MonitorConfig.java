@@ -1,4 +1,4 @@
-package work.hoodie.crypto.poloniex.monitor.config;
+package work.hoodie.crypto.exchange.monitor.config;
 
 import com.xeiam.xchange.ExchangeFactory;
 import com.xeiam.xchange.ExchangeSpecification;
@@ -10,8 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.client.RestTemplate;
-import work.hoodie.crypto.poloniex.monitor.service.ExchangeFinderService;
-import work.hoodie.crypto.poloniex.monitor.service.SlackNotifierService;
+import work.hoodie.crypto.exchange.monitor.service.SlackNotifierService;
 
 import javax.annotation.PostConstruct;
 

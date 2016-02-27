@@ -3,8 +3,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.client.RestTemplate;
-import work.hoodie.crypto.poloniex.monitor.domain.SlackMessage;
-import work.hoodie.crypto.poloniex.monitor.service.SlackNotifierService;
+import work.hoodie.crypto.exchange.monitor.domain.SlackMessage;
+import work.hoodie.crypto.exchange.monitor.service.SlackNotifierService;
 
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
