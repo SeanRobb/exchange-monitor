@@ -25,5 +25,9 @@ Docker Hub link: https://hub.docker.com/r/seanprobb/exchange-monitor/
     -e slack_url={slack url} \
     -d seanprobb/exchange-monitor
     
+## Donations
+
+Bitcoin Wallet Address: 1NJhd7rNLZLjmNd2FouRwQB9Fqf5Zv3qzC
+    
     
     
