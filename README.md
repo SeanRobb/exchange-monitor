@@ -21,7 +21,7 @@ This project was made to notify slack when a trade is executed on a cryptocoin e
     -e api_key={api key} \
     -e secret_key={api key secret} \
     -e slack_url={slack url} \
-    -d workhoodie/trade-monitor
+    -d seanprobb/trade-monitor
     
     
     
