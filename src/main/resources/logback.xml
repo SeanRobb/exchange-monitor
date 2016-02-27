@@ -9,7 +9,7 @@
         </layout>
     </appender>
 
-    <logger name="work.hoodie.crypto.poloniex.monitor" level="info"
+    <logger name="work.hoodie.crypto.exchange.monitor" level="info"
             additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
