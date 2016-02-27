@@ -10,6 +10,8 @@ This project was made to notify slack when a trade is executed on a cryptocoin e
 * Coinbase
 * BitFinex
 
+*Additional Exchanges can be added at request*
+
 ## Run With Docker
 
 ### Starting
