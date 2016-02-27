@@ -34,7 +34,9 @@ public class MonitorConfig {
 
     @Bean
     public PollingTradeService pollingTradeService() {
-        return ExchangeFactory.INSTANCE.createExchange(exchangeSpecification).getPollingTradeService();
+        return ExchangeFactory.INSTANCE
+                .createExchange(exchangeSpecification)
+                .getPollingTradeService();
     }
 
     @Bean

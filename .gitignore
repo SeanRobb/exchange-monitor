@@ -1,6 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
 monitor.properties
 log
+target
+
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio
 

@@ -9,8 +9,8 @@ import work.hoodie.crypto.poloniex.monitor.config.MonitorConfig;
 @SpringBootApplication
 @Configuration
 @Import(MonitorConfig.class)
-public class PoloniexMonitorApp {
+public class ExchangeMonitorApp {
     public static void main(String[] args) {
-        SpringApplication.run(PoloniexMonitorApp.class, args);
+        SpringApplication.run(ExchangeMonitorApp.class, args);
     }
 }
