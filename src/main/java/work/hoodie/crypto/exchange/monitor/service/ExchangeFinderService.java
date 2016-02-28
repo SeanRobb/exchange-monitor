@@ -16,8 +16,8 @@ public class ExchangeFinderService {
 
     public ExchangeFinderService() {
         exchanges.add(ExchangeFactory.INSTANCE.createExchange(PoloniexExchange.class.getName()));
-        exchanges.add(ExchangeFactory.INSTANCE.createExchange(BitfinexExchange.class.getName()));
-        exchanges.add(ExchangeFactory.INSTANCE.createExchange(CoinbaseExchange.class.getName()));
+//        exchanges.add(ExchangeFactory.INSTANCE.createExchange(BitfinexExchange.class.getName()));
+//        exchanges.add(ExchangeFactory.INSTANCE.createExchange(CoinbaseExchange.class.getName()));
     }
 
 

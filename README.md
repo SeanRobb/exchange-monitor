@@ -7,8 +7,6 @@ This project was made to notify slack when a trade is executed on a cryptocoin e
 ## Exchanges Supported
 
 * Poloniex
-* Coinbase
-* BitFinex
 
 *Additional Exchanges can be added at request*
 

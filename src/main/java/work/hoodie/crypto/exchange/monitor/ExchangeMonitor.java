@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import work.hoodie.crypto.exchange.monitor.domain.SlackMessage;
-import work.hoodie.crypto.exchange.monitor.service.RecentTradesService;
+import work.hoodie.crypto.exchange.monitor.service.SimpleRecentTradesService;
 import work.hoodie.crypto.exchange.monitor.service.SlackMessageBuilderService;
 import work.hoodie.crypto.exchange.monitor.service.SlackNotifierService;
 
@@ -17,7 +17,7 @@ import java.util.List;
 public class ExchangeMonitor {
 
     @Autowired
-    private RecentTradesService recentTradesService;
+    private SimpleRecentTradesService simpleRecentTradesService;
 
     @Autowired
     private SlackNotifierService slackNotifierService;
@@ -28,7 +28,7 @@ public class ExchangeMonitor {
 
     @Scheduled(cron = "0 */1 * * * *")
     public void check() {
-        List<UserTrade> history = recentTradesService.getHistory();
+        List<UserTrade> history = simpleRecentTradesService.getHistory();
 
         if (!history.isEmpty())
             log.info(history.toString());

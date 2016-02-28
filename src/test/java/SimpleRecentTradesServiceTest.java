@@ -10,7 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
-import work.hoodie.crypto.exchange.monitor.service.RecentTradesService;
+import work.hoodie.crypto.exchange.monitor.service.SimpleRecentTradesService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,15 +23,15 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class RecentTradesServiceTest {
+public class SimpleRecentTradesServiceTest {
     @InjectMocks
-    private RecentTradesService recentTradesService;
+    private SimpleRecentTradesService simpleRecentTradesService;
     @Mock
     private PollingTradeService pollingTradeService;
 
     @Before
     public void init() {
-        ReflectionTestUtils.setField(recentTradesService, "startTime", new Date());
+        ReflectionTestUtils.setField(simpleRecentTradesService, "startTime", new Date());
     }
 
     @Test
@@ -42,7 +42,7 @@ public class RecentTradesServiceTest {
         when(pollingTradeService.getTradeHistory(any(DefaultTradeHistoryParamsTimeSpan.class)))
                 .thenReturn(new UserTrades(trades, Trades.TradeSortType.SortByTimestamp));
 
-        List<UserTrade> history = recentTradesService.getHistory();
+        List<UserTrade> history = simpleRecentTradesService.getHistory();
 
         assertNotNull(history);
         verify(pollingTradeService).getTradeHistory(any(DefaultTradeHistoryParamsTimeSpan.class));
