@@ -20,7 +20,15 @@ Requires Java 7+ as well as 4 environment variables.
 3. secret.key - This is the secret needed to pair with the key
 4. slack.url - This is the Slack Webhook Url needed for notification
 
+## Slack Webhooks
+
+Api Documentation: https://api.slack.com/incoming-webhooks
+
+Slack Integration App: https://slack.com/apps/A0F7XDUAZ-incoming-webhooks
+
 ## Run With Docker
+
+[![](https://badge.imagelayers.io/seanprobb/exchange-monitor:latest.svg)](https://imagelayers.io/?images=seanprobb/exchange-monitor:latest 'Get your own badge on imagelayers.io')
 
 Docker Hub link: https://hub.docker.com/r/seanprobb/exchange-monitor/
 
