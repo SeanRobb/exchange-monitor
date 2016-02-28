@@ -4,17 +4,17 @@
 
 This project was made to notify slack when a trade is executed on a cryptocoin exchange.
 
-## Slack Webhooks
-
-Api Documentation: https://api.slack.com/incoming-webhooks
-
-Slack Integration App: https://slack.com/apps/A0F7XDUAZ-incoming-webhooks
-
 ## Exchanges Supported
 
 * Poloniex
 
 *Additional Exchanges can be added at request*
+
+## Slack Webhooks
+
+Api Documentation: https://api.slack.com/incoming-webhooks
+
+Slack Integration App: https://slack.com/apps/A0F7XDUAZ-incoming-webhooks
 
 ## Run With Docker
 
