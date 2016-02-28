@@ -4,19 +4,22 @@ package work.hoodie.crypto.exchange.monitor.service;
 import com.xeiam.xchange.Exchange;
 import com.xeiam.xchange.ExchangeFactory;
 import com.xeiam.xchange.bitfinex.v1.BitfinexExchange;
-import com.xeiam.xchange.coinbase.CoinbaseExchange;
 import com.xeiam.xchange.poloniex.PoloniexExchange;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class ExchangeFinderService {
 
     private final List<Exchange> exchanges = new ArrayList<Exchange>();
 
-    public ExchangeFinderService() {
+    @PostConstruct
+    public void init() {
         exchanges.add(ExchangeFactory.INSTANCE.createExchange(PoloniexExchange.class.getName()));
-//        exchanges.add(ExchangeFactory.INSTANCE.createExchange(BitfinexExchange.class.getName()));
+        exchanges.add(ExchangeFactory.INSTANCE.createExchange(BitfinexExchange.class.getName()));
 //        exchanges.add(ExchangeFactory.INSTANCE.createExchange(CoinbaseExchange.class.getName()));
     }
 

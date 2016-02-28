@@ -2,6 +2,7 @@ package work.hoodie.crypto.exchange.monitor.config;
 
 import com.xeiam.xchange.ExchangeSpecification;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +10,7 @@ import work.hoodie.crypto.exchange.monitor.service.ExchangeFinderService;
 
 import javax.annotation.PostConstruct;
 
-@Configuration
+@Configuration("Exchange")
 @Slf4j
 public class ExchangeConfig {
 
@@ -20,7 +21,8 @@ public class ExchangeConfig {
     @Value("${exchange}")
     private String exchange;
 
-    private ExchangeFinderService exchangeFinderService = new ExchangeFinderService();
+    @Autowired
+    private ExchangeFinderService exchangeFinderService;
 
     @PostConstruct
     public void init() {

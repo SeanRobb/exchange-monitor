@@ -3,10 +3,11 @@ package work.hoodie.crypto.exchange.monitor;
 import com.xeiam.xchange.dto.trade.UserTrade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import work.hoodie.crypto.exchange.monitor.domain.SlackMessage;
-import work.hoodie.crypto.exchange.monitor.service.SimpleRecentTradesService;
+import work.hoodie.crypto.exchange.monitor.service.recent.trade.RecentTradesService;
 import work.hoodie.crypto.exchange.monitor.service.SlackMessageBuilderService;
 import work.hoodie.crypto.exchange.monitor.service.SlackNotifierService;
 
@@ -17,7 +18,8 @@ import java.util.List;
 public class ExchangeMonitor {
 
     @Autowired
-    private SimpleRecentTradesService simpleRecentTradesService;
+    @Qualifier("CorrectRecentTradeService")
+    private RecentTradesService recentTradesService;
 
     @Autowired
     private SlackNotifierService slackNotifierService;
@@ -28,7 +30,7 @@ public class ExchangeMonitor {
 
     @Scheduled(cron = "0 */1 * * * *")
     public void check() {
-        List<UserTrade> history = simpleRecentTradesService.getHistory();
+        List<UserTrade> history = recentTradesService.getHistory();
 
         if (!history.isEmpty())
             log.info(history.toString());
