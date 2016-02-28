@@ -18,6 +18,8 @@ Slack Integration App: https://slack.com/apps/A0F7XDUAZ-incoming-webhooks
 
 ## Run With Docker
 
+[![](https://badge.imagelayers.io/seanprobb/exchange-monitor:latest.svg)](https://imagelayers.io/?images=seanprobb/exchange-monitor:latest 'Get your own badge on imagelayers.io')
+
 Docker Hub link: https://hub.docker.com/r/seanprobb/exchange-monitor/
 
 ### Starting with Docker
