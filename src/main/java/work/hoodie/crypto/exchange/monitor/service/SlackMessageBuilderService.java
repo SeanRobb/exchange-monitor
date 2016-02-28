@@ -1,8 +1,10 @@
 package work.hoodie.crypto.exchange.monitor.service;
 
+import com.xeiam.xchange.ExchangeSpecification;
 import com.xeiam.xchange.currency.CurrencyPair;
 import com.xeiam.xchange.dto.Order.OrderType;
 import com.xeiam.xchange.dto.trade.UserTrade;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import work.hoodie.crypto.exchange.monitor.domain.SlackMessage;
 
@@ -11,12 +13,17 @@ import java.math.BigDecimal;
 @Component
 public class SlackMessageBuilderService {
 
+    @Autowired
+    private ExchangeSpecification exchangeSpecification;
+
     private final String icon_emoji = ":moneybag:";
-    private final String username = "Poloniex Monitor";
+    private String username;
     private final String purchased = "purchased";
     private final String sold = "sold";
 
     public SlackMessage build(UserTrade userTrade) {
+        username = exchangeSpecification.getExchangeName() + " Monitor";
+
         OrderType type = userTrade.getType();
         BigDecimal amount = userTrade.getTradableAmount();
         CurrencyPair currencyPair = userTrade.getCurrencyPair();
