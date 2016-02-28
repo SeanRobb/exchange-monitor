@@ -32,11 +32,6 @@ public class SimpleRecentTradesServiceTest {
     @Mock
     private QueryTimeRetrieveService queryTimeRetrieveService;
 
-    @Before
-    public void init() {
-        ReflectionTestUtils.setField(simpleRecentTradesService, "startTime", new Date());
-    }
-
     @Test
     public void testGetHistory() throws Exception {
         ArrayList<UserTrade> trades = new ArrayList<UserTrade>();

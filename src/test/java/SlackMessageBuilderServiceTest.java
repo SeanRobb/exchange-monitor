@@ -44,7 +44,7 @@ public class SlackMessageBuilderServiceTest {
         assertNotNull(build.getText());
         assertEquals(expectedEmoji, build.getIcon_emoji());
         assertEquals(expectedUsername, build.getUsername());
-        assertEquals("10 DOGE purchased for 1 LTC\\n" +
+        assertEquals("10 DOGE purchased for 1 LTC \n " +
                 "Fees Payed: 0 LTC", build.getText());
     }
 
@@ -72,7 +72,7 @@ public class SlackMessageBuilderServiceTest {
         assertNotNull(build.getText());
         assertEquals(expectedEmoji, build.getIcon_emoji());
         assertEquals(expectedUsername, build.getUsername());
-        assertEquals("10 DOGE sold for 1 LTC\\n" +
+        assertEquals("10 DOGE sold for 1 LTC \n " +
                 "Fees Payed: 0 LTC", build.getText());
     }
 }
