@@ -21,6 +21,7 @@ public class SlackMessageBuilderService {
     private final String purchased = "purchased";
     private final String sold = "sold";
 
+
     public SlackMessage build(UserTrade userTrade) {
         username = exchangeSpecification.getExchangeName() + " Monitor";
 
@@ -29,12 +30,17 @@ public class SlackMessageBuilderService {
         CurrencyPair currencyPair = userTrade.getCurrencyPair();
         BigDecimal price = userTrade.getPrice();
 
+
         BigDecimal feeAmount = userTrade.getFeeAmount();
         String feeCurrency = userTrade.getFeeCurrency();
+        BigDecimal total = amount.multiply(price);
+        BigDecimal feesInCoins = price.multiply(feeAmount);
+        BigDecimal actualAmount = amount.subtract(feesInCoins);
 
-        String message = amount + " " + currencyPair.baseSymbol + " " + typeConvert(type) +
+        String message = actualAmount + " " + currencyPair.baseSymbol + " " + typeConvert(type) +
                 " for " + price + " " + currencyPair.counterSymbol +
-                " \n Fees Payed: " + feeAmount + " " + feeCurrency;
+                " \n Fees Payed: " + feeAmount + " " + feeCurrency +
+                " \n Total Payed: " + total;
         return new SlackMessage(message, icon_emoji, username);
     }
 
