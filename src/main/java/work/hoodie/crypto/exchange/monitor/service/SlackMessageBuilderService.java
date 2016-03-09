@@ -40,7 +40,7 @@ public class SlackMessageBuilderService {
         String message = actualAmount + " " + currencyPair.baseSymbol + " " + typeConvert(type) +
                 " for " + price + " " + currencyPair.counterSymbol +
                 " \n Fees Payed: " + feeAmount + " " + feeCurrency +
-                " \n Total Payed: " + total;
+                " \n Total Payed: " + total + " " + feeCurrency;
         return new SlackMessage(message, icon_emoji, username);
     }
 
