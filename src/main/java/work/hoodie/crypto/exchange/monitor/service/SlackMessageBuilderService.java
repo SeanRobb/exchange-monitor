@@ -35,7 +35,7 @@ public class SlackMessageBuilderService {
         String feeCurrency = userTrade.getFeeCurrency();
         BigDecimal total = amount.multiply(price);
         BigDecimal feesInCoins = price.multiply(feeAmount);
-        BigDecimal actualAmount = amount.subtract(feesInCoins);
+        BigDecimal actualAmount = total.subtract(feesInCoins);
 
         String message = actualAmount + " " + currencyPair.baseSymbol + " " + typeConvert(type) +
                 " for " + price + " " + currencyPair.counterSymbol +
