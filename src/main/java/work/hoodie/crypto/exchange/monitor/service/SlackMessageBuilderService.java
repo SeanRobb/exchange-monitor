@@ -15,6 +15,8 @@ public class SlackMessageBuilderService {
 
     @Autowired
     private ExchangeSpecification exchangeSpecification;
+    @Autowired
+    private GreatNumberCalculator greatNumberCalculator;
 
     private final String icon_emoji = ":moneybag:";
     private String username;

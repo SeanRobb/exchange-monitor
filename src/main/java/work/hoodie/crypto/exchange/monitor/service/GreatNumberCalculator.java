@@ -16,7 +16,7 @@ public class GreatNumberCalculator {
 
 //    This function is the total cost for a trade
 //    EX1:  I bought 10 LTC for 100 USD with a fee of 1 USD
-//          Coin sent will return 100 (USD)
+//          Coin sent will return 1000 (USD)
 //          Coin received is 9 (LTC)
 
 //          EX1 UserTrade will look like this
