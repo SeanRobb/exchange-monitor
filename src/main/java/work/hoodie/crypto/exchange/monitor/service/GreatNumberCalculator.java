@@ -1,6 +1,6 @@
 package work.hoodie.crypto.exchange.monitor.service;
 
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
+import com.xeiam.xchange.dto.Order;
 import com.xeiam.xchange.dto.trade.UserTrade;
 
 import java.math.BigDecimal;
@@ -9,7 +9,7 @@ import java.math.BigDecimal;
  * Created by ryantodd on 3/8/16.
  */
 public class GreatNumberCalculator {
-    public BigDecimal getTotal(UserTrade userTrade){
+    public BigDecimal getTotal(UserTrade userTrade) {
         BigDecimal total = userTrade.getPrice().multiply(userTrade.getTradableAmount());
         return total;
     }
@@ -40,9 +40,25 @@ public class GreatNumberCalculator {
 //          userTrade.getCurrencyPair() : LTC/USD
 
     public BigDecimal getCoinSent(UserTrade userTrade) {
+        if (Order.OrderType.ASK == userTrade.getType()){
+            return userTrade.getPrice().multiply(userTrade.getTradableAmount());
+        }else {
+            return userTrade.getTradableAmount();
+        }
+
+    }
+
+    public BigDecimal getCoinRecieved(UserTrade userTrade) {
+        BigDecimal amount = userTrade.getFeeAmount().divide(userTrade.getPrice());
+        BigDecimal total = userTrade.getTradableAmount().subtract(amount);
+        return total;
+    }
+
+    public String getCoinRecievedName(UserTrade userTrade) {
         return null;
     }
-    public BigDecimal getCoinRecieved(UserTrade userTrade) {
+
+    public String getCoinSentName(UserTrade userTrade) {
         return null;
     }
 }

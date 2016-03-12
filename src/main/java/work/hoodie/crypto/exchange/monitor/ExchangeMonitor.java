@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import work.hoodie.crypto.exchange.monitor.domain.SlackMessage;
 import work.hoodie.crypto.exchange.monitor.service.recent.trade.RecentTradesService;
 import work.hoodie.crypto.exchange.monitor.service.SlackMessageBuilderService;
-import work.hoodie.crypto.exchange.monitor.service.SlackNotifierService;
+import work.hoodie.crypto.exchange.monitor.service.notification.SlackNotifierService;
 
 import java.util.List;
 

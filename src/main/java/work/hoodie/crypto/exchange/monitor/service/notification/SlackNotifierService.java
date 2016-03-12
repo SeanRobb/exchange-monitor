@@ -1,4 +1,4 @@
-package work.hoodie.crypto.exchange.monitor.service;
+package work.hoodie.crypto.exchange.monitor.service.notification;
 
 
 import org.springframework.web.client.RestTemplate;

@@ -4,18 +4,22 @@ import com.xeiam.xchange.ExchangeFactory;
 import com.xeiam.xchange.ExchangeSpecification;
 import com.xeiam.xchange.service.polling.trade.PollingTradeService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.client.RestTemplate;
-import work.hoodie.crypto.exchange.monitor.service.SlackNotifierService;
+import work.hoodie.crypto.exchange.monitor.service.notification.SlackNotifierService;
 import work.hoodie.crypto.exchange.monitor.service.recent.trade.RecentTradeServiceFinder;
 import work.hoodie.crypto.exchange.monitor.service.recent.trade.RecentTradesService;
 
 import javax.annotation.PostConstruct;
+import java.util.Properties;
 
 @Configuration
 @Slf4j
@@ -53,4 +57,5 @@ public class MonitorConfig {
     public SlackNotifierService slackNotifierService() {
         return new SlackNotifierService(slackUrl, new RestTemplate());
     }
+
 }
