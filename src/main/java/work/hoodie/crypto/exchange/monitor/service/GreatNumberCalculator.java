@@ -1,5 +1,6 @@
 package work.hoodie.crypto.exchange.monitor.service;
 
+import com.xeiam.xchange.campbx.CampBX;
 import com.xeiam.xchange.dto.Order;
 import com.xeiam.xchange.dto.trade.UserTrade;
 
@@ -49,9 +50,15 @@ public class GreatNumberCalculator {
     }
 
     public BigDecimal getCoinRecieved(UserTrade userTrade) {
-        BigDecimal amount = userTrade.getFeeAmount().divide(userTrade.getPrice());
-        BigDecimal total = userTrade.getTradableAmount().subtract(amount);
-        return total;
+
+        BigDecimal amount = userTrade.getPrice().multiply(userTrade.getTradableAmount());
+        BigDecimal total = amount.subtract((userTrade.getFeeAmount()));
+
+        if (Order.OrderType.ASK == userTrade.getType()){
+            return total;
+        }else {
+            return userTrade.getTradableAmount().subtract(userTrade.getFeeAmount());
+        }
     }
 
     public String getCoinRecievedName(UserTrade userTrade) {
