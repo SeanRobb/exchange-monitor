@@ -11,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import sun.dc.pr.PRError;
 import work.hoodie.crypto.exchange.monitor.service.recent.trade.CurrencyPairRecentTradeService;
 import work.hoodie.crypto.exchange.monitor.service.recent.trade.QueryTimeRetrieveService;
 
@@ -70,8 +69,8 @@ public class CurrencyPairRecentTradeServiceTest {
 
         verify(queryTimeRetrieveService).getAndSyncQueryTime();
         verify(pollingTradeService).getExchangeSymbols();
-        verify(pollingTradeService,times(currencyPairs.size())).getTradeHistory(any(DefaultTradeHistoryParamCurrencyPair.class));
-        assertEquals(3,history.size());
+        verify(pollingTradeService, times(currencyPairs.size())).getTradeHistory(any(DefaultTradeHistoryParamCurrencyPair.class));
+        assertEquals(3, history.size());
         assertTrue(history.contains(expectedTrade));
         assertFalse(history.contains(notExpectedTrade));
     }
