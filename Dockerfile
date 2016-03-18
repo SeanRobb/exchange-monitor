@@ -1,6 +1,6 @@
 FROM java:7
-COPY . /usr/src/polo
-WORKDIR /usr/src/polo/target
+COPY target/exchange-monitor*.jar /usr/src/exchange-monitor.jar
+WORKDIR /usr/src/
 
-ENTRYPOINT ["java", "-jar", "exchange-monitor-1.0-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "exchange-monitor.jar"]
 CMD [""]
