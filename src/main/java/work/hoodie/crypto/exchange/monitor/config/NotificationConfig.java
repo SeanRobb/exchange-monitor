@@ -22,19 +22,19 @@ import java.util.Properties;
 public class NotificationConfig {
 
     //Properties File Settings
-    @Value("${mail.defaultEncoding:}")
+    @Value("${email.defaultEncoding:}")
     private String mailDefaultEncoding;
-    @Value("${mail.port:25}")
+    @Value("${email.port:25}")
     private int mailPort;
-    @Value("${mail.debug:}")
+    @Value("${email.debug:}")
     private String mailDebug;
-    @Value("${mail.smtp.auth:}")
+    @Value("${email.smtp.auth:}")
     private String mailSmtpAuth;
-    @Value("${mail.smtp.socketFactory.class:}")
+    @Value("${email.smtp.socketFactory.class:}")
     private String mailSmtpSocketFactoryClass;
-    @Value("${mail.smtp.socketFactory.fallback:}")
+    @Value("${email.smtp.socketFactory.fallback:}")
     private String mailSmtpSocketFactoryFallback;
-    @Value("${mail.smtp.ssl:}")
+    @Value("${email.smtp.ssl:}")
     private String mailSmtpSsl;
 
     //Docker Container Settings
@@ -44,11 +44,11 @@ public class NotificationConfig {
     @Value("${email.address:}")
     private String emailAddress;
 
-    @Value("${mail.host:}")
+    @Value("${email.host:}")
     private String mailHost;
-    @Value("${mail.username:}")
+    @Value("${email.username:}")
     private String mailUsername;
-    @Value("${mail.password:}")
+    @Value("${email.password:}")
     private String mailPassword;
 
     @Autowired
