@@ -9,13 +9,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import work.hoodie.crypto.exchange.monitor.domain.SlackMessage;
-import work.hoodie.crypto.exchange.monitor.service.SlackMessageBuilderService;
+import work.hoodie.crypto.exchange.monitor.service.GreatNumberCalculator;
+import work.hoodie.crypto.exchange.monitor.service.notification.message.builder.SlackMessageBuilderService;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -25,6 +27,8 @@ public class SlackMessageBuilderServiceTest {
     @Mock
     private ExchangeSpecification exchangeSpecification;
 
+    @Mock
+    private GreatNumberCalculator greatNumberCalculator;
     private final String expectedEmoji = ":moneybag:";
     private final String expectedUsername = "Poloniex Monitor";
 
@@ -49,14 +53,18 @@ public class SlackMessageBuilderServiceTest {
                 .orderId("2")
                 .build();
 
+        when(greatNumberCalculator.getCoinReceived(any(UserTrade.class))).thenCallRealMethod();
+        when(greatNumberCalculator.getCoinReceivedName(any(UserTrade.class))).thenCallRealMethod();
+        when(greatNumberCalculator.getCoinSent(any(UserTrade.class))).thenCallRealMethod();
+        when(greatNumberCalculator.getCoinSentName(any(UserTrade.class))).thenCallRealMethod();
+
         SlackMessage build = slackMessageBuilderService.build(userTrade);
 
         assertNotNull(build);
         assertNotNull(build.getText());
         assertEquals(expectedEmoji, build.getIcon_emoji());
         assertEquals(expectedUsername, build.getUsername());
-        assertEquals("10 DOGE purchased for 1 LTC \n " +
-                "Fees Payed: 0 LTC", build.getText());
+        assertEquals("Received 10 DOGE for 10 LTC with 0 LTC in fees.", build.getText());
     }
 
     @Test
@@ -75,13 +83,19 @@ public class SlackMessageBuilderServiceTest {
                 .orderId("2")
                 .build();
 
+
+        when(greatNumberCalculator.getCoinReceived(any(UserTrade.class))).thenCallRealMethod();
+        when(greatNumberCalculator.getCoinReceivedName(any(UserTrade.class))).thenCallRealMethod();
+        when(greatNumberCalculator.getCoinSent(any(UserTrade.class))).thenCallRealMethod();
+        when(greatNumberCalculator.getCoinSentName(any(UserTrade.class))).thenCallRealMethod();
+
+
         SlackMessage build = slackMessageBuilderService.build(userTrade);
 
         assertNotNull(build);
         assertNotNull(build.getText());
         assertEquals(expectedEmoji, build.getIcon_emoji());
         assertEquals(expectedUsername, build.getUsername());
-        assertEquals("10 DOGE sold for 1 LTC \n " +
-                "Fees Payed: 0 LTC", build.getText());
+        assertEquals("Received 10 LTC for 10 DOGE with 0 LTC in fees.", build.getText());
     }
 }
