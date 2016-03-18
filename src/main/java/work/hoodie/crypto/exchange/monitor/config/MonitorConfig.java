@@ -3,12 +3,13 @@ package work.hoodie.crypto.exchange.monitor.config;
 import com.xeiam.xchange.ExchangeFactory;
 import com.xeiam.xchange.ExchangeSpecification;
 import com.xeiam.xchange.service.polling.trade.PollingTradeService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
+import work.hoodie.crypto.exchange.monitor.domain.NotificationType;
+import work.hoodie.crypto.exchange.monitor.service.notification.NotificationTypeFinder;
 import work.hoodie.crypto.exchange.monitor.service.notification.service.EmailNotifierService;
 import work.hoodie.crypto.exchange.monitor.service.notification.service.NotifierService;
 import work.hoodie.crypto.exchange.monitor.service.notification.service.SlackNotifierService;
@@ -28,6 +29,9 @@ public class MonitorConfig {
     @Autowired
     private EmailNotifierService emailNotifierService;
 
+    @Autowired
+    private NotificationTypeFinder notificationTypeFinder;
+
 
     @Bean
     public PollingTradeService pollingTradeService() {
@@ -43,7 +47,12 @@ public class MonitorConfig {
 
     @Bean(name = "CorrectNotifierService")
     public NotifierService abstractNotifierService() {
-        return slackNotifierService;
+        NotificationType notificationType = notificationTypeFinder.find();
+        if (notificationType == NotificationType.EMAIL) {
+            return emailNotifierService;
+        } else {
+            return slackNotifierService;
+        }
     }
 
 }

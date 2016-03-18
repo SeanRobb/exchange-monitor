@@ -28,22 +28,13 @@ public class SlackMessageBuilderService {
     public SlackMessage build(UserTrade userTrade) {
         username = exchangeSpecification.getExchangeName() + " Monitor";
 
-        OrderType type = userTrade.getType();
-        BigDecimal amount = userTrade.getTradableAmount();
-        CurrencyPair currencyPair = userTrade.getCurrencyPair();
-        BigDecimal price = userTrade.getPrice();
+        String message = "Received " +
+                greatNumberCalculator.getCoinReceived(userTrade) + " " +
+                greatNumberCalculator.getCoinReceivedName(userTrade) + " for " +
+                greatNumberCalculator.getCoinSent(userTrade) + " " +
+                greatNumberCalculator.getCoinSentName(userTrade) + " with "
+                + userTrade.getFeeAmount() + " " + userTrade.getFeeCurrency() + " in fees.";
 
-
-        BigDecimal feeAmount = userTrade.getFeeAmount();
-        String feeCurrency = userTrade.getFeeCurrency();
-        BigDecimal total = amount.multiply(price);
-        BigDecimal feesInCoins = price.multiply(feeAmount);
-        BigDecimal actualAmount = total.subtract(feesInCoins);
-
-        String message = actualAmount + " " + currencyPair.baseSymbol + " " + typeConvert(type) +
-                " for " + price + " " + currencyPair.counterSymbol +
-                " \n Fees Payed: " + feeAmount + " " + feeCurrency +
-                " \n Total Payed: " + total + " " + feeCurrency;
         return new SlackMessage(message, icon_emoji, username);
     }
 
@@ -58,7 +49,6 @@ public class SlackMessageBuilderService {
         }
         return tradeType;
     }
-
 
 
 }
