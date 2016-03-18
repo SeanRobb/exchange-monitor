@@ -1,4 +1,4 @@
-package work.hoodie.crypto.exchange.monitor.service;
+package work.hoodie.crypto.exchange.monitor.service.notification.message.builder;
 
 import com.xeiam.xchange.ExchangeSpecification;
 import com.xeiam.xchange.currency.CurrencyPair;
@@ -7,6 +7,7 @@ import com.xeiam.xchange.dto.trade.UserTrade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import work.hoodie.crypto.exchange.monitor.domain.SlackMessage;
+import work.hoodie.crypto.exchange.monitor.service.GreatNumberCalculator;
 
 import java.math.BigDecimal;
 

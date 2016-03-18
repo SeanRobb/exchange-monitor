@@ -1,14 +1,12 @@
 package work.hoodie.crypto.exchange.monitor.service;
 
-import com.xeiam.xchange.campbx.CampBX;
 import com.xeiam.xchange.dto.Order;
 import com.xeiam.xchange.dto.trade.UserTrade;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
-/**
- * Created by ryantodd on 3/8/16.
- */
+@Component
 public class GreatNumberCalculator {
     public BigDecimal getTotal(UserTrade userTrade) {
         BigDecimal total = userTrade.getPrice().multiply(userTrade.getTradableAmount());
@@ -41,22 +39,22 @@ public class GreatNumberCalculator {
 //          userTrade.getCurrencyPair() : LTC/USD
 
     public BigDecimal getCoinSent(UserTrade userTrade) {
-        if (Order.OrderType.ASK == userTrade.getType()){
+        if (Order.OrderType.ASK == userTrade.getType()) {
             return userTrade.getPrice().multiply(userTrade.getTradableAmount());
-        }else {
+        } else {
             return userTrade.getTradableAmount();
         }
 
     }
 
-    public BigDecimal getCoinRecieved(UserTrade userTrade) {
+    public BigDecimal getCoinReceived(UserTrade userTrade) {
 
         BigDecimal amount = userTrade.getPrice().multiply(userTrade.getTradableAmount());
         BigDecimal total = amount.subtract((userTrade.getFeeAmount()));
 
-        if (Order.OrderType.ASK == userTrade.getType()){
+        if (Order.OrderType.ASK == userTrade.getType()) {
             return total;
-        }else {
+        } else {
             return userTrade.getTradableAmount().subtract(userTrade.getFeeAmount());
         }
     }

@@ -9,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import work.hoodie.crypto.exchange.monitor.domain.SlackMessage;
-import work.hoodie.crypto.exchange.monitor.service.SlackMessageBuilderService;
+import work.hoodie.crypto.exchange.monitor.service.notification.message.builder.SlackMessageBuilderService;
 
 import java.math.BigDecimal;
 import java.util.Date;

@@ -108,7 +108,7 @@ public class GreatNumberCalculatorTest {
                 .tradableAmount(BigDecimal.valueOf(10))
                 .build();
 
-        BigDecimal coinReceived = greatNumberCalculator.getCoinRecieved(userTrade);
+        BigDecimal coinReceived = greatNumberCalculator.getCoinReceived(userTrade);
 
         assertNotNull(coinReceived);
         assertEquals(9.99, coinReceived.doubleValue(), 0.0001);
@@ -126,7 +126,7 @@ public class GreatNumberCalculatorTest {
                 .tradableAmount(BigDecimal.valueOf(1))
                 .build();
 
-        BigDecimal coinReceived = greatNumberCalculator.getCoinRecieved(userTrade);
+        BigDecimal coinReceived = greatNumberCalculator.getCoinReceived(userTrade);
 
         assertNotNull(coinReceived);
         assertEquals(90, coinReceived.doubleValue(), 0.0001);
