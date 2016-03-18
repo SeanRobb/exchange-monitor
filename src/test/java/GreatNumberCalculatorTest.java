@@ -102,18 +102,52 @@ public class GreatNumberCalculatorTest {
         UserTrade userTrade = new UserTrade.Builder()
                 .type(Order.OrderType.BID)
                 .feeCurrency("BTC")
-                .price(BigDecimal.valueOf(100))
+                .price(BigDecimal.valueOf(10))
                 .feeAmount(BigDecimal.valueOf(1))
                 .currencyPair(CurrencyPair.LTC_BTC)
-                .tradableAmount(BigDecimal.valueOf(10))
+                .tradableAmount(BigDecimal.valueOf(1))
                 .build();
 
         BigDecimal coinReceived = greatNumberCalculator.getCoinReceived(userTrade);
 
         assertNotNull(coinReceived);
-        assertEquals(9.99, coinReceived.doubleValue(), 0.0001);
+        assertEquals(0.9, coinReceived.doubleValue(), 0.0001);
     }
 
+    @Test
+    public void getCoinReceived_AmountCoinReceivedIsReturnedBID2() {
+        UserTrade userTrade = new UserTrade.Builder()
+                .type(Order.OrderType.BID)
+                .feeCurrency("BTC")
+                .price(BigDecimal.valueOf(0.00022653))
+                .feeAmount(BigDecimal.valueOf(0.000014175965862852750000))
+                .currencyPair(new CurrencyPair("MAID", "BTC"))
+                .tradableAmount(BigDecimal.valueOf(41.71917145))
+                .build();
+
+        BigDecimal coinReceived = greatNumberCalculator.getCoinReceived(userTrade);
+
+        assertNotNull(coinReceived);
+        assertEquals(41.65659269, coinReceived.doubleValue(), 0.0001);
+    }
+
+
+    @Test
+    public void getCoinReceived_AmountCoinReceivedIsReturnedBID3() {
+        UserTrade userTrade = new UserTrade.Builder()
+                .type(Order.OrderType.BID)
+                .feeCurrency("MAID")
+                .price(BigDecimal.valueOf(0.00022653))
+                .feeAmount(BigDecimal.valueOf(0.06257876))
+                .currencyPair(new CurrencyPair("MAID", "BTC"))
+                .tradableAmount(BigDecimal.valueOf(41.71917145))
+                .build();
+
+        BigDecimal coinReceived = greatNumberCalculator.getCoinReceived(userTrade);
+
+        assertNotNull(coinReceived);
+        assertEquals(41.65659269, coinReceived.doubleValue(), 0.0001);
+    }
 
     @Test
     public void getCoinReceived_AmountCoinReceivedIsReturnedASK() {
@@ -131,4 +165,90 @@ public class GreatNumberCalculatorTest {
         assertNotNull(coinReceived);
         assertEquals(90, coinReceived.doubleValue(), 0.0001);
     }
+
+    @Test
+    public void getCoinReceived_AmountCoinReceivedIsReturnedASK2() {
+        UserTrade userTrade = new UserTrade.Builder()
+                .type(Order.OrderType.ASK)
+                .feeCurrency("LTC")
+                .price(BigDecimal.valueOf(100))
+                .feeAmount(BigDecimal.valueOf(1))
+                .currencyPair(CurrencyPair.LTC_BTC)
+                .tradableAmount(BigDecimal.valueOf(100))
+                .build();
+
+        BigDecimal coinReceived = greatNumberCalculator.getCoinReceived(userTrade);
+
+        assertNotNull(coinReceived);
+        assertEquals(99, coinReceived.doubleValue(), 0.0001);
+    }
+
+    @Test
+    public void getCoinReceivedName_BID() {
+        CurrencyPair currencyPair = CurrencyPair.LTC_BTC;
+        UserTrade userTrade = new UserTrade.Builder()
+                .type(Order.OrderType.BID)
+                .feeCurrency("LTC")
+                .price(BigDecimal.valueOf(100))
+                .feeAmount(BigDecimal.valueOf(1))
+                .currencyPair(currencyPair)
+                .tradableAmount(BigDecimal.valueOf(100))
+                .build();
+
+        String coinRecievedName = greatNumberCalculator.getCoinReceivedName(userTrade);
+
+        assertEquals(currencyPair.baseSymbol,coinRecievedName);
+    }
+
+    @Test
+    public void getCoinReceivedName_ASK() {
+        CurrencyPair currencyPair = CurrencyPair.LTC_BTC;
+        UserTrade userTrade = new UserTrade.Builder()
+                .type(Order.OrderType.ASK)
+                .feeCurrency("LTC")
+                .price(BigDecimal.valueOf(100))
+                .feeAmount(BigDecimal.valueOf(1))
+                .currencyPair(currencyPair)
+                .tradableAmount(BigDecimal.valueOf(100))
+                .build();
+
+        String coinRecievedName = greatNumberCalculator.getCoinReceivedName(userTrade);
+
+
+        assertEquals(currencyPair.counterSymbol,coinRecievedName);
+    }
+
+    @Test
+    public void getCoinSentName_BID() {
+        CurrencyPair currencyPair = CurrencyPair.LTC_BTC;
+        UserTrade userTrade = new UserTrade.Builder()
+                .type(Order.OrderType.BID)
+                .feeCurrency("LTC")
+                .price(BigDecimal.valueOf(100))
+                .feeAmount(BigDecimal.valueOf(1))
+                .currencyPair(currencyPair)
+                .tradableAmount(BigDecimal.valueOf(100))
+                .build();
+
+        String coinRecievedName = greatNumberCalculator.getCoinSentName(userTrade);
+        assertEquals(currencyPair.counterSymbol,coinRecievedName);
+    }
+
+    @Test
+    public void getCoinSentName_ASK() {
+        CurrencyPair currencyPair = CurrencyPair.LTC_BTC;
+        UserTrade userTrade = new UserTrade.Builder()
+                .type(Order.OrderType.ASK)
+                .feeCurrency("LTC")
+                .price(BigDecimal.valueOf(100))
+                .feeAmount(BigDecimal.valueOf(1))
+                .currencyPair(currencyPair)
+                .tradableAmount(BigDecimal.valueOf(100))
+                .build();
+
+        String coinRecievedName = greatNumberCalculator.getCoinSentName(userTrade);
+
+        assertEquals(currencyPair.baseSymbol,coinRecievedName);
+    }
+
 }

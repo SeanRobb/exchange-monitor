@@ -1,5 +1,6 @@
 package work.hoodie.crypto.exchange.monitor.service;
 
+import com.xeiam.xchange.currency.CurrencyPair;
 import com.xeiam.xchange.dto.Order;
 import com.xeiam.xchange.dto.trade.UserTrade;
 import org.springframework.stereotype.Component;
@@ -48,22 +49,34 @@ public class GreatNumberCalculator {
     }
 
     public BigDecimal getCoinReceived(UserTrade userTrade) {
+        if (userTrade.getFeeCurrency().equalsIgnoreCase(userTrade.getCurrencyPair().baseSymbol)) {
+            return userTrade.getTradableAmount().subtract(userTrade.getFeeAmount());
+        }
 
         BigDecimal amount = userTrade.getPrice().multiply(userTrade.getTradableAmount());
-        BigDecimal total = amount.subtract((userTrade.getFeeAmount()));
 
         if (Order.OrderType.ASK == userTrade.getType()) {
-            return total;
+            return amount.subtract((userTrade.getFeeAmount()));
         } else {
-            return userTrade.getTradableAmount().subtract(userTrade.getFeeAmount());
+            return amount.subtract(userTrade.getFeeAmount()).divide(userTrade.getPrice());
         }
     }
 
-    public String getCoinRecievedName(UserTrade userTrade) {
-        return null;
+    public String getCoinReceivedName(UserTrade userTrade) {
+        CurrencyPair currencyPair = userTrade.getCurrencyPair();
+        if (Order.OrderType.ASK == userTrade.getType()){
+            return currencyPair.counterSymbol;
+        } else {
+            return currencyPair.baseSymbol;
+        }
     }
 
     public String getCoinSentName(UserTrade userTrade) {
-        return null;
+        CurrencyPair currencyPair = userTrade.getCurrencyPair();
+        if (Order.OrderType.ASK == userTrade.getType()){
+            return currencyPair.baseSymbol;
+        } else {
+            return currencyPair.counterSymbol;
+        }
     }
 }
