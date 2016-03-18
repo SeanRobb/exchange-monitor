@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.client.RestTemplate;
+import work.hoodie.crypto.exchange.monitor.domain.NotificationType;
 import work.hoodie.crypto.exchange.monitor.service.notification.NotificationTypeFinder;
 import work.hoodie.crypto.exchange.monitor.service.notification.message.sender.EmailMessageSenderService;
 import work.hoodie.crypto.exchange.monitor.service.notification.message.sender.SlackMessageSenderService;
@@ -44,11 +45,11 @@ public class NotificationConfig {
     @Value("${email.address:}")
     private String emailAddress;
 
-    @Value("${email.host:}")
+    @Value("${email.relay.host:}")
     private String mailHost;
-    @Value("${email.username:}")
+    @Value("${email.relay.username:}")
     private String mailUsername;
-    @Value("${email.password:}")
+    @Value("${email.relay.password:}")
     private String mailPassword;
 
     @Autowired
@@ -56,8 +57,10 @@ public class NotificationConfig {
 
     @PostConstruct
     public void init() {
+        NotificationType notificationType = notificationTypeFinder.find();
+
         log.info("------- Notification Configuration -------");
-        log.info("Notification Type: " + notificationTypeFinder.find());
+        log.info("Notification Type: " + notificationType);
         log.info("Slack Url: " + slackUrl);
         log.info("Email Address: " + emailAddress);
         log.info("SMTP Mail Host: " + mailHost);
