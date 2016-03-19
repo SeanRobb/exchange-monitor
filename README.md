@@ -16,7 +16,7 @@ This project was made to notify slack when a trade is executed on a cryptocoin e
 Requires Java 7+ as well as differing environment variables depending on the notification type.
 
 ### General Environment Variables
-Notification type will be configured based off of the environment variables set to the container.  
+Notification type will be configured based off of the environment variables set to the container. 
 One notification type can be configured per instance. 
 Only the additional variables for the notification type requested should be set.
 
