@@ -2,7 +2,7 @@
 
 ## Description
 
-This project was made to notify slack when a trade is executed on a cryptocoin exchange.
+This project was made to actively notify when a trade is executed on a crypto-exchange.
 
 ## Exchanges Supported
 
