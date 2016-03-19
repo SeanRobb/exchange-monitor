@@ -38,20 +38,20 @@ public class NotificationConfig {
     @Value("${email.smtp.start.tls:}")
     private String startTls;
 
-    //Docker Container Settings
+    //Docker Container Environment Variable Settings
     @Value("${slack.url:}")
     private String slackUrl;
 
     @Value("${email.address:}")
     private String emailAddress;
-    @Value("${email.relay.host:}")
+    @Value("${email.server.host:}")
     private String mailHost;
-    @Value("${email.relay.username:}")
-    private String mailUsername;
-    @Value("${email.relay.password:}")
-    private String mailPassword;
-    @Value("${email.port:25}")
+    @Value("${email.server.port:25}")
     private int mailPort;
+    @Value("${email.server.username:}")
+    private String mailUsername;
+    @Value("${email.server.password:}")
+    private String mailPassword;
 
     @Autowired
     private NotificationTypeFinder notificationTypeFinder;

@@ -14,11 +14,11 @@ public class NotificationTypeFinder {
     @Value("${email.address:}")
     private String emailAddress;
 
-    @Value("${email.relay.host:}")
+    @Value("${email.server.host:}")
     private String mailHost;
-    @Value("${email.relay.username:}")
+    @Value("${email.server.username:}")
     private String mailUsername;
-    @Value("${email.relay.password:}")
+    @Value("${email.server.password:}")
     private String mailPassword;
 
     public NotificationType find() {
