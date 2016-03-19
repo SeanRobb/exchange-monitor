@@ -25,8 +25,6 @@ public class NotificationConfig {
     //Properties File Settings
     @Value("${email.defaultEncoding:}")
     private String mailDefaultEncoding;
-    @Value("${email.port:25}")
-    private int mailPort;
     @Value("${email.debug:}")
     private String mailDebug;
     @Value("${email.smtp.auth:}")
@@ -37,6 +35,8 @@ public class NotificationConfig {
     private String mailSmtpSocketFactoryFallback;
     @Value("${email.smtp.ssl:}")
     private String mailSmtpSsl;
+    @Value("${email.smtp.start.tls:}")
+    private String startTls;
 
     //Docker Container Settings
     @Value("${slack.url:}")
@@ -44,13 +44,14 @@ public class NotificationConfig {
 
     @Value("${email.address:}")
     private String emailAddress;
-
     @Value("${email.relay.host:}")
     private String mailHost;
     @Value("${email.relay.username:}")
     private String mailUsername;
     @Value("${email.relay.password:}")
     private String mailPassword;
+    @Value("${email.port:25}")
+    private int mailPort;
 
     @Autowired
     private NotificationTypeFinder notificationTypeFinder;
@@ -64,6 +65,7 @@ public class NotificationConfig {
         log.info("Slack Url: " + slackUrl);
         log.info("Email Address: " + emailAddress);
         log.info("SMTP Mail Host: " + mailHost);
+        log.info("SMTP Mail Port: " + mailPort);
         log.info("SMTP Mail Username: " + mailUsername);
         log.info("SMTP Mail Password: " + mailPassword);
         log.info("------------------------------------------");
@@ -84,11 +86,11 @@ public class NotificationConfig {
 
         Properties javaMailProperties = new Properties();
         javaMailProperties.put("mail.debug", StringUtils.defaultString(mailDebug));
+        javaMailProperties.put("mail.smtp.starttls.enable", StringUtils.defaultString(startTls));
         javaMailProperties.put("mail.smtp.auth", StringUtils.defaultString(mailSmtpAuth));
         javaMailProperties.put("mail.smtp.socketFactory.class", StringUtils.defaultString(mailSmtpSocketFactoryClass));
         javaMailProperties.put("mail.smtp.socketFactory.fallback", StringUtils.defaultString(mailSmtpSocketFactoryFallback));
         javaMailProperties.put("mail.smtp.ssl", StringUtils.defaultString(mailSmtpSsl));
-
         javaMailSenderImpl.setJavaMailProperties(javaMailProperties);
 
         return new EmailMessageSenderService(javaMailSenderImpl);
