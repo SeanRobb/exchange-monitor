@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import work.hoodie.crypto.exchange.monitor.domain.EmailMessage;
-import work.hoodie.crypto.exchange.monitor.service.GreatNumberCalculator;
+import work.hoodie.crypto.exchange.monitor.service.TradeConverter;
 
 @Component
 public class EmailMessageBuilderService {
@@ -16,7 +16,7 @@ public class EmailMessageBuilderService {
     @Autowired
     private ExchangeSpecification exchangeSpecification;
     @Autowired
-    private GreatNumberCalculator greatNumberCalculator;
+    private TradeConverter tradeConverter;
     @Value("${email.address:}")
     private String emailAddress;
 
@@ -25,10 +25,10 @@ public class EmailMessageBuilderService {
         emailMessage.setSubject(exchangeSpecification.getExchangeName() + " Monitor");
 
         emailMessage.setContent("Received " +
-                greatNumberCalculator.getCoinReceived(userTrade) + " " +
-                greatNumberCalculator.getCoinReceivedName(userTrade) + " for " +
-                greatNumberCalculator.getCoinSent(userTrade) + " " +
-                greatNumberCalculator.getCoinSentName(userTrade) + " with "
+                tradeConverter.getCoinReceived(userTrade) + " " +
+                tradeConverter.getCoinReceivedName(userTrade) + " for " +
+                tradeConverter.getCoinSent(userTrade) + " " +
+                tradeConverter.getCoinSentName(userTrade) + " with "
                 + userTrade.getFeeAmount() + " " + userTrade.getFeeCurrency() + " in fees.");
 
         emailMessage.setFromEmailAddress(fromEmailAddress);

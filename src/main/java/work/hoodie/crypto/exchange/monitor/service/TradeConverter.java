@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
 @Component
-public class GreatNumberCalculator {
+public class TradeConverter {
+
     public BigDecimal getTotal(UserTrade userTrade) {
-        BigDecimal total = userTrade.getPrice().multiply(userTrade.getTradableAmount());
-        return total;
+        return userTrade.getPrice().multiply(userTrade.getTradableAmount());
     }
 
     public BigDecimal getCoinSent(UserTrade userTrade) {
@@ -20,26 +20,32 @@ public class GreatNumberCalculator {
         } else {
             return userTrade.getTradableAmount();
         }
-
     }
 
     public BigDecimal getCoinReceived(UserTrade userTrade) {
-        if (userTrade.getFeeCurrency().equalsIgnoreCase(userTrade.getCurrencyPair().baseSymbol)) {
-            return userTrade.getTradableAmount().subtract(userTrade.getFeeAmount());
+        String feeCurrency = userTrade.getFeeCurrency();
+        String currencyPairBase = userTrade.getCurrencyPair().baseSymbol;
+
+        if (feeCurrency.equalsIgnoreCase(currencyPairBase)) {
+            BigDecimal fee = userTrade.getFeeAmount();
+            return userTrade.getTradableAmount().subtract(fee);
         }
 
-        BigDecimal amount = userTrade.getPrice().multiply(userTrade.getTradableAmount());
+        BigDecimal totalMinusFees = getTotal(userTrade)
+                .subtract(userTrade.getFeeAmount());
 
         if (Order.OrderType.ASK == userTrade.getType()) {
-            return amount.subtract((userTrade.getFeeAmount()));
+            return totalMinusFees;
         } else {
-            return amount.subtract(userTrade.getFeeAmount()).divide(userTrade.getPrice());
+            BigDecimal pricePerCoin = userTrade.getPrice();
+            return totalMinusFees.divide(pricePerCoin, 8, BigDecimal.ROUND_HALF_UP);
         }
     }
 
     public String getCoinReceivedName(UserTrade userTrade) {
         CurrencyPair currencyPair = userTrade.getCurrencyPair();
-        if (Order.OrderType.ASK == userTrade.getType()){
+
+        if (Order.OrderType.ASK == userTrade.getType()) {
             return currencyPair.counterSymbol;
         } else {
             return currencyPair.baseSymbol;
@@ -48,7 +54,8 @@ public class GreatNumberCalculator {
 
     public String getCoinSentName(UserTrade userTrade) {
         CurrencyPair currencyPair = userTrade.getCurrencyPair();
-        if (Order.OrderType.ASK == userTrade.getType()){
+
+        if (Order.OrderType.ASK == userTrade.getType()) {
             return currencyPair.baseSymbol;
         } else {
             return currencyPair.counterSymbol;

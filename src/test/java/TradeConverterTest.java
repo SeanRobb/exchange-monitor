@@ -5,20 +5,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
-import work.hoodie.crypto.exchange.monitor.service.GreatNumberCalculator;
+import work.hoodie.crypto.exchange.monitor.service.TradeConverter;
 
 import java.math.BigDecimal;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-/**
- * Created by ryantodd on 3/8/16.
- */
 @RunWith(MockitoJUnitRunner.class)
-public class GreatNumberCalculatorTest {
+public class TradeConverterTest {
     @InjectMocks
-    private GreatNumberCalculator greatNumberCalculator;
+    private TradeConverter tradeConverter;
 
     @Test
     public void getTotal_CalculatesTotalForSingleCoin() {
@@ -28,7 +25,7 @@ public class GreatNumberCalculatorTest {
                 .tradableAmount(BigDecimal.valueOf(1))
                 .build();
 
-        BigDecimal total = greatNumberCalculator.getTotal(userTrade);
+        BigDecimal total = tradeConverter.getTotal(userTrade);
         assertNotNull(total);
         assertEquals(BigDecimal.valueOf(400), total);
     }
@@ -41,7 +38,7 @@ public class GreatNumberCalculatorTest {
                 .tradableAmount(BigDecimal.valueOf(2))
                 .build();
 
-        BigDecimal total = greatNumberCalculator.getTotal(userTrade);
+        BigDecimal total = tradeConverter.getTotal(userTrade);
         assertNotNull(total);
         assertEquals(BigDecimal.valueOf(800), total);
     }
@@ -54,7 +51,7 @@ public class GreatNumberCalculatorTest {
                 .tradableAmount(BigDecimal.valueOf(.5))
                 .build();
 
-        BigDecimal total = greatNumberCalculator.getTotal(userTrade);
+        BigDecimal total = tradeConverter.getTotal(userTrade);
         assertNotNull(total);
         assertEquals(BigDecimal.valueOf(200).doubleValue(), total.doubleValue(), 0.001);
     }
@@ -70,7 +67,7 @@ public class GreatNumberCalculatorTest {
                 .build();
 
 
-        BigDecimal coinSent = greatNumberCalculator.getCoinSent(userTrade);
+        BigDecimal coinSent = tradeConverter.getCoinSent(userTrade);
 
         assertNotNull(coinSent);
         assertEquals(expected, coinSent);
@@ -90,7 +87,7 @@ public class GreatNumberCalculatorTest {
                 .build();
 
 
-        BigDecimal actual = greatNumberCalculator.getCoinSent(userTrade);
+        BigDecimal actual = tradeConverter.getCoinSent(userTrade);
 
         assertNotNull(actual);
         assertEquals(expected, actual);
@@ -108,7 +105,7 @@ public class GreatNumberCalculatorTest {
                 .tradableAmount(BigDecimal.valueOf(1))
                 .build();
 
-        BigDecimal coinReceived = greatNumberCalculator.getCoinReceived(userTrade);
+        BigDecimal coinReceived = tradeConverter.getCoinReceived(userTrade);
 
         assertNotNull(coinReceived);
         assertEquals(0.9, coinReceived.doubleValue(), 0.0001);
@@ -125,7 +122,7 @@ public class GreatNumberCalculatorTest {
                 .tradableAmount(BigDecimal.valueOf(41.71917145))
                 .build();
 
-        BigDecimal coinReceived = greatNumberCalculator.getCoinReceived(userTrade);
+        BigDecimal coinReceived = tradeConverter.getCoinReceived(userTrade);
 
         assertNotNull(coinReceived);
         assertEquals(41.65659269, coinReceived.doubleValue(), 0.0001);
@@ -143,7 +140,7 @@ public class GreatNumberCalculatorTest {
                 .tradableAmount(BigDecimal.valueOf(41.71917145))
                 .build();
 
-        BigDecimal coinReceived = greatNumberCalculator.getCoinReceived(userTrade);
+        BigDecimal coinReceived = tradeConverter.getCoinReceived(userTrade);
 
         assertNotNull(coinReceived);
         assertEquals(41.65659269, coinReceived.doubleValue(), 0.0001);
@@ -160,7 +157,7 @@ public class GreatNumberCalculatorTest {
                 .tradableAmount(BigDecimal.valueOf(1))
                 .build();
 
-        BigDecimal coinReceived = greatNumberCalculator.getCoinReceived(userTrade);
+        BigDecimal coinReceived = tradeConverter.getCoinReceived(userTrade);
 
         assertNotNull(coinReceived);
         assertEquals(90, coinReceived.doubleValue(), 0.0001);
@@ -177,7 +174,7 @@ public class GreatNumberCalculatorTest {
                 .tradableAmount(BigDecimal.valueOf(100))
                 .build();
 
-        BigDecimal coinReceived = greatNumberCalculator.getCoinReceived(userTrade);
+        BigDecimal coinReceived = tradeConverter.getCoinReceived(userTrade);
 
         assertNotNull(coinReceived);
         assertEquals(99, coinReceived.doubleValue(), 0.0001);
@@ -195,9 +192,9 @@ public class GreatNumberCalculatorTest {
                 .tradableAmount(BigDecimal.valueOf(100))
                 .build();
 
-        String coinRecievedName = greatNumberCalculator.getCoinReceivedName(userTrade);
+        String coinRecievedName = tradeConverter.getCoinReceivedName(userTrade);
 
-        assertEquals(currencyPair.baseSymbol,coinRecievedName);
+        assertEquals(currencyPair.baseSymbol, coinRecievedName);
     }
 
     @Test
@@ -212,10 +209,10 @@ public class GreatNumberCalculatorTest {
                 .tradableAmount(BigDecimal.valueOf(100))
                 .build();
 
-        String coinRecievedName = greatNumberCalculator.getCoinReceivedName(userTrade);
+        String coinRecievedName = tradeConverter.getCoinReceivedName(userTrade);
 
 
-        assertEquals(currencyPair.counterSymbol,coinRecievedName);
+        assertEquals(currencyPair.counterSymbol, coinRecievedName);
     }
 
     @Test
@@ -230,8 +227,8 @@ public class GreatNumberCalculatorTest {
                 .tradableAmount(BigDecimal.valueOf(100))
                 .build();
 
-        String coinRecievedName = greatNumberCalculator.getCoinSentName(userTrade);
-        assertEquals(currencyPair.counterSymbol,coinRecievedName);
+        String coinRecievedName = tradeConverter.getCoinSentName(userTrade);
+        assertEquals(currencyPair.counterSymbol, coinRecievedName);
     }
 
     @Test
@@ -246,9 +243,9 @@ public class GreatNumberCalculatorTest {
                 .tradableAmount(BigDecimal.valueOf(100))
                 .build();
 
-        String coinRecievedName = greatNumberCalculator.getCoinSentName(userTrade);
+        String coinRecievedName = tradeConverter.getCoinSentName(userTrade);
 
-        assertEquals(currencyPair.baseSymbol,coinRecievedName);
+        assertEquals(currencyPair.baseSymbol, coinRecievedName);
     }
 
 }

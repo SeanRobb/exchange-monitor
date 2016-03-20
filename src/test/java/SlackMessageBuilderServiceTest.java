@@ -9,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import work.hoodie.crypto.exchange.monitor.domain.SlackMessage;
-import work.hoodie.crypto.exchange.monitor.service.GreatNumberCalculator;
+import work.hoodie.crypto.exchange.monitor.service.TradeConverter;
 import work.hoodie.crypto.exchange.monitor.service.notification.message.builder.SlackMessageBuilderService;
 
 import java.math.BigDecimal;
@@ -28,7 +28,7 @@ public class SlackMessageBuilderServiceTest {
     private ExchangeSpecification exchangeSpecification;
 
     @Mock
-    private GreatNumberCalculator greatNumberCalculator;
+    private TradeConverter tradeConverter;
     private final String expectedEmoji = ":moneybag:";
     private final String expectedUsername = "Poloniex Monitor";
 
@@ -53,10 +53,10 @@ public class SlackMessageBuilderServiceTest {
                 .orderId("2")
                 .build();
 
-        when(greatNumberCalculator.getCoinReceived(any(UserTrade.class))).thenCallRealMethod();
-        when(greatNumberCalculator.getCoinReceivedName(any(UserTrade.class))).thenCallRealMethod();
-        when(greatNumberCalculator.getCoinSent(any(UserTrade.class))).thenCallRealMethod();
-        when(greatNumberCalculator.getCoinSentName(any(UserTrade.class))).thenCallRealMethod();
+        when(tradeConverter.getCoinReceived(any(UserTrade.class))).thenCallRealMethod();
+        when(tradeConverter.getCoinReceivedName(any(UserTrade.class))).thenCallRealMethod();
+        when(tradeConverter.getCoinSent(any(UserTrade.class))).thenCallRealMethod();
+        when(tradeConverter.getCoinSentName(any(UserTrade.class))).thenCallRealMethod();
 
         SlackMessage build = slackMessageBuilderService.build(userTrade);
 
@@ -84,10 +84,10 @@ public class SlackMessageBuilderServiceTest {
                 .build();
 
 
-        when(greatNumberCalculator.getCoinReceived(any(UserTrade.class))).thenCallRealMethod();
-        when(greatNumberCalculator.getCoinReceivedName(any(UserTrade.class))).thenCallRealMethod();
-        when(greatNumberCalculator.getCoinSent(any(UserTrade.class))).thenCallRealMethod();
-        when(greatNumberCalculator.getCoinSentName(any(UserTrade.class))).thenCallRealMethod();
+        when(tradeConverter.getCoinReceived(any(UserTrade.class))).thenCallRealMethod();
+        when(tradeConverter.getCoinReceivedName(any(UserTrade.class))).thenCallRealMethod();
+        when(tradeConverter.getCoinSent(any(UserTrade.class))).thenCallRealMethod();
+        when(tradeConverter.getCoinSentName(any(UserTrade.class))).thenCallRealMethod();
 
 
         SlackMessage build = slackMessageBuilderService.build(userTrade);
