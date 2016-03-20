@@ -11,6 +11,18 @@ This project was made to actively notify when a trade is executed on a crypto-ex
 
 *Additional Exchanges can be added at request*
 
+## Notification Types
+
+### Slack Webhooks
+
+Api Documentation: https://api.slack.com/incoming-webhooks
+
+Slack Integration App: https://slack.com/apps/A0F7XDUAZ-incoming-webhooks
+
+### Email
+
+All you need is a SMTP server or relay.
+
 ## Requirements
 
 Requires Java 7+ as well as differing environment variables depending on the notification type.
@@ -34,19 +46,15 @@ Only the additional variables for the notification type requested should be set.
 4. email.server.host - This is the host for where the SMTP email server is located
 5. email.server.port - __OPTIONAL__ This is the port to use for the SMTP email server.  If nothing is set the default will be 25
 
-## Slack Webhooks
 
-Api Documentation: https://api.slack.com/incoming-webhooks
 
-Slack Integration App: https://slack.com/apps/A0F7XDUAZ-incoming-webhooks
-
-## Run With Docker
+## Docker
 
 [![](https://badge.imagelayers.io/seanprobb/exchange-monitor:latest.svg)](https://imagelayers.io/?images=seanprobb/exchange-monitor:latest 'Get your own badge on imagelayers.io')
 
 Docker Hub link: https://hub.docker.com/r/seanprobb/exchange-monitor/
 
-### Starting with Docker
+### Run with Docker
 
 #### For Slack Notifications
     docker run \
@@ -74,6 +82,7 @@ Docker Hub link: https://hub.docker.com/r/seanprobb/exchange-monitor/
 ## Donations
 
 Bitcoin Wallet Address: 1NJhd7rNLZLjmNd2FouRwQB9Fqf5Zv3qzC
-    
+
+NEM Wallet Address: NA6BOK-GRSWFV-BVOX2P-YMSDIQ-MNZC6A-QT7OMG-KHWA
     
     
