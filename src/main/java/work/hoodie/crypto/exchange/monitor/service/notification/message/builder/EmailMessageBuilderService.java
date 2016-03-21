@@ -24,12 +24,12 @@ public class EmailMessageBuilderService {
         EmailMessage emailMessage = new EmailMessage();
         emailMessage.setSubject(exchangeSpecification.getExchangeName() + " Monitor");
 
-        emailMessage.setContent("Received " +
-                tradeConverter.getCoinReceived(userTrade) + " " +
+        emailMessage.setContent( "Received " +
+                tradeConverter.getCoinReceived(userTrade).toPlainString() + " " +
                 tradeConverter.getCoinReceivedName(userTrade) + " for " +
-                tradeConverter.getCoinSent(userTrade) + " " +
+                tradeConverter.getCoinSent(userTrade).toPlainString() + " " +
                 tradeConverter.getCoinSentName(userTrade) + " with "
-                + userTrade.getFeeAmount() + " " + userTrade.getFeeCurrency() + " in fees.");
+                + userTrade.getFeeAmount().toPlainString() + " " + userTrade.getFeeCurrency() + " in fees.");
 
         emailMessage.setFromEmailAddress(fromEmailAddress);
 

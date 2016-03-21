@@ -53,6 +53,7 @@ public class SlackMessageBuilderServiceTest {
                 .orderId("2")
                 .build();
 
+        when(tradeConverter.getTotal(any(UserTrade.class))).thenCallRealMethod();
         when(tradeConverter.getCoinReceived(any(UserTrade.class))).thenCallRealMethod();
         when(tradeConverter.getCoinReceivedName(any(UserTrade.class))).thenCallRealMethod();
         when(tradeConverter.getCoinSent(any(UserTrade.class))).thenCallRealMethod();
@@ -84,6 +85,7 @@ public class SlackMessageBuilderServiceTest {
                 .build();
 
 
+        when(tradeConverter.getTotal(any(UserTrade.class))).thenCallRealMethod();
         when(tradeConverter.getCoinReceived(any(UserTrade.class))).thenCallRealMethod();
         when(tradeConverter.getCoinReceivedName(any(UserTrade.class))).thenCallRealMethod();
         when(tradeConverter.getCoinSent(any(UserTrade.class))).thenCallRealMethod();

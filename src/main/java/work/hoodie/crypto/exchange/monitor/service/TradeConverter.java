@@ -38,7 +38,7 @@ public class TradeConverter {
             return totalMinusFees;
         } else {
             BigDecimal pricePerCoin = userTrade.getPrice();
-            return totalMinusFees.divide(pricePerCoin, 8, BigDecimal.ROUND_HALF_UP);
+            return totalMinusFees.divide(pricePerCoin, 8, BigDecimal.ROUND_HALF_UP).stripTrailingZeros();
         }
     }
 

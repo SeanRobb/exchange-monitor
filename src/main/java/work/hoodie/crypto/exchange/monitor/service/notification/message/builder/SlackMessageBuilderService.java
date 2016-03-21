@@ -26,26 +26,13 @@ public class SlackMessageBuilderService {
         username = exchangeSpecification.getExchangeName() + " Monitor";
 
         String message = "Received " +
-                tradeConverter.getCoinReceived(userTrade) + " " +
+                tradeConverter.getCoinReceived(userTrade).toPlainString() + " " +
                 tradeConverter.getCoinReceivedName(userTrade) + " for " +
-                tradeConverter.getCoinSent(userTrade) + " " +
+                tradeConverter.getCoinSent(userTrade).toPlainString() + " " +
                 tradeConverter.getCoinSentName(userTrade) + " with "
-                + userTrade.getFeeAmount() + " " + userTrade.getFeeCurrency() + " in fees.";
+                + userTrade.getFeeAmount().toPlainString() + " " + userTrade.getFeeCurrency() + " in fees.";
 
         return new SlackMessage(message, icon_emoji, username);
     }
-
-    private String typeConvert(OrderType type) {
-        String tradeType;
-        if (type == OrderType.BID) {
-            tradeType = purchased;
-        } else if (type == OrderType.ASK) {
-            tradeType = sold;
-        } else {
-            tradeType = "";
-        }
-        return tradeType;
-    }
-
 
 }
