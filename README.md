@@ -35,7 +35,7 @@ Only the additional variables for the notification type requested should be set.
 1. exchange *(String)* - This is the exchange name that should be used to query
 2. api.key *(String)* - This is the api key needed to view the exchange trade history
 3. secret.key *(String)* - This is the secret needed to pair with the key
-4. test.notification *(Boolean)*- __OPTIONAL__  This will send a test notification when the program is started.  If nothing is set the default will be false.
+4. notification.test *(Boolean)* - __OPTIONAL__  This will send a test notification when the program is started.  If nothing is set the default will be false.
 
 ### Additional Slack Specific Environment Variables
 1. slack.url *(String)* - This is the Slack Webhook Url needed for notification
@@ -87,7 +87,7 @@ Docker Hub link: https://hub.docker.com/r/seanprobb/exchange-monitor/
     -e api_key={api key} \
     -e secret_key={api key secret} \
     -e slack_url={slack url} \
-    -e test_notification=true \
+    -e notification_test=true \
     -d seanprobb/exchange-monitor
     
 ## Donations
