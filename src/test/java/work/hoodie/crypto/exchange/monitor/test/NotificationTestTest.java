@@ -1,3 +1,5 @@
+package work.hoodie.crypto.exchange.monitor.test;
+
 import com.xeiam.xchange.dto.trade.UserTrade;
 import org.junit.Test;
 import org.junit.runner.RunWith;

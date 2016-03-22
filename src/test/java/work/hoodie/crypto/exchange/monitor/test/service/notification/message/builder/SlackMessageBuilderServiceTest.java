@@ -1,3 +1,5 @@
+package work.hoodie.crypto.exchange.monitor.test.service.notification.message.builder;
+
 import com.xeiam.xchange.ExchangeSpecification;
 import com.xeiam.xchange.currency.CurrencyPair;
 import com.xeiam.xchange.dto.Order.OrderType;
@@ -9,7 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import work.hoodie.crypto.exchange.monitor.domain.SlackMessage;
-import work.hoodie.crypto.exchange.monitor.service.TradeConverter;
+import work.hoodie.crypto.exchange.monitor.service.notification.message.builder.MessageBodyBuilderService;
 import work.hoodie.crypto.exchange.monitor.service.notification.message.builder.SlackMessageBuilderService;
 
 import java.math.BigDecimal;
@@ -17,7 +19,7 @@ import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -26,9 +28,9 @@ public class SlackMessageBuilderServiceTest {
     private SlackMessageBuilderService slackMessageBuilderService;
     @Mock
     private ExchangeSpecification exchangeSpecification;
-
     @Mock
-    private TradeConverter tradeConverter;
+    private MessageBodyBuilderService messageBodyBuilderService;
+
     private final String expectedEmoji = ":moneybag:";
     private final String expectedUsername = "Poloniex Monitor";
 
@@ -39,6 +41,7 @@ public class SlackMessageBuilderServiceTest {
 
     @Test
     public void testBuild_bid() throws Exception {
+        String message = "My Message";
         UserTrade userTrade = new UserTrade.Builder()
                 .type(OrderType.BID)
                 .tradableAmount(BigDecimal.TEN)
@@ -53,11 +56,8 @@ public class SlackMessageBuilderServiceTest {
                 .orderId("2")
                 .build();
 
-        when(tradeConverter.getTotal(any(UserTrade.class))).thenCallRealMethod();
-        when(tradeConverter.getCoinReceived(any(UserTrade.class))).thenCallRealMethod();
-        when(tradeConverter.getCoinReceivedName(any(UserTrade.class))).thenCallRealMethod();
-        when(tradeConverter.getCoinSent(any(UserTrade.class))).thenCallRealMethod();
-        when(tradeConverter.getCoinSentName(any(UserTrade.class))).thenCallRealMethod();
+        when(messageBodyBuilderService.build(eq(userTrade)))
+                .thenReturn(message);
 
         SlackMessage build = slackMessageBuilderService.build(userTrade);
 
@@ -65,11 +65,12 @@ public class SlackMessageBuilderServiceTest {
         assertNotNull(build.getText());
         assertEquals(expectedEmoji, build.getIcon_emoji());
         assertEquals(expectedUsername, build.getUsername());
-        assertEquals("Received 10 DOGE for 10 LTC with 0 LTC in fees.", build.getText());
+        assertEquals(message, build.getText());
     }
 
     @Test
     public void testBuild_ask() throws Exception {
+        String message = "My Message";
         UserTrade userTrade = new UserTrade.Builder()
                 .type(OrderType.ASK)
                 .tradableAmount(BigDecimal.TEN)
@@ -85,11 +86,8 @@ public class SlackMessageBuilderServiceTest {
                 .build();
 
 
-        when(tradeConverter.getTotal(any(UserTrade.class))).thenCallRealMethod();
-        when(tradeConverter.getCoinReceived(any(UserTrade.class))).thenCallRealMethod();
-        when(tradeConverter.getCoinReceivedName(any(UserTrade.class))).thenCallRealMethod();
-        when(tradeConverter.getCoinSent(any(UserTrade.class))).thenCallRealMethod();
-        when(tradeConverter.getCoinSentName(any(UserTrade.class))).thenCallRealMethod();
+        when(messageBodyBuilderService.build(eq(userTrade)))
+                .thenReturn(message);
 
 
         SlackMessage build = slackMessageBuilderService.build(userTrade);
@@ -98,6 +96,6 @@ public class SlackMessageBuilderServiceTest {
         assertNotNull(build.getText());
         assertEquals(expectedEmoji, build.getIcon_emoji());
         assertEquals(expectedUsername, build.getUsername());
-        assertEquals("Received 10 LTC for 10 DOGE with 0 LTC in fees.", build.getText());
+        assertEquals(message, build.getText());
     }
 }

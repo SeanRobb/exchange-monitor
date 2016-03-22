@@ -1,3 +1,5 @@
+package work.hoodie.crypto.exchange.monitor.test.service.recent.trade;
+
 import com.xeiam.xchange.dto.marketdata.Trades;
 import com.xeiam.xchange.dto.trade.UserTrade;
 import com.xeiam.xchange.dto.trade.UserTrades;

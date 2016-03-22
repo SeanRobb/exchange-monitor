@@ -1,3 +1,5 @@
+package work.hoodie.crypto.exchange.monitor.test.service;
+
 import com.xeiam.xchange.bitfinex.v1.BitfinexExchange;
 import com.xeiam.xchange.coinbase.CoinbaseExchange;
 import com.xeiam.xchange.poloniex.PoloniexExchange;

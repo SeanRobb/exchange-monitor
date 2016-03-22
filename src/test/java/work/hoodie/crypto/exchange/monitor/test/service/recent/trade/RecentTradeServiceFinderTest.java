@@ -1,3 +1,5 @@
+package work.hoodie.crypto.exchange.monitor.test.service.recent.trade;
+
 import com.xeiam.xchange.ExchangeFactory;
 import com.xeiam.xchange.ExchangeSpecification;
 import com.xeiam.xchange.bitfinex.v1.BitfinexExchange;
