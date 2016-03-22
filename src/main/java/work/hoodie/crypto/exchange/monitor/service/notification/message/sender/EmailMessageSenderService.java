@@ -10,6 +10,7 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailMessageSenderService {
 
+    public static final String TEXT_HTML = "text/html";
     private JavaMailSender javaMailSender;
 
     public EmailMessageSenderService(JavaMailSender javaMailSender) {
@@ -25,7 +26,7 @@ public class EmailMessageSenderService {
             mimeMessage.setFrom(fromAddress);
             mimeMessage.addRecipient(Message.RecipientType.TO, toAddress);
             mimeMessage.setSubject(message.getSubject());
-            mimeMessage.setContent(message.getContent(), "text/html");
+            mimeMessage.setContent(message.getContent(), TEXT_HTML);
             javaMailSender.send(mimeMessage);
         } catch (MessagingException e) {
             e.printStackTrace();
