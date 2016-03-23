@@ -10,11 +10,13 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
 import work.hoodie.crypto.exchange.monitor.domain.NotificationType;
 import work.hoodie.crypto.exchange.monitor.service.notification.NotificationTypeFinder;
+import work.hoodie.crypto.exchange.monitor.service.notification.config.NotificationConfig;
 import work.hoodie.crypto.exchange.monitor.service.notification.service.EmailNotifierService;
 import work.hoodie.crypto.exchange.monitor.service.notification.service.NotifierService;
 import work.hoodie.crypto.exchange.monitor.service.notification.service.SlackNotifierService;
 import work.hoodie.crypto.exchange.monitor.service.recent.trade.RecentTradeServiceFinder;
 import work.hoodie.crypto.exchange.monitor.service.recent.trade.RecentTradesService;
+import work.hoodie.crypto.exchange.monitor.service.recent.trade.config.ExchangeConfig;
 
 @Configuration("Monitor")
 @Import({ExchangeConfig.class, NotificationConfig.class})

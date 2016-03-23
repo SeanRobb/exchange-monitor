@@ -1,4 +1,4 @@
-package work.hoodie.crypto.exchange.monitor.config;
+package work.hoodie.crypto.exchange.monitor.service.recent.trade.config;
 
 import com.xeiam.xchange.ExchangeSpecification;
 import lombok.extern.slf4j.Slf4j;

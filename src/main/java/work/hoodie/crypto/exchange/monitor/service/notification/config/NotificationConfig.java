@@ -1,4 +1,4 @@
-package work.hoodie.crypto.exchange.monitor.config;
+package work.hoodie.crypto.exchange.monitor.service.notification.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -61,6 +61,7 @@ public class NotificationConfig {
         NotificationType notificationType = notificationTypeFinder.find();
 
         log.info("------- Notification Configuration -------");
+        // Should be in String ifier
         log.info("Notification Type: " + notificationType);
         log.info("Slack Url: " + slackUrl);
         log.info("Email Address: " + emailAddress);
@@ -68,6 +69,7 @@ public class NotificationConfig {
         log.info("SMTP Mail Port: " + mailPort);
         log.info("SMTP Mail Username: " + mailUsername);
         log.info("SMTP Mail Password: " + mailPassword);
+        //
         log.info("------------------------------------------");
 
     }
