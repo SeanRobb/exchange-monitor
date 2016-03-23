@@ -1,8 +1,10 @@
 package work.hoodie.crypto.exchange.monitor.test.service.notification;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import work.hoodie.crypto.exchange.monitor.domain.NotificationType;
 import work.hoodie.crypto.exchange.monitor.service.notification.NotificationSettingsStringifier;
@@ -14,6 +16,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 
+@RunWith(MockitoJUnitRunner.class)
 public class NotificationSettingsStringifierTest {
     @InjectMocks
     private NotificationSettingsStringifier classUnderTest;

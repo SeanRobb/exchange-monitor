@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class NotificationSettingsStringifier {
+    @Value("${slack.url:}")
+    private String slackUrl;
     @Value("${email.address:}")
     private String emailAddress;
     @Value("${email.server.host:}")
