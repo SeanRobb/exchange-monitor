@@ -2,6 +2,7 @@ package work.hoodie.crypto.exchange.monitor.config;
 
 import com.xeiam.xchange.ExchangeFactory;
 import com.xeiam.xchange.ExchangeSpecification;
+import com.xeiam.xchange.dto.trade.Wallet;
 import com.xeiam.xchange.service.polling.trade.PollingTradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,8 @@ import work.hoodie.crypto.exchange.monitor.service.notification.service.SlackNot
 import work.hoodie.crypto.exchange.monitor.service.recent.trade.RecentTradeServiceFinder;
 import work.hoodie.crypto.exchange.monitor.service.recent.trade.RecentTradesService;
 import work.hoodie.crypto.exchange.monitor.service.recent.trade.config.ExchangeConfig;
+
+import java.util.List;
 
 @Configuration("Monitor")
 @Import({ExchangeConfig.class, NotificationConfig.class})

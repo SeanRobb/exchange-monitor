@@ -5,14 +5,12 @@ import com.xeiam.xchange.dto.trade.UserTrade;
 import com.xeiam.xchange.dto.trade.UserTrades;
 import com.xeiam.xchange.service.polling.trade.PollingTradeService;
 import com.xeiam.xchange.service.polling.trade.params.DefaultTradeHistoryParamsTimeSpan;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.util.ReflectionTestUtils;
-import work.hoodie.crypto.exchange.monitor.service.recent.trade.QueryTimeRetrieveService;
+import work.hoodie.crypto.exchange.monitor.service.recent.trade.TimeRetrieveService;
 import work.hoodie.crypto.exchange.monitor.service.recent.trade.SimpleRecentTradesService;
 
 import java.util.ArrayList;
@@ -32,7 +30,7 @@ public class SimpleRecentTradesServiceTest {
     @Mock
     private PollingTradeService pollingTradeService;
     @Mock
-    private QueryTimeRetrieveService queryTimeRetrieveService;
+    private TimeRetrieveService timeRetrieveService;
 
     @Test
     public void testGetHistory() throws Exception {
@@ -41,14 +39,14 @@ public class SimpleRecentTradesServiceTest {
 
         when(pollingTradeService.getTradeHistory(any(DefaultTradeHistoryParamsTimeSpan.class)))
                 .thenReturn(new UserTrades(trades, Trades.TradeSortType.SortByTimestamp));
-        when(queryTimeRetrieveService.getAndSyncQueryTime())
+        when(timeRetrieveService.getAndSyncQueryTime())
                 .thenReturn(new Date());
 
         List<UserTrade> history = simpleRecentTradesService.getHistory();
 
         assertNotNull(history);
         verify(pollingTradeService).getTradeHistory(any(DefaultTradeHistoryParamsTimeSpan.class));
-        verify(queryTimeRetrieveService).getAndSyncQueryTime();
+        verify(timeRetrieveService).getAndSyncQueryTime();
         assertEquals(trades, history);
 
     }

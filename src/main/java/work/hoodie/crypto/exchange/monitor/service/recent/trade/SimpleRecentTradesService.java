@@ -5,11 +5,9 @@ import com.xeiam.xchange.dto.trade.UserTrades;
 import com.xeiam.xchange.service.polling.trade.PollingTradeService;
 import com.xeiam.xchange.service.polling.trade.params.DefaultTradeHistoryParamsTimeSpan;
 import lombok.extern.slf4j.Slf4j;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,12 +20,12 @@ public class SimpleRecentTradesService implements RecentTradesService {
     @Autowired
     private PollingTradeService pollingTradeService;
     @Autowired
-    private QueryTimeRetrieveService queryTimeRetrieveService;
+    private TimeRetrieveService timeRetrieveService;
 
     public List<UserTrade> getHistory() {
         List<UserTrade> userTrades = new ArrayList<UserTrade>();
         try {
-            Date queryTime = queryTimeRetrieveService.getAndSyncQueryTime();
+            Date queryTime = timeRetrieveService.getAndSyncQueryTime();
             DefaultTradeHistoryParamsTimeSpan tradeHistoryParams = new DefaultTradeHistoryParamsTimeSpan(queryTime);
             log.info("Trade search since " + queryTime.toString());
             UserTrades tradeHistory = pollingTradeService.getTradeHistory(tradeHistoryParams);

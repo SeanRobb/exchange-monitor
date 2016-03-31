@@ -20,12 +20,12 @@ public class CurrencyPairRecentTradeService implements RecentTradesService {
     @Autowired
     private PollingTradeService pollingTradeService;
     @Autowired
-    private QueryTimeRetrieveService queryTimeRetrieveService;
+    private TimeRetrieveService timeRetrieveService;
 
     public List<UserTrade> getHistory() {
         List<UserTrade> userTrades = new ArrayList<UserTrade>();
         try {
-            Date queryTime = queryTimeRetrieveService.getAndSyncQueryTime();
+            Date queryTime = timeRetrieveService.getAndSyncQueryTime();
             log.info("Trade search since " + queryTime.toString());
 
             for (CurrencyPair pair : pollingTradeService.getExchangeSymbols()) {

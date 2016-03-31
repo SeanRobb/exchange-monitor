@@ -24,7 +24,7 @@ public class ExchangeMonitor {
     private NotifierService notifierService;
 
 
-    @Scheduled(cron = "0 */1 * * * *")
+    @Scheduled(cron = "${monitor.interval:0 */1 * * * *}")
     public void check() {
         List<UserTrade> history = recentTradesService.getHistory();
 
@@ -36,6 +36,7 @@ public class ExchangeMonitor {
         for (UserTrade trade : history) {
             notifierService.notify(trade);
         }
-
     }
+
+
 }

@@ -6,7 +6,6 @@ import com.xeiam.xchange.dto.trade.UserTrade;
 import com.xeiam.xchange.dto.trade.UserTrades;
 import com.xeiam.xchange.service.polling.trade.PollingTradeService;
 import com.xeiam.xchange.service.polling.trade.params.DefaultTradeHistoryParamCurrencyPair;
-import com.xeiam.xchange.service.polling.trade.params.DefaultTradeHistoryParamsTimeSpan;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import work.hoodie.crypto.exchange.monitor.service.recent.trade.CurrencyPairRecentTradeService;
-import work.hoodie.crypto.exchange.monitor.service.recent.trade.QueryTimeRetrieveService;
+import work.hoodie.crypto.exchange.monitor.service.recent.trade.TimeRetrieveService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,7 +34,7 @@ public class CurrencyPairRecentTradeServiceTest {
     private CurrencyPairRecentTradeService currencyPairRecentTradeService;
 
     @Mock
-    private QueryTimeRetrieveService queryTimeRetrieveService;
+    private TimeRetrieveService timeRetrieveService;
     @Mock
     private PollingTradeService pollingTradeService;
 
@@ -60,7 +59,7 @@ public class CurrencyPairRecentTradeServiceTest {
         currencyPairs.add(CurrencyPair.BTC_BRL);
         currencyPairs.add(CurrencyPair.BTC_CHF);
 
-        when(queryTimeRetrieveService.getAndSyncQueryTime())
+        when(timeRetrieveService.getAndSyncQueryTime())
                 .thenReturn(queryTime);
         when(pollingTradeService.getExchangeSymbols())
                 .thenReturn(currencyPairs);
@@ -69,7 +68,7 @@ public class CurrencyPairRecentTradeServiceTest {
 
         List<UserTrade> history = currencyPairRecentTradeService.getHistory();
 
-        verify(queryTimeRetrieveService).getAndSyncQueryTime();
+        verify(timeRetrieveService).getAndSyncQueryTime();
         verify(pollingTradeService).getExchangeSymbols();
         verify(pollingTradeService, times(currencyPairs.size())).getTradeHistory(any(DefaultTradeHistoryParamCurrencyPair.class));
         assertEquals(3, history.size());

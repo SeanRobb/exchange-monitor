@@ -35,7 +35,9 @@ Only the additional variables for the notification type requested should be set.
 1. exchange *(String)* - This is the exchange name that should be used to query
 2. api.key *(String)* - This is the api key needed to view the exchange trade history
 3. secret.key *(String)* - This is the secret needed to pair with the key
-4. notification.test *(Boolean)* - __OPTIONAL__  This will send a test notification when the program is started.  If nothing is set the default will be false.
+4. monitor.interval *(String)* - __OPTIONAL__ This is a cron that will be how often your account will be polled for new trades. If nothing is set the default will be every minute.
+5. notification.test *(Boolean)* - __OPTIONAL__  This will send a test notification when the program is started.  If nothing is set the default will be false.
+
 
 ### Additional Slack Specific Environment Variables
 1. slack.url *(String)* - This is the Slack Webhook Url needed for notification
