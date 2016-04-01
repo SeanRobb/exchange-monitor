@@ -4,6 +4,8 @@ import com.xeiam.xchange.currency.CurrencyPair;
 import com.xeiam.xchange.dto.Order;
 import com.xeiam.xchange.dto.trade.UserTrade;
 import org.springframework.stereotype.Component;
+import work.hoodie.crypto.exchange.monitor.domain.WalletComparison;
+import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
 
 import java.math.BigDecimal;
 
@@ -25,6 +27,18 @@ public class MessageBodyBuilderService {
         return userTrade.getTradableAmount() + " " + currencyPair.baseSymbol + " " + typeConvert(type) +
                 " for " + price + " " + currencyPair.counterSymbol +
                 " \n Fees Payed: " + feeAmount + " " + feeCurrency;
+    }
+
+    public String build(WalletSummary walletSummary) {
+        String message = "Summary:\n";
+        for (WalletComparison walletComparison : walletSummary.getWalletComparisons()) {
+            message += "\t" + walletComparison.getCurrency() +
+                    "\n\tBalance:\t\t" + walletComparison.getBalance() +
+                    "\n\tBTC Value:\t\t" + walletComparison.getBtcValue() +
+                    "\n\tBalance Gain:\t" + walletComparison.getBalanceGain() +
+                    "\n\tBTC Value Gain:\t" + walletComparison.getBtcValueGain() + " BTC" + "\n";
+        }
+        return message;
     }
 
     private String typeConvert(Order.OrderType type) {

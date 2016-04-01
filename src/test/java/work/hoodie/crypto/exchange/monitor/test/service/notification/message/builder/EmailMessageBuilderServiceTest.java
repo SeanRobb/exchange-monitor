@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import work.hoodie.crypto.exchange.monitor.domain.EmailMessage;
+import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
 import work.hoodie.crypto.exchange.monitor.service.notification.message.builder.EmailMessageBuilderService;
 import work.hoodie.crypto.exchange.monitor.service.notification.message.builder.MessageBodyBuilderService;
 
@@ -32,9 +33,12 @@ public class EmailMessageBuilderServiceTest {
     private ExchangeSpecification exchangeSpecification;
     @Mock
     private MessageBodyBuilderService messageBodyBuilderService;
+    @Mock
+    private WalletSummary walletSummary;
 
     private final String expectedToEmailAddress = ":moneybag:";
-    private final String expectedSubject = "Poloniex Monitor";
+    private final String expectedSubjectForExecutedTrade = "Poloniex Monitor Trade Executed";
+    private final String expectedSubjectForWalletSummary = "Poloniex Monitor Wallet Summary";
 
     @Before
     public void init() {
@@ -66,7 +70,7 @@ public class EmailMessageBuilderServiceTest {
 
         assertNotNull(emailMessage);
         assertEquals(expectedToEmailAddress, emailMessage.getToEmailAddress());
-        assertEquals(expectedSubject, emailMessage.getSubject());
+        assertEquals(expectedSubjectForExecutedTrade, emailMessage.getSubject());
         assertEquals(classUnderTest.fromEmailAddress, emailMessage.getFromEmailAddress());
         assertEquals(expectedMessage, emailMessage.getContent());
     }
@@ -97,7 +101,23 @@ public class EmailMessageBuilderServiceTest {
 
         assertNotNull(emailMessage);
         assertEquals(expectedToEmailAddress, emailMessage.getToEmailAddress());
-        assertEquals(expectedSubject, emailMessage.getSubject());
+        assertEquals(expectedSubjectForExecutedTrade, emailMessage.getSubject());
+        assertEquals(classUnderTest.fromEmailAddress, emailMessage.getFromEmailAddress());
+        assertEquals(expectedMessage, emailMessage.getContent());
+    }
+
+    @Test
+    public void testBuild() throws Exception {
+
+        String expectedMessage = "expected Message";
+        when(messageBodyBuilderService.build(walletSummary))
+                .thenReturn(expectedMessage);
+
+        EmailMessage emailMessage = classUnderTest.build(walletSummary);
+
+        assertNotNull(emailMessage);
+        assertEquals(expectedToEmailAddress, emailMessage.getToEmailAddress());
+        assertEquals(expectedSubjectForWalletSummary, emailMessage.getSubject());
         assertEquals(classUnderTest.fromEmailAddress, emailMessage.getFromEmailAddress());
         assertEquals(expectedMessage, emailMessage.getContent());
     }

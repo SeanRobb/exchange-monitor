@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
 import work.hoodie.crypto.exchange.monitor.service.notification.service.NotifierService;
-import work.hoodie.crypto.exchange.monitor.service.recent.trade.RecentTradesService;
+import work.hoodie.crypto.exchange.monitor.service.trade.recent.RecentTradesService;
+import work.hoodie.crypto.exchange.monitor.service.wallet.WalletSummaryRetrieverService;
 
+import java.io.IOException;
 import java.util.List;
 
 @Component
@@ -18,6 +21,9 @@ public class ExchangeMonitor {
     @Autowired
     @Qualifier("CorrectRecentTradeService")
     private RecentTradesService recentTradesService;
+
+    @Autowired
+    private WalletSummaryRetrieverService walletSummaryRetrieverService;
 
     @Autowired
     @Qualifier("CorrectNotifierService")
@@ -38,5 +44,14 @@ public class ExchangeMonitor {
         }
     }
 
+    @Scheduled(cron = "${summary.interval:0 0 0 */1 * *}")
+    public void summary() {
+        try {
+            WalletSummary walletSummary = walletSummaryRetrieverService.getWalletSummary();
+            notifierService.notify(walletSummary);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

@@ -1,10 +1,10 @@
-package work.hoodie.crypto.exchange.monitor.test.service.recent.trade;
+package work.hoodie.crypto.exchange.monitor.test.service.trade.recent;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
-import work.hoodie.crypto.exchange.monitor.service.recent.trade.TimeRetrieveService;
+import work.hoodie.crypto.exchange.monitor.service.trade.recent.TimeRetrieveService;
 
 import java.util.Date;
 

@@ -1,19 +1,18 @@
-package work.hoodie.crypto.exchange.monitor.test.service.recent.trade;
+package work.hoodie.crypto.exchange.monitor.test.service.trade.recent;
 
 import com.xeiam.xchange.ExchangeFactory;
 import com.xeiam.xchange.ExchangeSpecification;
 import com.xeiam.xchange.bitfinex.v1.BitfinexExchange;
-import com.xeiam.xchange.coinbase.CoinbaseExchange;
 import com.xeiam.xchange.poloniex.PoloniexExchange;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import work.hoodie.crypto.exchange.monitor.service.recent.trade.CurrencyPairRecentTradeService;
-import work.hoodie.crypto.exchange.monitor.service.recent.trade.RecentTradeServiceFinder;
-import work.hoodie.crypto.exchange.monitor.service.recent.trade.RecentTradesService;
-import work.hoodie.crypto.exchange.monitor.service.recent.trade.SimpleRecentTradesService;
+import work.hoodie.crypto.exchange.monitor.service.trade.recent.CurrencyPairRecentTradeService;
+import work.hoodie.crypto.exchange.monitor.service.trade.recent.RecentTradeServiceFinder;
+import work.hoodie.crypto.exchange.monitor.service.trade.recent.RecentTradesService;
+import work.hoodie.crypto.exchange.monitor.service.trade.recent.SimpleRecentTradesService;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

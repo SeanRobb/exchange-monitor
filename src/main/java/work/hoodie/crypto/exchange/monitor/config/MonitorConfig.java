@@ -1,8 +1,9 @@
 package work.hoodie.crypto.exchange.monitor.config;
 
-import com.xeiam.xchange.ExchangeFactory;
+import com.xeiam.xchange.Exchange;
 import com.xeiam.xchange.ExchangeSpecification;
-import com.xeiam.xchange.dto.trade.Wallet;
+import com.xeiam.xchange.service.polling.account.PollingAccountService;
+import com.xeiam.xchange.service.polling.marketdata.PollingMarketDataService;
 import com.xeiam.xchange.service.polling.trade.PollingTradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,18 +16,16 @@ import work.hoodie.crypto.exchange.monitor.service.notification.config.Notificat
 import work.hoodie.crypto.exchange.monitor.service.notification.service.EmailNotifierService;
 import work.hoodie.crypto.exchange.monitor.service.notification.service.NotifierService;
 import work.hoodie.crypto.exchange.monitor.service.notification.service.SlackNotifierService;
-import work.hoodie.crypto.exchange.monitor.service.recent.trade.RecentTradeServiceFinder;
-import work.hoodie.crypto.exchange.monitor.service.recent.trade.RecentTradesService;
-import work.hoodie.crypto.exchange.monitor.service.recent.trade.config.ExchangeConfig;
-
-import java.util.List;
+import work.hoodie.crypto.exchange.monitor.service.trade.config.ExchangeConfig;
+import work.hoodie.crypto.exchange.monitor.service.trade.recent.RecentTradeServiceFinder;
+import work.hoodie.crypto.exchange.monitor.service.trade.recent.RecentTradesService;
 
 @Configuration("Monitor")
 @Import({ExchangeConfig.class, NotificationConfig.class})
 @DependsOn({"Exchange", "Notification"})
 public class MonitorConfig {
     @Autowired
-    private ExchangeSpecification exchangeSpecification;
+    private Exchange exchange;
     @Autowired
     private RecentTradeServiceFinder recentTradeServiceFinder;
     @Autowired
@@ -40,14 +39,28 @@ public class MonitorConfig {
 
     @Bean
     public PollingTradeService pollingTradeService() {
-        return ExchangeFactory.INSTANCE
-                .createExchange(exchangeSpecification)
-                .getPollingTradeService();
+        return exchange.getPollingTradeService();
     }
+
+    @Bean
+    public PollingMarketDataService pollingMarketDataService() {
+        return exchange.getPollingMarketDataService();
+    }
+
+    @Bean
+    public PollingAccountService pollingAccountService() {
+        return exchange.getPollingAccountService();
+    }
+
+    @Bean
+    public ExchangeSpecification exchangeSpecification() {
+        return exchange.getExchangeSpecification();
+    }
+
 
     @Bean(name = "CorrectRecentTradeService")
     public RecentTradesService recentTradesService() {
-        return recentTradeServiceFinder.find(exchangeSpecification);
+        return recentTradeServiceFinder.find(exchange.getExchangeSpecification());
     }
 
     @Bean(name = "CorrectNotifierService")

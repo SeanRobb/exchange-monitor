@@ -1,5 +1,7 @@
-package work.hoodie.crypto.exchange.monitor.service.recent.trade.config;
+package work.hoodie.crypto.exchange.monitor.service.trade.config;
 
+import com.xeiam.xchange.Exchange;
+import com.xeiam.xchange.ExchangeFactory;
 import com.xeiam.xchange.ExchangeSpecification;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +35,15 @@ public class ExchangeConfig {
         log.info("------------------------------------------");
     }
 
-    @Bean
-    public ExchangeSpecification exchangeSpecification() {
-        Class exchangeClass = exchangeFinderService.find(exchange);
 
+    @Bean
+    public Exchange exchange(){
+        Class exchangeClass = exchangeFinderService.find(exchange);
         ExchangeSpecification exchangeSpecification = new ExchangeSpecification(exchangeClass);
         exchangeSpecification.setApiKey(apiKey);
         exchangeSpecification.setSecretKey(secretKey);
-        return exchangeSpecification;
+        return ExchangeFactory.INSTANCE.createExchange(exchangeSpecification);
     }
+
+
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import work.hoodie.crypto.exchange.monitor.domain.EmailMessage;
+import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
 
 @Component
 public class EmailMessageBuilderService {
@@ -21,10 +22,16 @@ public class EmailMessageBuilderService {
     private String toEmailAddress;
 
     public EmailMessage build(UserTrade userTrade) {
-        String subject = exchangeSpecification.getExchangeName() + " Monitor";
+        String subject = exchangeSpecification.getExchangeName() + " Monitor Trade Executed";
         String body = messageBodyBuilderService.build(userTrade);
 
         return new EmailMessage(fromEmailAddress, toEmailAddress, subject, body);
     }
 
+    public EmailMessage build(WalletSummary walletSummary) {
+        String subject = exchangeSpecification.getExchangeName() + " Monitor Wallet Summary";
+        String body = messageBodyBuilderService.build(walletSummary);
+
+        return new EmailMessage(fromEmailAddress, toEmailAddress, subject, body);
+    }
 }

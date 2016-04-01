@@ -1,4 +1,4 @@
-package work.hoodie.crypto.exchange.monitor.test.service.recent.trade;
+package work.hoodie.crypto.exchange.monitor.test.service.trade.recent;
 
 import com.xeiam.xchange.currency.CurrencyPair;
 import com.xeiam.xchange.dto.marketdata.Trades;
@@ -12,8 +12,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import work.hoodie.crypto.exchange.monitor.service.recent.trade.CurrencyPairRecentTradeService;
-import work.hoodie.crypto.exchange.monitor.service.recent.trade.TimeRetrieveService;
+import work.hoodie.crypto.exchange.monitor.service.trade.recent.CurrencyPairRecentTradeService;
+import work.hoodie.crypto.exchange.monitor.service.trade.recent.TimeRetrieveService;
 
 import java.util.ArrayList;
 import java.util.Date;

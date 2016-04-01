@@ -1,4 +1,4 @@
-package work.hoodie.crypto.exchange.monitor.service.recent.trade;
+package work.hoodie.crypto.exchange.monitor.service.trade.recent;
 
 import com.xeiam.xchange.ExchangeSpecification;
 import org.springframework.beans.factory.annotation.Autowired;

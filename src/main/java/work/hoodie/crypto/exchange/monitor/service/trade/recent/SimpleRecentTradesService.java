@@ -1,4 +1,4 @@
-package work.hoodie.crypto.exchange.monitor.service.recent.trade;
+package work.hoodie.crypto.exchange.monitor.service.trade.recent;
 
 import com.xeiam.xchange.dto.trade.UserTrade;
 import com.xeiam.xchange.dto.trade.UserTrades;
