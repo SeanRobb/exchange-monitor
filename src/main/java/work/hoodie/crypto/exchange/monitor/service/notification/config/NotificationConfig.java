@@ -10,6 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.client.RestTemplate;
 import work.hoodie.crypto.exchange.monitor.domain.NotificationType;
+import work.hoodie.crypto.exchange.monitor.service.notification.NotificationSettingsStringifier;
 import work.hoodie.crypto.exchange.monitor.service.notification.NotificationTypeFinder;
 import work.hoodie.crypto.exchange.monitor.service.notification.message.sender.EmailMessageSenderService;
 import work.hoodie.crypto.exchange.monitor.service.notification.message.sender.SlackMessageSenderService;
@@ -56,20 +57,14 @@ public class NotificationConfig {
     @Autowired
     private NotificationTypeFinder notificationTypeFinder;
 
+    @Autowired
+    private NotificationSettingsStringifier notificationSettingsStringifier;
     @PostConstruct
     public void init() {
         NotificationType notificationType = notificationTypeFinder.find();
 
         log.info("------- Notification Configuration -------");
-        // Should be in String ifier
-        log.info("Notification Type: " + notificationType);
-        log.info("Slack Url: " + slackUrl);
-        log.info("Email Address: " + emailAddress);
-        log.info("SMTP Mail Host: " + mailHost);
-        log.info("SMTP Mail Port: " + mailPort);
-        log.info("SMTP Mail Username: " + mailUsername);
-        log.info("SMTP Mail Password: " + mailPassword);
-        //
+        log.info(notificationSettingsStringifier.getSettings());
         log.info("------------------------------------------");
 
     }
