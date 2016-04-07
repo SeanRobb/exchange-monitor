@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import work.hoodie.crypto.exchange.monitor.domain.EmailMessage;
+import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
 import work.hoodie.crypto.exchange.monitor.service.notification.message.builder.EmailMessageBuilderService;
 import work.hoodie.crypto.exchange.monitor.service.notification.message.sender.EmailMessageSenderService;
 import work.hoodie.crypto.exchange.monitor.service.notification.service.EmailNotifierService;
@@ -27,6 +28,8 @@ public class EmailNotifierServiceTest {
     @Mock
     private UserTrade userTrade;
     @Mock
+    private WalletSummary walletSummary;
+    @Mock
     private EmailMessage emailMessage;
 
 
@@ -38,6 +41,15 @@ public class EmailNotifierServiceTest {
         classUnderTest.notify(userTrade);
 
         verify(emailMessageBuilderService).build(userTrade);
+        verify(emailMessageSenderService).send(emailMessage);
+    }
+
+    @Test
+    public void testNotify1() throws Exception {
+        when(emailMessageBuilderService.build(walletSummary))
+                .thenReturn(emailMessage);
+        classUnderTest.notify(walletSummary);
+        verify(emailMessageBuilderService).build(walletSummary);
         verify(emailMessageSenderService).send(emailMessage);
     }
 }

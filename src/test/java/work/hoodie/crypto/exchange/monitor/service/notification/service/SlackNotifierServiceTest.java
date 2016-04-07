@@ -7,6 +7,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import work.hoodie.crypto.exchange.monitor.domain.SlackMessage;
+import work.hoodie.crypto.exchange.monitor.domain.WalletComparison;
+import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
 import work.hoodie.crypto.exchange.monitor.service.notification.message.builder.SlackMessageBuilderService;
 import work.hoodie.crypto.exchange.monitor.service.notification.message.sender.SlackMessageSenderService;
 import work.hoodie.crypto.exchange.monitor.service.notification.service.SlackNotifierService;
@@ -27,6 +29,8 @@ public class SlackNotifierServiceTest {
     @Mock
     private UserTrade userTrade;
     @Mock
+    private WalletSummary walletSummary;
+    @Mock
     private SlackMessage slackMessage;
 
 
@@ -38,6 +42,18 @@ public class SlackNotifierServiceTest {
         classUnderTest.notify(userTrade);
 
         verify(slackMessageBuilderService).build(userTrade);
+        verify(slackMessageSenderService).send(slackMessage);
+    }
+
+    @Test
+    public void testNotify1() throws Exception {
+
+        when(slackMessageBuilderService.build(walletSummary))
+                .thenReturn(slackMessage);
+
+        classUnderTest.notify(walletSummary);
+
+        verify(slackMessageBuilderService).build(walletSummary);
         verify(slackMessageSenderService).send(slackMessage);
     }
 }
