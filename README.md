@@ -33,21 +33,22 @@ One notification type can be configured per instance.
 Only the additional variables for the notification type requested should be set.
 
 1. exchange *(String)* - This is the exchange name that should be used to query
-2. api.key *(String)* - This is the api key needed to view the exchange trade history
-3. secret.key *(String)* - This is the secret needed to pair with the key
-4. monitor.interval *(String)* - __OPTIONAL__ This is a cron that will be how often your account will be polled for new trades. If nothing is set the default will be every minute.
-5. notification.test *(Boolean)* - __OPTIONAL__  This will send a test notification when the program is started.  If nothing is set the default will be false.
+2. api_key *(String)* - This is the api key needed to view the exchange trade history
+3. secret_key *(String)* - This is the secret needed to pair with the key
+4. monitor_interval *(Cron String)* - __OPTIONAL__ This is a cron that will be how often your account will be polled for new trades. *(Default: 0 1/1 * * * ?)*
+5. summary_interval *(Cron String)* - __OPTIONAL__ The interval at which a wallet summary will be compiled and sent as a notification.  *(Default: 0 0 12 1/1 * ?)*
+6. notification_test *(Boolean)* - __OPTIONAL__  This will send a test notification when the program is started.  *(Default: false)*
 
 
 ### Additional Slack Specific Environment Variables
-1. slack.url *(String)* - This is the Slack Webhook Url needed for notification
+1. slack_url *(String)* - The Slack Webhook Url needed for notification
 
 ### Additional Email Specific Environment Variables
-1. email.address *(String)* - This is the email address where the notification should be sent
-2. email.server.username *(String)* - This is the SMTP email server username for authentication
-3. email.server.password *(String)* - This is the paired password for the SMTP email server username
-4. email.server.host *(String)* - This is the host for where the SMTP email server is located
-5. email.server.port *(Integer)* - __OPTIONAL__ This is the port to use for the SMTP email server.  If nothing is set the default will be 25
+1. email_address *(String)* - The email address where the notification should be sent
+2. email_server_username *(String)* - The SMTP email server username for authentication
+3. email_server_password *(String)* - The paired password for the SMTP email server username
+4. email_server_host *(String)* - The host for where the SMTP email server is located
+5. email_server_port *(Integer)* - __OPTIONAL__ This is the port to use for the SMTP email server.   *(Default: 25)*
 
 
 
@@ -76,20 +77,9 @@ Docker Hub link: https://hub.docker.com/r/seanprobb/exchange-monitor/
     -e api_key={api key} \
     -e secret_key={api key secret} \
     -e email_server_host={SMTP Server Hostname} \
-    -e email_server_port={SMTP Server Port (optional: default is 25)} \
     -e email_server_username={SMTP Server Username} \
     -e email_server_password={SMTP Server Password} \
     -e email_address={Notification Email Address} \
-    -d seanprobb/exchange-monitor
-    
-#### For Test Slack Notification on Startup
-    docker run \
-    --name={container name} \
-    -e exchange={exchange name} \
-    -e api_key={api key} \
-    -e secret_key={api key secret} \
-    -e slack_url={slack url} \
-    -e notification_test=true \
     -d seanprobb/exchange-monitor
     
 ## Donations
