@@ -32,23 +32,23 @@ Notification type will be configured based off of the environment variables set 
 One notification type can be configured per instance. 
 Only the additional variables for the notification type requested should be set.
 
-1. exchange *(String)* - This is the exchange name that should be used to query
-2. api_key *(String)* - This is the api key needed to view the exchange trade history
-3. secret_key *(String)* - This is the secret needed to pair with the key
-4. monitor_interval *(Cron String)* - __OPTIONAL__ This is a cron that will be how often your account will be polled for new trades. *(Default: 0 1/1 * * * ?)*
-5. summary_interval *(Cron String)* - __OPTIONAL__ The interval at which a wallet summary will be compiled and sent as a notification.  *(Default: 0 0 12 1/1 * ?)*
-6. notification_test *(Boolean)* - __OPTIONAL__  This will send a test notification when the program is started.  *(Default: false)*
+1. exchange (String) - This is the exchange name that should be used to query
+2. api_key (String) - This is the api key needed to view the exchange trade history
+3. secret_key (String) - This is the secret needed to pair with the key
+4. monitor_interval (Cron String) - __OPTIONAL__ This is a cron that will be how often your account will be polled for new trades. _(Default: 0 1/1 * * * ?)_
+5. summary_interval (Cron String) - __OPTIONAL__ The interval at which a wallet summary will be compiled and sent as a notification.  _(Default: 0 0 12 1/1 * ?)_
+6. notification_test (Boolean) - __OPTIONAL__  This will send a test notification when the program is started.  _(Default: false)_
 
 
 ### Additional Slack Specific Environment Variables
-1. slack_url *(String)* - The Slack Webhook Url needed for notification
+1. slack_url (String) - The Slack Webhook Url needed for notification
 
 ### Additional Email Specific Environment Variables
-1. email_address *(String)* - The email address where the notification should be sent
-2. email_server_username *(String)* - The SMTP email server username for authentication
-3. email_server_password *(String)* - The paired password for the SMTP email server username
-4. email_server_host *(String)* - The host for where the SMTP email server is located
-5. email_server_port *(Integer)* - __OPTIONAL__ This is the port to use for the SMTP email server.   *(Default: 25)*
+1. email_address (String) - The email address where the notification should be sent
+2. email_server_username (String) - The SMTP email server username for authentication
+3. email_server_password (String) - The paired password for the SMTP email server username
+4. email_server_host (String) - The host for where the SMTP email server is located
+5. email_server_port (Integer) - __OPTIONAL__ This is the port to use for the SMTP email server.   _(Default: 25)_
 
 
 
