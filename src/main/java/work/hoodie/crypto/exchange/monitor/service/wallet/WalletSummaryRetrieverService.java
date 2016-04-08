@@ -8,6 +8,7 @@ import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,14 +35,17 @@ public class WalletSummaryRetrieverService {
 
     public WalletSummary getWalletSummary() throws IOException {
         List<WalletComparison> walletComparisons = new ArrayList<WalletComparison>();
+        BigDecimal btcTotalChange = BigDecimal.ZERO;
         sync();
         for (WalletBalance walletBalance : newWalletBalances) {
             WalletBalance matchingWalletCurrency = walletComparisonService.findMatchingWalletCurrency(oldWalletBalances, walletBalance);
             WalletComparison comparison = walletComparisonService.compare(matchingWalletCurrency, walletBalance);
+            btcTotalChange = btcTotalChange.add(comparison.getBtcValueGain());
             walletComparisons.add(comparison);
         }
         WalletSummary walletSummary = new WalletSummary();
         walletSummary.setWalletComparisons(walletComparisons);
+        walletSummary.setBtcTotalChange(btcTotalChange);
         return walletSummary;
     }
 }

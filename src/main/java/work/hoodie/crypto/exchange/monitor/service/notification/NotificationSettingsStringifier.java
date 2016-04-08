@@ -1,6 +1,5 @@
 package work.hoodie.crypto.exchange.monitor.service.notification;
 
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -27,18 +26,15 @@ public class NotificationSettingsStringifier {
         Enum notificationType = notificationTypeFinder.find();
 
         if (notificationType == NotificationType.EMAIL) {
-            String email = "Notification Type: " + NotificationType.EMAIL +
+            String email = "Notification Type: " + NotificationType.EMAIL + "\n" +
                     "Email Address: " + emailAddress +
                     "SMTP Mail Host: " + mailHost +
                     "SMTP Mail Port: " + mailPort +
                     "SMTP Mail Username: " + mailUsername +
                     "SMTP Mail Password: " + mailPassword;
             return email;
-        } else  {
-            String slack = "Notification Type: " + NotificationType.SLACK +
-                    "Slack Url: " + slackUrl;
-
-            return slack;
+        } else {
+            return "Notification Type: " + NotificationType.SLACK + " " + slackUrl;
         }
     }
 }

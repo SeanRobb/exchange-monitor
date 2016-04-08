@@ -32,12 +32,14 @@ public class MessageBodyBuilderService {
     public String build(WalletSummary walletSummary) {
         String message = "Summary:\n";
         for (WalletComparison walletComparison : walletSummary.getWalletComparisons()) {
-            message += "\t" + walletComparison.getCurrency() +
-                    "\n\tBalance:\t\t" + walletComparison.getBalance() +
-                    "\n\tBTC Value:\t\t" + walletComparison.getBtcValue() +
-                    "\n\tBalance Gain:\t" + walletComparison.getBalanceGain() +
-                    "\n\tBTC Value Gain:\t" + walletComparison.getBtcValueGain() + " BTC" + "\n";
+            message += "\tCurrency: " + walletComparison.getCurrency() +
+                    "\n\t\tBalance:\t\t" + walletComparison.getBalance().stripTrailingZeros().toPlainString() +
+                    "\n\t\tBTC Value:\t\t" + walletComparison.getBtcValue().stripTrailingZeros().toPlainString() +
+                    "\n\t\tBalance Gain:\t" + walletComparison.getBalanceGain().stripTrailingZeros().toPlainString() +
+                    "\n\t\tBTC Value Gain:\t" + walletComparison.getBtcValueGain().stripTrailingZeros().toPlainString() + " BTC" + "\n";
         }
+        message += "\nTotal BTC Change: " + walletSummary.getBtcTotalChange().stripTrailingZeros().toPlainString() + " BTC";
+
         return message;
     }
 

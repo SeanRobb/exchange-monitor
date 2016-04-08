@@ -71,6 +71,7 @@ public class MessageBodyBuilderServiceTest {
         walletComparison.setOldBalance(oldBalance);
         walletComparisons.add(walletComparison);
         WalletSummary walletSummary = new WalletSummary();
+        walletSummary.setBtcTotalChange(BigDecimal.ZERO);
         walletSummary.setWalletComparisons(walletComparisons);
 
         String message = classUnderTest.build(walletSummary);

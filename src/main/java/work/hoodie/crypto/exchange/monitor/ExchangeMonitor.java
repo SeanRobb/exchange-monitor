@@ -12,6 +12,7 @@ import work.hoodie.crypto.exchange.monitor.service.trade.recent.RecentTradesServ
 import work.hoodie.crypto.exchange.monitor.service.wallet.WalletSummaryRetrieverService;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -44,9 +45,10 @@ public class ExchangeMonitor {
         }
     }
 
-    @Scheduled(cron = "${summary.interval:0 0 0 */1 * *}")
+    @Scheduled(cron = "${summary.interval:0 0 12 1/1 * ?}")
     public void summary() {
         try {
+            log.info("Building wallet summary");
             WalletSummary walletSummary = walletSummaryRetrieverService.getWalletSummary();
             notifierService.notify(walletSummary);
         } catch (IOException e) {

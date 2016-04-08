@@ -30,7 +30,7 @@ public class WalletBalanceFactory {
                 ticker = pollingMarketDataService.getTicker(currencyPair);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
         return walletBalanceMarshaller.convert(wallet, openOrder, ticker);
     }

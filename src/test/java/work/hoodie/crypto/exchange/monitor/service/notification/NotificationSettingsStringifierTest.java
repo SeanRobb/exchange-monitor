@@ -7,11 +7,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import work.hoodie.crypto.exchange.monitor.domain.NotificationType;
-import work.hoodie.crypto.exchange.monitor.service.notification.NotificationSettingsStringifier;
-import work.hoodie.crypto.exchange.monitor.service.notification.NotificationTypeFinder;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
@@ -24,12 +21,12 @@ public class NotificationSettingsStringifierTest {
     @Mock
     private NotificationTypeFinder notificationTypeFinder;
 
-    private String emailAddress="EmailAddress@Email.com";
-    private String mailHost="Hostname";
-    private int mailPort=12;
-    private String mailUsername="UserNAme";
-    private String mailPassword="SecretPassword";
-    private String slackUrl="TopSecretSlackUrl";
+    private String emailAddress = "EmailAddress@Email.com";
+    private String mailHost = "Hostname";
+    private int mailPort = 12;
+    private String mailUsername = "UserNAme";
+    private String mailPassword = "SecretPassword";
+    private String slackUrl = "TopSecretSlackUrl";
 
     @Test
     public void testGetSettings_Email() {
@@ -43,7 +40,7 @@ public class NotificationSettingsStringifierTest {
 
         String actualMessage = classUnderTest.getSettings();
 
-        String expectedMessage = "Notification Type: " + NotificationType.EMAIL +
+        String expectedMessage = "Notification Type: " + NotificationType.EMAIL + "\n" +
                 "Email Address: " + emailAddress +
                 "SMTP Mail Host: " + mailHost +
                 "SMTP Mail Port: " + mailPort +
@@ -63,8 +60,7 @@ public class NotificationSettingsStringifierTest {
 
         String actualMessage = classUnderTest.getSettings();
 
-        String expectedMessage = "Notification Type: " + NotificationType.SLACK +
-                "Slack Url: " + slackUrl;
+        String expectedMessage = "Notification Type: " + NotificationType.SLACK + " "  + slackUrl;
 
         assertNotNull(actualMessage);
         assertEquals(expectedMessage, actualMessage);
