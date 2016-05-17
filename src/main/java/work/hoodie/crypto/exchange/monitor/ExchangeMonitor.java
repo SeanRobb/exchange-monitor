@@ -45,10 +45,10 @@ public class ExchangeMonitor {
         }
     }
 
-    @Scheduled(cron = "${summary.interval:0 0 12 1/1 * ?}")
+    @Scheduled(cron = "${summary.interval:0 30 */7 * * *}")
     public void summary() {
         try {
-            log.info("Building wallet summary");
+            log.info("Building wallet summary...");
             WalletSummary walletSummary = walletSummaryRetrieverService.getWalletSummary();
             notifierService.notify(walletSummary);
         } catch (IOException e) {

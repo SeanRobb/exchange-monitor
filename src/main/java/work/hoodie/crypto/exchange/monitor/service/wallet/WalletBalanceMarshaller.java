@@ -20,6 +20,7 @@ public class WalletBalanceMarshaller {
         return new WalletBalance()
                 .setOnOrder(openOrderAmount)
                 .setAvailable(balance)
+                .setLastPrice(ticker.getLast())
                 .setCurrency(currency)
                 .setBtcValue(btcValue);
     }

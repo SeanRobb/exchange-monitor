@@ -32,6 +32,7 @@ public class WalletBalanceMarshallerTest {
         Wallet wallet = new Wallet(currency, balance);
         WalletBalance expected = new WalletBalance()
                 .setCurrency(currency)
+                .setLastPrice(last)
                 .setBtcValue((balance.add(openOrderValue)).multiply(last))
                 .setOnOrder(openOrderValue)
                 .setAvailable(balance);

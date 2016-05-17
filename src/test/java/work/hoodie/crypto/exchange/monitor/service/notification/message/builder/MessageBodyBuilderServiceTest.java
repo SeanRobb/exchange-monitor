@@ -56,11 +56,13 @@ public class MessageBodyBuilderServiceTest {
         WalletComparison walletComparison = new WalletComparison();
         WalletBalance newBalance = new WalletBalance()
                 .setCurrency(currency)
+                .setLastPrice(BigDecimal.ZERO)
                 .setBtcValue(BigDecimal.ONE)
                 .setAvailable(BigDecimal.ZERO)
                 .setOnOrder(BigDecimal.ONE);
         WalletBalance oldBalance = new WalletBalance()
                 .setCurrency(currency)
+                .setLastPrice(BigDecimal.ZERO)
                 .setBtcValue(BigDecimal.ZERO)
                 .setAvailable(BigDecimal.ZERO)
                 .setOnOrder(BigDecimal.ZERO);

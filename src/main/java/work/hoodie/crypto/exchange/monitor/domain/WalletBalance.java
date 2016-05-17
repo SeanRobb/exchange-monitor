@@ -12,6 +12,7 @@ public class WalletBalance {
     private BigDecimal available;
     private BigDecimal onOrder;
     private BigDecimal btcValue;
+    private BigDecimal lastPrice;
 
     public BigDecimal getTotal(){
         return available.add(onOrder);
