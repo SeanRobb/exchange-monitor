@@ -45,7 +45,7 @@ public class ExchangeMonitor {
         }
     }
 
-    @Scheduled(cron = "${summary.interval:0 30 7 * * *}")
+    @Scheduled(cron = "${summary.interval:0 30 7 * * MON}")
     public void summary() {
         try {
             log.info("Building wallet summary...");
