@@ -36,7 +36,7 @@ Only the additional variables for the notification type requested should be set.
 2. api_key (String) - This is the api key needed to view the exchange trade history
 3. secret_key (String) - This is the secret needed to pair with the key
 4. monitor_interval (Cron String) - __OPTIONAL__ This is a cron that will be how often your account will be polled for new trades. _(Default: 0 1/1 * * * *)_
-5. summary_interval (Cron String) - __OPTIONAL__ The interval at which a wallet summary will be compiled and sent as a notification.  _(Default: 0 30 */7 * * *)_
+5. summary_interval (Cron String) - __OPTIONAL__ The interval at which a wallet summary will be compiled and sent as a notification.  _(Default: 0 30 7 * * *)_
 6. notification_test (Boolean) - __OPTIONAL__  This will send a test notification when the program is started.  _(Default: false)_
 
 
