@@ -12,17 +12,18 @@ import work.hoodie.crypto.exchange.monitor.service.notification.message.builder.
 import work.hoodie.crypto.exchange.monitor.service.notification.message.sender.EmailMessageSenderService;
 import work.hoodie.crypto.exchange.monitor.service.notification.service.EmailNotifierService;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EmailNotifierServiceTest {
-
     @InjectMocks
     private EmailNotifierService classUnderTest;
 
     @Mock
     private EmailMessageBuilderService emailMessageBuilderService;
+
     @Mock
     private EmailMessageSenderService emailMessageSenderService;
     @Mock
@@ -31,6 +32,15 @@ public class EmailNotifierServiceTest {
     private WalletSummary walletSummary;
     @Mock
     private EmailMessage emailMessage;
+    @Test
+    public void testNotify3() throws Exception {
+        String message = "My Message";
+        when(emailMessageBuilderService.build(message))
+                .thenReturn(emailMessage);
+        classUnderTest.notify(message);
+        verify(emailMessageBuilderService).build(message);
+        verify(emailMessageSenderService).send(emailMessage);
+    }
 
 
     @Test

@@ -15,6 +15,11 @@ public class SlackNotifierService implements NotifierService {
     @Autowired
     private SlackMessageSenderService slackMessageSenderService;
 
+    public void notify(String message) {
+        SlackMessage build = slackMessageBuilderService.build(message);
+        slackMessageSenderService.send(build);
+    }
+
     public void notify(UserTrade userTrade) {
         SlackMessage build = slackMessageBuilderService.build(userTrade);
         slackMessageSenderService.send(build);

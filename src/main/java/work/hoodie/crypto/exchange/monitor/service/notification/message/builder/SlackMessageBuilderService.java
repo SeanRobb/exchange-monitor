@@ -17,6 +17,11 @@ public class SlackMessageBuilderService {
 
     private final String icon_emoji = ":moneybag:";
 
+    public SlackMessage build(String message){
+        String username = exchangeSpecification.getExchangeName() + " Monitor";
+
+        return new SlackMessage(message,icon_emoji,username);
+    }
 
     public SlackMessage build(UserTrade userTrade) {
         String username = exchangeSpecification.getExchangeName() + " Monitor";

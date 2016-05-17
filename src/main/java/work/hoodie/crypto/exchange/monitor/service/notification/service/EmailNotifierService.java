@@ -15,6 +15,11 @@ public class EmailNotifierService implements NotifierService {
     @Autowired
     private EmailMessageSenderService emailMessageSenderService;
 
+    public void notify(String message) {
+        EmailMessage build = emailMessageBuilderService.build(message);
+        emailMessageSenderService.send(build);
+    }
+
     public void notify(UserTrade userTrade) {
         EmailMessage build = emailMessageBuilderService.build(userTrade);
         emailMessageSenderService.send(build);

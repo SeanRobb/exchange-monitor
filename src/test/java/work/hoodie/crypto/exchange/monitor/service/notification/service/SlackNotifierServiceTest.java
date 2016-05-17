@@ -24,6 +24,7 @@ public class SlackNotifierServiceTest {
 
     @Mock
     private SlackMessageBuilderService slackMessageBuilderService;
+
     @Mock
     private SlackMessageSenderService slackMessageSenderService;
     @Mock
@@ -33,6 +34,18 @@ public class SlackNotifierServiceTest {
     @Mock
     private SlackMessage slackMessage;
 
+    @Test
+    public void testNotify2() throws Exception {
+        String message = "Message";
+
+        when(slackMessageBuilderService.build(message))
+                .thenReturn(slackMessage);
+
+        classUnderTest.notify(message);
+
+        verify(slackMessageBuilderService).build(message);
+        verify(slackMessageSenderService).send(slackMessage);
+    }
 
     @Test
     public void testNotify() throws Exception {

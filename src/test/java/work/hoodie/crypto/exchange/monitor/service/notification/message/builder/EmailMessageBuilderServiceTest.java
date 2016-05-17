@@ -29,21 +29,34 @@ import static org.mockito.Mockito.when;
 public class EmailMessageBuilderServiceTest {
     @InjectMocks
     private EmailMessageBuilderService classUnderTest;
+
     @Mock
     private ExchangeSpecification exchangeSpecification;
     @Mock
     private MessageBodyBuilderService messageBodyBuilderService;
     @Mock
     private WalletSummary walletSummary;
-
     private final String expectedToEmailAddress = ":moneybag:";
-    private final String expectedSubjectForExecutedTrade = "Poloniex Monitor Trade Executed";
-    private final String expectedSubjectForWalletSummary = "Poloniex Monitor Wallet Summary";
 
+    private final String expectedSubjectForExecutedTrade = "Poloniex Monitor Trade Executed";
+    private final String expectedSubjectForNotificationTest = "Poloniex Monitor Notification Test";
+    private final String expectedSubjectForWalletSummary = "Poloniex Monitor Wallet Summary";
     @Before
     public void init() {
         when(exchangeSpecification.getExchangeName()).thenReturn("Poloniex");
         ReflectionTestUtils.setField(classUnderTest, "toEmailAddress", expectedToEmailAddress);
+    }
+
+    @Test
+    public void build() throws Exception {
+        String body = "my Message";
+        EmailMessage emailMessage = classUnderTest.build(body);
+
+        assertNotNull(emailMessage);
+        assertEquals(expectedToEmailAddress, emailMessage.getToEmailAddress());
+        assertEquals(expectedSubjectForNotificationTest, emailMessage.getSubject());
+        assertEquals(classUnderTest.fromEmailAddress, emailMessage.getFromEmailAddress());
+        assertEquals(body, emailMessage.getContent());
     }
 
     @Test

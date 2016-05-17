@@ -34,4 +34,9 @@ public class EmailMessageBuilderService {
 
         return new EmailMessage(fromEmailAddress, toEmailAddress, subject, body);
     }
+
+    public EmailMessage build(String body) {
+        String subject = exchangeSpecification.getExchangeName() + " Monitor Notification Test";
+        return new EmailMessage(fromEmailAddress, toEmailAddress, subject, body);
+    }
 }

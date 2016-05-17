@@ -7,6 +7,8 @@ import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
  * Created by sean on 3/18/16.
  */
 public interface NotifierService {
+    void notify(String message);
+
     void notify(UserTrade userTrade);
 
     void notify(WalletSummary walletSummary);

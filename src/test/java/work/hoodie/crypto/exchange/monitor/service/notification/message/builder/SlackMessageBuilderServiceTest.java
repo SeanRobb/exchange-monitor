@@ -12,8 +12,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import work.hoodie.crypto.exchange.monitor.domain.SlackMessage;
 import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
-import work.hoodie.crypto.exchange.monitor.service.notification.message.builder.MessageBodyBuilderService;
-import work.hoodie.crypto.exchange.monitor.service.notification.message.builder.SlackMessageBuilderService;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -27,19 +25,33 @@ import static org.mockito.Mockito.when;
 public class SlackMessageBuilderServiceTest {
     @InjectMocks
     private SlackMessageBuilderService slackMessageBuilderService;
+
     @Mock
     private ExchangeSpecification exchangeSpecification;
     @Mock
     private MessageBodyBuilderService messageBodyBuilderService;
     @Mock
     private WalletSummary walletSummary;
-
     private final String expectedEmoji = ":moneybag:";
+
     private final String expectedUsername = "Poloniex Monitor";
 
     @Before
     public void init() {
         when(exchangeSpecification.getExchangeName()).thenReturn("Poloniex");
+    }
+
+    @Test
+    public void build() throws Exception {
+        String message = "Message";
+
+        SlackMessage build = slackMessageBuilderService.build(message);
+
+        assertNotNull(build);
+        assertNotNull(build.getText());
+        assertEquals(expectedEmoji, build.getIcon_emoji());
+        assertEquals(expectedUsername, build.getUsername());
+        assertEquals(message, build.getText());
     }
 
     @Test
