@@ -5,7 +5,7 @@ import com.xeiam.xchange.dto.Order;
 import com.xeiam.xchange.dto.trade.UserTrade;
 import org.springframework.stereotype.Component;
 import work.hoodie.crypto.exchange.monitor.domain.WalletComparison;
-import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
+import work.hoodie.crypto.exchange.monitor.domain.WalletComparisonSummary;
 
 import java.math.BigDecimal;
 
@@ -29,12 +29,12 @@ public class MessageBodyBuilderService {
                 " \n Fees Payed: " + feeAmount + " " + feeCurrency;
     }
 
-    public String build(WalletSummary walletSummary) {
+    public String build(WalletComparisonSummary walletComparisonSummary) {
         String message = "Summary:\n";
-        for (WalletComparison walletComparison : walletSummary.getWalletComparisons()) {
+        for (WalletComparison walletComparison : walletComparisonSummary.getWalletComparisons()) {
             message += walletComparison.toString();
         }
-        message += "\n" + walletSummary.toString();
+        message += "\n" + walletComparisonSummary.toString();
 
         return message;
     }

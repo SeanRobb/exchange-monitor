@@ -7,10 +7,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import work.hoodie.crypto.exchange.monitor.domain.WalletBalance;
-import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
-import work.hoodie.crypto.exchange.monitor.service.wallet.WalletComparisonService;
-import work.hoodie.crypto.exchange.monitor.service.wallet.WalletRetrieverService;
-import work.hoodie.crypto.exchange.monitor.service.wallet.WalletSummaryRetrieverService;
+import work.hoodie.crypto.exchange.monitor.domain.WalletComparisonSummary;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -21,10 +18,10 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class WalletSummaryRetrieverServiceTest {
+public class WalletComparisonSummaryRetrieverServiceTest {
 
     @InjectMocks
-    private WalletSummaryRetrieverService classUnderTest;
+    private WalletComparisonSummaryRetrieverService classUnderTest;
 
     @Mock
     private WalletComparisonService walletComparisonService;
@@ -91,7 +88,7 @@ public class WalletSummaryRetrieverServiceTest {
         when(walletRetrieverService.getWalletBalances())
                 .thenReturn(walletBalance2);
 
-        WalletSummary actual = classUnderTest.getWalletSummary();
+        WalletComparisonSummary actual = classUnderTest.getWalletSummary();
 
 
         assertNotNull(actual);
@@ -136,7 +133,7 @@ public class WalletSummaryRetrieverServiceTest {
         when(walletComparisonService.findMatchingWalletCurrency(anyList(), any(WalletBalance.class)))
                 .thenCallRealMethod();
 
-        WalletSummary actual = classUnderTest.getWalletSummary();
+        WalletComparisonSummary actual = classUnderTest.getWalletSummary();
 
 
         assertNotNull(actual);

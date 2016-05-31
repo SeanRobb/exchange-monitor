@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Data
-public class WalletSummary {
+public class WalletComparisonSummary {
     private List<WalletComparison> walletComparisons;
     private BigDecimal btcTotalChange;
 

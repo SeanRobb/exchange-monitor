@@ -12,15 +12,16 @@ import java.math.BigDecimal;
 public class WalletBalanceMarshaller {
 
     public WalletBalance convert(Wallet wallet, OpenOrder openOrder, Ticker ticker) {
-        BigDecimal balance = wallet.getBalance();
+        BigDecimal availableAmount = wallet.getBalance();
         String currency = wallet.getCurrency();
         BigDecimal openOrderAmount = openOrder.getAmount();
-        BigDecimal total = balance.add(openOrderAmount);
-        BigDecimal btcValue = total.multiply(ticker.getLast());
+        BigDecimal total = availableAmount.add(openOrderAmount);
+        BigDecimal lastPrice = ticker.getLast();
+        BigDecimal btcValue = total.multiply(lastPrice);
         return new WalletBalance()
                 .setOnOrder(openOrderAmount)
-                .setAvailable(balance)
-                .setLastPrice(ticker.getLast())
+                .setAvailable(availableAmount)
+                .setLastPrice(lastPrice)
                 .setCurrency(currency)
                 .setBtcValue(btcValue);
     }

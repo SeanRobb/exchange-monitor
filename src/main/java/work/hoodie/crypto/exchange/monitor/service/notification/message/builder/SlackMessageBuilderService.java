@@ -5,7 +5,7 @@ import com.xeiam.xchange.dto.trade.UserTrade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import work.hoodie.crypto.exchange.monitor.domain.SlackMessage;
-import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
+import work.hoodie.crypto.exchange.monitor.domain.WalletComparisonSummary;
 
 @Component
 public class SlackMessageBuilderService {
@@ -31,10 +31,10 @@ public class SlackMessageBuilderService {
         return new SlackMessage(message, icon_emoji, username);
     }
 
-    public SlackMessage build(WalletSummary walletSummary) {
+    public SlackMessage build(WalletComparisonSummary walletComparisonSummary) {
         String username = exchangeSpecification.getExchangeName() + " Monitor";
 
-        String message = messageBodyBuilderService.build(walletSummary);
+        String message = messageBodyBuilderService.build(walletComparisonSummary);
 
         return new SlackMessage(message, icon_emoji, username);
     }

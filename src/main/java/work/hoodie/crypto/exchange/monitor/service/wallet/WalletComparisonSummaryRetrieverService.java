@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import work.hoodie.crypto.exchange.monitor.domain.WalletBalance;
 import work.hoodie.crypto.exchange.monitor.domain.WalletComparison;
-import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
+import work.hoodie.crypto.exchange.monitor.domain.WalletComparisonSummary;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class WalletSummaryRetrieverService {
+public class WalletComparisonSummaryRetrieverService {
 
     @Autowired
     private WalletRetrieverService walletRetrieverService;
@@ -33,7 +33,7 @@ public class WalletSummaryRetrieverService {
         retrieveNewWallets();
     }
 
-    public WalletSummary getWalletSummary() throws IOException {
+    public WalletComparisonSummary getWalletSummary() throws IOException {
         List<WalletComparison> walletComparisons = new ArrayList<WalletComparison>();
         BigDecimal btcTotalChange = BigDecimal.ZERO;
         sync();
@@ -43,9 +43,9 @@ public class WalletSummaryRetrieverService {
             btcTotalChange = btcTotalChange.add(comparison.getBtcValueGain());
             walletComparisons.add(comparison);
         }
-        WalletSummary walletSummary = new WalletSummary();
-        walletSummary.setWalletComparisons(walletComparisons);
-        walletSummary.setBtcTotalChange(btcTotalChange);
-        return walletSummary;
+        WalletComparisonSummary walletComparisonSummary = new WalletComparisonSummary();
+        walletComparisonSummary.setWalletComparisons(walletComparisons);
+        walletComparisonSummary.setBtcTotalChange(btcTotalChange);
+        return walletComparisonSummary;
     }
 }

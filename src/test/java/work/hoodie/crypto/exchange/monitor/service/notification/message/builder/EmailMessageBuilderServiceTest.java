@@ -13,9 +13,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import work.hoodie.crypto.exchange.monitor.domain.EmailMessage;
-import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
-import work.hoodie.crypto.exchange.monitor.service.notification.message.builder.EmailMessageBuilderService;
-import work.hoodie.crypto.exchange.monitor.service.notification.message.builder.MessageBodyBuilderService;
+import work.hoodie.crypto.exchange.monitor.domain.WalletComparisonSummary;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -35,7 +33,7 @@ public class EmailMessageBuilderServiceTest {
     @Mock
     private MessageBodyBuilderService messageBodyBuilderService;
     @Mock
-    private WalletSummary walletSummary;
+    private WalletComparisonSummary walletComparisonSummary;
     private final String expectedToEmailAddress = ":moneybag:";
 
     private final String expectedSubjectForExecutedTrade = "Poloniex Monitor Trade Executed";
@@ -123,10 +121,10 @@ public class EmailMessageBuilderServiceTest {
     public void testBuild() throws Exception {
 
         String expectedMessage = "expected Message";
-        when(messageBodyBuilderService.build(walletSummary))
+        when(messageBodyBuilderService.build(walletComparisonSummary))
                 .thenReturn(expectedMessage);
 
-        EmailMessage emailMessage = classUnderTest.build(walletSummary);
+        EmailMessage emailMessage = classUnderTest.build(walletComparisonSummary);
 
         assertNotNull(emailMessage);
         assertEquals(expectedToEmailAddress, emailMessage.getToEmailAddress());

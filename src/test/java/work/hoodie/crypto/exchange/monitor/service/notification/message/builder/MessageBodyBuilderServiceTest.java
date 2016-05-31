@@ -11,8 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 import work.hoodie.crypto.exchange.monitor.domain.WalletBalance;
 import work.hoodie.crypto.exchange.monitor.domain.WalletComparison;
-import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
-import work.hoodie.crypto.exchange.monitor.service.notification.message.builder.MessageBodyBuilderService;
+import work.hoodie.crypto.exchange.monitor.domain.WalletComparisonSummary;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -72,11 +71,11 @@ public class MessageBodyBuilderServiceTest {
         walletComparison.setNewBalance(newBalance);
         walletComparison.setOldBalance(oldBalance);
         walletComparisons.add(walletComparison);
-        WalletSummary walletSummary = new WalletSummary();
-        walletSummary.setBtcTotalChange(BigDecimal.ZERO);
-        walletSummary.setWalletComparisons(walletComparisons);
+        WalletComparisonSummary walletComparisonSummary = new WalletComparisonSummary();
+        walletComparisonSummary.setBtcTotalChange(BigDecimal.ZERO);
+        walletComparisonSummary.setWalletComparisons(walletComparisons);
 
-        String message = classUnderTest.build(walletSummary);
+        String message = classUnderTest.build(walletComparisonSummary);
         log.info("\n"+message);
         assertNotNull(message);
     }

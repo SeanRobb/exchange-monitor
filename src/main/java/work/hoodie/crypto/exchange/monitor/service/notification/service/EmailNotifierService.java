@@ -4,7 +4,7 @@ import com.xeiam.xchange.dto.trade.UserTrade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import work.hoodie.crypto.exchange.monitor.domain.EmailMessage;
-import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
+import work.hoodie.crypto.exchange.monitor.domain.WalletComparisonSummary;
 import work.hoodie.crypto.exchange.monitor.service.notification.message.builder.EmailMessageBuilderService;
 import work.hoodie.crypto.exchange.monitor.service.notification.message.sender.EmailMessageSenderService;
 
@@ -25,8 +25,8 @@ public class EmailNotifierService implements NotifierService {
         emailMessageSenderService.send(build);
     }
 
-    public void notify(WalletSummary walletSummary) {
-        EmailMessage build = emailMessageBuilderService.build(walletSummary);
+    public void notify(WalletComparisonSummary walletComparisonSummary) {
+        EmailMessage build = emailMessageBuilderService.build(walletComparisonSummary);
         emailMessageSenderService.send(build);
     }
 }

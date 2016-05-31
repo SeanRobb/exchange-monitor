@@ -4,15 +4,15 @@ import com.xeiam.xchange.dto.trade.UserTrade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
+import work.hoodie.crypto.exchange.monitor.domain.WalletComparisonSummary;
 import work.hoodie.crypto.exchange.monitor.service.notification.service.NotifierService;
 import work.hoodie.crypto.exchange.monitor.service.trade.recent.RecentTradesService;
-import work.hoodie.crypto.exchange.monitor.service.wallet.WalletSummaryRetrieverService;
+import work.hoodie.crypto.exchange.monitor.service.wallet.WalletComparisonSummaryRetrieverService;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 @Component
@@ -24,12 +24,11 @@ public class ExchangeMonitor {
     private RecentTradesService recentTradesService;
 
     @Autowired
-    private WalletSummaryRetrieverService walletSummaryRetrieverService;
+    private WalletComparisonSummaryRetrieverService walletComparisonSummaryRetrieverService;
 
     @Autowired
     @Qualifier("CorrectNotifierService")
     private NotifierService notifierService;
-
 
     @Scheduled(cron = "${monitor.interval:0 1/1 * * * *}")
     public void check() {
@@ -49,11 +48,12 @@ public class ExchangeMonitor {
     public void summary() {
         try {
             log.info("Building wallet summary...");
-            WalletSummary walletSummary = walletSummaryRetrieverService.getWalletSummary();
-            notifierService.notify(walletSummary);
+            WalletComparisonSummary walletComparisonSummary = walletComparisonSummaryRetrieverService.getWalletSummary();
+            notifierService.notify(walletComparisonSummary);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
 }
