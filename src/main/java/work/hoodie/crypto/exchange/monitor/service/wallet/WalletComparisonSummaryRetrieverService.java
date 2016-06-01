@@ -2,7 +2,7 @@ package work.hoodie.crypto.exchange.monitor.service.wallet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import work.hoodie.crypto.exchange.monitor.domain.WalletBalance;
+import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
 import work.hoodie.crypto.exchange.monitor.domain.WalletComparison;
 import work.hoodie.crypto.exchange.monitor.domain.WalletComparisonSummary;
 
@@ -16,20 +16,20 @@ import java.util.List;
 public class WalletComparisonSummaryRetrieverService {
 
     @Autowired
-    private WalletRetrieverService walletRetrieverService;
+    private WalletSummaryRetrieverService walletSummaryRetrieverService;
     @Autowired
     private WalletComparisonService walletComparisonService;
 
-    private List<WalletBalance> oldWalletBalances;
-    private List<WalletBalance> newWalletBalances;
+    private List<WalletSummary> oldWalletSummaries;
+    private List<WalletSummary> newWalletSummaries;
 
     @PostConstruct
     public void retrieveNewWallets() throws IOException {
-        newWalletBalances = walletRetrieverService.getWalletBalances();
+        newWalletSummaries = walletSummaryRetrieverService.getWalletSummaries();
     }
 
     public void sync() throws IOException {
-        oldWalletBalances = newWalletBalances;
+        oldWalletSummaries = newWalletSummaries;
         retrieveNewWallets();
     }
 
@@ -37,9 +37,9 @@ public class WalletComparisonSummaryRetrieverService {
         List<WalletComparison> walletComparisons = new ArrayList<WalletComparison>();
         BigDecimal btcTotalChange = BigDecimal.ZERO;
         sync();
-        for (WalletBalance walletBalance : newWalletBalances) {
-            WalletBalance matchingWalletCurrency = walletComparisonService.findMatchingWalletCurrency(oldWalletBalances, walletBalance);
-            WalletComparison comparison = walletComparisonService.compare(matchingWalletCurrency, walletBalance);
+        for (WalletSummary walletSummary : newWalletSummaries) {
+            WalletSummary matchingWalletCurrency = walletComparisonService.findMatchingWalletCurrency(oldWalletSummaries, walletSummary);
+            WalletComparison comparison = walletComparisonService.compare(matchingWalletCurrency, walletSummary);
             btcTotalChange = btcTotalChange.add(comparison.getBtcValueGain());
             walletComparisons.add(comparison);
         }

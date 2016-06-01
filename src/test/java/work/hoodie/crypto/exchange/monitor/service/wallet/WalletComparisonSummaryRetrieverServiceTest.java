@@ -6,8 +6,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
-import work.hoodie.crypto.exchange.monitor.domain.WalletBalance;
+import work.hoodie.crypto.exchange.monitor.domain.Balance;
 import work.hoodie.crypto.exchange.monitor.domain.WalletComparisonSummary;
+import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -26,73 +27,77 @@ public class WalletComparisonSummaryRetrieverServiceTest {
     @Mock
     private WalletComparisonService walletComparisonService;
     @Mock
-    private WalletRetrieverService walletRetrieverService;
+    private WalletSummaryRetrieverService walletSummaryRetrieverService;
     @Mock
-    private List<WalletBalance> walletBalanceMock1;
+    private List<WalletSummary> walletSummaryMock1;
     @Mock
-    private List<WalletBalance> walletBalanceMock2;
+    private List<WalletSummary> walletSummaryMock2;
     @Mock
-    private List<WalletBalance> walletBalanceMock3;
+    private List<WalletSummary> walletSummaryMock3;
 
 
     @Test
     public void testGetNewWallets() throws Exception {
         classUnderTest.retrieveNewWallets();
 
-        verify(walletRetrieverService).getWalletBalances();
+        verify(walletSummaryRetrieverService).getWalletSummaries();
     }
 
     @Test
     public void testSync() throws Exception {
-        ReflectionTestUtils.setField(classUnderTest, "oldWalletBalances", walletBalanceMock1);
-        ReflectionTestUtils.setField(classUnderTest, "newWalletBalances", walletBalanceMock2);
+        ReflectionTestUtils.setField(classUnderTest, "oldWalletSummaries", walletSummaryMock1);
+        ReflectionTestUtils.setField(classUnderTest, "newWalletSummaries", walletSummaryMock2);
 
-        when(walletRetrieverService.getWalletBalances())
-                .thenReturn(walletBalanceMock3);
+        when(walletSummaryRetrieverService.getWalletSummaries())
+                .thenReturn(walletSummaryMock3);
 
         classUnderTest.sync();
 
 
-        List<WalletBalance> oldWalletBalances = (List<WalletBalance>) ReflectionTestUtils
-                .getField(classUnderTest, "oldWalletBalances");
-        List<WalletBalance> newWalletBalances = (List<WalletBalance>) ReflectionTestUtils
-                .getField(classUnderTest, "newWalletBalances");
+        List<WalletSummary> oldWalletSummaries = (List<WalletSummary>) ReflectionTestUtils
+                .getField(classUnderTest, "oldWalletSummaries");
+        List<WalletSummary> newWalletSummaries = (List<WalletSummary>) ReflectionTestUtils
+                .getField(classUnderTest, "newWalletSummaries");
 
-        assertEquals(oldWalletBalances, walletBalanceMock2);
-        verify(walletRetrieverService).getWalletBalances();
-        assertEquals(newWalletBalances, walletBalanceMock3);
+        assertEquals(oldWalletSummaries, walletSummaryMock2);
+        verify(walletSummaryRetrieverService).getWalletSummaries();
+        assertEquals(newWalletSummaries, walletSummaryMock3);
     }
 
     @Test
     public void testGetWalletComparisons() throws Exception {
         String currency1 = "DOGE";
-        List<WalletBalance> walletBalance1 = new ArrayList<WalletBalance>();
-        walletBalance1.add(new WalletBalance()
-                .setCurrency(currency1)
-                .setAvailable(BigDecimal.valueOf(2))
-                .setOnOrder(BigDecimal.ZERO)
+        List<WalletSummary> walletSummary1 = new ArrayList<WalletSummary>();
+        walletSummary1.add(new WalletSummary()
+                .setBalance(
+                        new Balance()
+                                .setCurrency(currency1)
+                                .setAvailable(BigDecimal.valueOf(2))
+                                .setOnOrder(BigDecimal.ZERO))
                 .setBtcValue(BigDecimal.valueOf(4)));
-        List<WalletBalance> walletBalance2 = new ArrayList<WalletBalance>();
-        walletBalance2.add(new WalletBalance()
-                .setCurrency(currency1)
-                .setAvailable(BigDecimal.valueOf(2))
-                .setOnOrder(BigDecimal.ZERO)
+        List<WalletSummary> walletSummary2 = new ArrayList<WalletSummary>();
+        walletSummary2.add(new WalletSummary()
+                .setBalance(
+                        new Balance()
+                                .setCurrency(currency1)
+                                .setAvailable(BigDecimal.valueOf(2))
+                                .setOnOrder(BigDecimal.ZERO))
                 .setBtcValue(BigDecimal.valueOf(6)));
-        ReflectionTestUtils.setField(classUnderTest, "newWalletBalances", walletBalance1);
+        ReflectionTestUtils.setField(classUnderTest, "newWalletSummaries", walletSummary1);
 
-        when(walletComparisonService.compare(any(WalletBalance.class), any(WalletBalance.class)))
+        when(walletComparisonService.compare(any(WalletSummary.class), any(WalletSummary.class)))
                 .thenCallRealMethod();
-        when(walletComparisonService.findMatchingWalletCurrency(anyList(), any(WalletBalance.class)))
+        when(walletComparisonService.findMatchingWalletCurrency(anyList(), any(WalletSummary.class)))
                 .thenCallRealMethod();
 
-        when(walletRetrieverService.getWalletBalances())
-                .thenReturn(walletBalance2);
+        when(walletSummaryRetrieverService.getWalletSummaries())
+                .thenReturn(walletSummary2);
 
         WalletComparisonSummary actual = classUnderTest.getWalletSummary();
 
 
         assertNotNull(actual);
-        verify(walletComparisonService).compare(any(WalletBalance.class), any(WalletBalance.class));
+        verify(walletComparisonService).compare(any(WalletSummary.class), any(WalletSummary.class));
         assertFalse(actual.getWalletComparisons().isEmpty());
         assertEquals(currency1, actual.getWalletComparisons().get(0).getCurrency());
     }
@@ -101,43 +106,51 @@ public class WalletComparisonSummaryRetrieverServiceTest {
     public void testGetWalletComparisons_MultipleWallets() throws Exception {
         String currency1 = "DOGE";
         String currency2 = "DGB";
-        List<WalletBalance> walletBalance1 = new ArrayList<WalletBalance>();
-        walletBalance1.add(new WalletBalance()
-                .setCurrency(currency1)
-                .setAvailable(BigDecimal.valueOf(2))
-                .setOnOrder(BigDecimal.ZERO)
+        List<WalletSummary> walletSummary1 = new ArrayList<WalletSummary>();
+        walletSummary1.add(new WalletSummary()
+                .setBalance(
+                        new Balance()
+                                .setCurrency(currency1)
+                                .setAvailable(BigDecimal.valueOf(2))
+                                .setOnOrder(BigDecimal.ZERO))
                 .setBtcValue(BigDecimal.valueOf(4)));
-        walletBalance1.add(new WalletBalance()
-                .setCurrency(currency2)
-                .setAvailable(BigDecimal.valueOf(4))
-                .setOnOrder(BigDecimal.ZERO)
+        walletSummary1.add(new WalletSummary()
+                .setBalance(
+                        new Balance()
+                                .setCurrency(currency2)
+                                .setAvailable(BigDecimal.valueOf(4))
+                                .setOnOrder(BigDecimal.ZERO))
                 .setBtcValue(BigDecimal.valueOf(1)));
-        List<WalletBalance> walletBalance2 = new ArrayList<WalletBalance>();
-        walletBalance2.add(new WalletBalance()
-                .setCurrency(currency1)
-                .setAvailable(BigDecimal.valueOf(2))
-                .setOnOrder(BigDecimal.ZERO)
+        List<WalletSummary> walletSummary2 = new ArrayList<WalletSummary>();
+        walletSummary2.add(new WalletSummary()
+                .setBalance(
+                        new Balance()
+                                .setCurrency(currency1)
+                                .setAvailable(BigDecimal.valueOf(2))
+                                .setOnOrder(BigDecimal.ZERO))
                 .setBtcValue(BigDecimal.valueOf(6)));
-        walletBalance2.add(new WalletBalance()
-                .setCurrency(currency2)
-                .setAvailable(BigDecimal.valueOf(4))
-                .setOnOrder(BigDecimal.ZERO)
+        walletSummary2.add(new WalletSummary()
+                .setBalance(
+                        new Balance()
+                                .setCurrency(currency2)
+                                .setAvailable(BigDecimal.valueOf(4))
+                                .setOnOrder(BigDecimal.ZERO))
                 .setBtcValue(BigDecimal.valueOf(2)));
 
-        ReflectionTestUtils.setField(classUnderTest, "newWalletBalances", walletBalance1);
+        ReflectionTestUtils.setField(classUnderTest, "newWalletSummaries", walletSummary1);
 
-        when(walletRetrieverService.getWalletBalances())
-                .thenReturn(walletBalance2);
-        when(walletComparisonService.compare(any(WalletBalance.class), any(WalletBalance.class)))
+        when(walletSummaryRetrieverService.getWalletSummaries())
+                .thenReturn(walletSummary2);
+        when(walletComparisonService.compare(any(WalletSummary.class), any(WalletSummary.class)))
                 .thenCallRealMethod();
-        when(walletComparisonService.findMatchingWalletCurrency(anyList(), any(WalletBalance.class)))
+        when(walletComparisonService.findMatchingWalletCurrency(anyList(), any(WalletSummary.class)))
                 .thenCallRealMethod();
 
         WalletComparisonSummary actual = classUnderTest.getWalletSummary();
 
 
         assertNotNull(actual);
-        verify(walletComparisonService, atLeast(1)).compare(any(WalletBalance.class), any(WalletBalance.class));
+        verify(walletComparisonService, atLeast(1)).compare(any(WalletSummary.class), any(WalletSummary.class));
         assertFalse(actual.getWalletComparisons().isEmpty());
         assertEquals(2, actual.getWalletComparisons().size());
         assertEquals(currency1, actual.getWalletComparisons().get(0).getCurrency());

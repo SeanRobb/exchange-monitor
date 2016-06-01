@@ -10,10 +10,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import work.hoodie.crypto.exchange.monitor.domain.OpenOrder;
-import work.hoodie.crypto.exchange.monitor.domain.WalletBalance;
-import work.hoodie.crypto.exchange.monitor.service.wallet.WalletBalanceFactory;
-import work.hoodie.crypto.exchange.monitor.service.wallet.WalletBalanceMarshaller;
+import work.hoodie.crypto.exchange.monitor.domain.Balance;
+import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
 
 import java.math.BigDecimal;
 
@@ -24,23 +22,23 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class WalletBalanceFactoryTest {
+public class WalletSummaryFactoryTest {
     @InjectMocks
-    private WalletBalanceFactory classUnderTest;
+    private WalletSummaryFactory classUnderTest;
     @Mock
     private PollingMarketDataService pollingMarketDataService;
     @Mock
-    private WalletBalanceMarshaller walletBalanceMarshaller;
+    private WalletSummaryMarshaller walletSummaryMarshaller;
     @Mock
-    private WalletBalance walletBalance;
+    private WalletSummary walletSummary;
 
     @Test
     public void testGetBalance() throws Exception {
         String currency = "test";
-        BigDecimal balance = BigDecimal.valueOf(2);
+        BigDecimal balanceValue = BigDecimal.valueOf(2);
         BigDecimal last = BigDecimal.valueOf(0.00000001);
-        Wallet wallet = new Wallet(currency, balance);
-        CurrencyPair currencyPair = new CurrencyPair(currency, WalletBalanceFactory.BTC);
+        Balance balance = new Balance().setCurrency(currency).setAvailable(balanceValue);
+        CurrencyPair currencyPair = new CurrencyPair(currency, WalletSummaryFactory.BTC);
         Ticker ticker = new Ticker.Builder()
                 .currencyPair(currencyPair)
                 .last(last)
@@ -48,14 +46,14 @@ public class WalletBalanceFactoryTest {
 
         when(pollingMarketDataService.getTicker(currencyPair))
                 .thenReturn(ticker);
-        when(walletBalanceMarshaller.convert(wallet, new OpenOrder(), ticker))
-                .thenReturn(walletBalance);
+        when(walletSummaryMarshaller.convert(ticker, balance))
+                .thenReturn(walletSummary);
 
-        WalletBalance actual = classUnderTest.getBalance(wallet, new OpenOrder());
+        WalletSummary actual = classUnderTest.getSummary(balance);
 
         assertNotNull(actual);
         verify(pollingMarketDataService).getTicker(eq(currencyPair));
-        verify(walletBalanceMarshaller).convert(wallet, new OpenOrder(), ticker);
-        assertEquals(walletBalance, actual);
+        verify(walletSummaryMarshaller).convert(ticker,balance);
+        assertEquals(walletSummary, actual);
     }
 }

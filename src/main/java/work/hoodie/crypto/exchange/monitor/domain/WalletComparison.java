@@ -7,25 +7,25 @@ import java.math.BigDecimal;
 @Data
 public class WalletComparison {
     private String currency;
-    private WalletBalance oldBalance;
-    private WalletBalance newBalance;
+    private WalletSummary oldSummary;
+    private WalletSummary newSummary;
     private BigDecimal balanceGain;
     private BigDecimal btcValueGain;
 
     public BigDecimal getBalance() {
-        return newBalance.getTotal();
+        return newSummary.getTotal();
     }
 
     public BigDecimal getBtcValue() {
-        return newBalance.getBtcValue();
+        return newSummary.getBtcValue();
     }
 
     public BigDecimal getNewLastPrice() {
-        return newBalance.getLastPrice();
+        return newSummary.getLastPrice();
     }
 
     public BigDecimal getOldLastPrice() {
-        return oldBalance.getLastPrice();
+        return oldSummary.getLastPrice();
     }
 
     public String toString() {

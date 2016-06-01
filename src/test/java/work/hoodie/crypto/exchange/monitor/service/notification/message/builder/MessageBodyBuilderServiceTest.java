@@ -9,9 +9,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
-import work.hoodie.crypto.exchange.monitor.domain.WalletBalance;
+import work.hoodie.crypto.exchange.monitor.domain.Balance;
 import work.hoodie.crypto.exchange.monitor.domain.WalletComparison;
 import work.hoodie.crypto.exchange.monitor.domain.WalletComparisonSummary;
+import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -53,30 +54,34 @@ public class MessageBodyBuilderServiceTest {
         String currency = "DGB";
         List<WalletComparison> walletComparisons = new ArrayList<WalletComparison>();
         WalletComparison walletComparison = new WalletComparison();
-        WalletBalance newBalance = new WalletBalance()
-                .setCurrency(currency)
-                .setLastPrice(BigDecimal.ZERO)
+        WalletSummary newBalance = new WalletSummary()
+                .setBalance(
+                        new Balance()
+                                .setCurrency(currency)
+                                .setAvailable(BigDecimal.ZERO)
+                                .setOnOrder(BigDecimal.ONE))
                 .setBtcValue(BigDecimal.ONE)
-                .setAvailable(BigDecimal.ZERO)
-                .setOnOrder(BigDecimal.ONE);
-        WalletBalance oldBalance = new WalletBalance()
-                .setCurrency(currency)
+                .setLastPrice(BigDecimal.ZERO);
+        WalletSummary oldBalance = new WalletSummary()
+                .setBalance(
+                        new Balance()
+                                .setCurrency(currency)
+                                .setOnOrder(BigDecimal.ZERO)
+                                .setAvailable(BigDecimal.ZERO))
                 .setLastPrice(BigDecimal.ZERO)
-                .setBtcValue(BigDecimal.ZERO)
-                .setAvailable(BigDecimal.ZERO)
-                .setOnOrder(BigDecimal.ZERO);
+                .setBtcValue(BigDecimal.ZERO);
         walletComparison.setCurrency(currency);
         walletComparison.setBtcValueGain(BigDecimal.ONE);
         walletComparison.setBalanceGain(BigDecimal.ONE);
-        walletComparison.setNewBalance(newBalance);
-        walletComparison.setOldBalance(oldBalance);
+        walletComparison.setNewSummary(newBalance);
+        walletComparison.setOldSummary(oldBalance);
         walletComparisons.add(walletComparison);
         WalletComparisonSummary walletComparisonSummary = new WalletComparisonSummary();
         walletComparisonSummary.setBtcTotalChange(BigDecimal.ZERO);
         walletComparisonSummary.setWalletComparisons(walletComparisons);
 
         String message = classUnderTest.build(walletComparisonSummary);
-        log.info("\n"+message);
+        log.info("\n" + message);
         assertNotNull(message);
     }
 }

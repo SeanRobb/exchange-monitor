@@ -5,16 +5,15 @@ import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
 
+
 @Data
 @Accessors(chain = true)
-public class WalletBalance {
+public class Balance {
     private String currency;
     private BigDecimal available;
     private BigDecimal onOrder;
-    private BigDecimal btcValue;
-    private BigDecimal lastPrice;
 
-    public BigDecimal getTotal(){
-        return available.add(onOrder);
+    public BigDecimal getTotal() {
+        return BigDecimal.ZERO.add(available).add(onOrder);
     }
 }

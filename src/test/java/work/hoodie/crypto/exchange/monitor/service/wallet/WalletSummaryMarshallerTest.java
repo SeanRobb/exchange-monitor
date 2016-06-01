@@ -7,11 +7,12 @@ import com.xeiam.xchange.dto.trade.Wallet;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import work.hoodie.crypto.exchange.monitor.domain.Balance;
 import work.hoodie.crypto.exchange.monitor.domain.OpenOrder;
-import work.hoodie.crypto.exchange.monitor.domain.WalletBalance;
-import work.hoodie.crypto.exchange.monitor.service.wallet.WalletBalanceFactory;
-import work.hoodie.crypto.exchange.monitor.service.wallet.WalletBalanceMarshaller;
+import work.hoodie.crypto.exchange.monitor.domain.WalletSummary;
+import work.hoodie.crypto.exchange.monitor.service.balance.BalanceMarshaller;
 
 import java.math.BigDecimal;
 
@@ -19,9 +20,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(MockitoJUnitRunner.class)
-public class WalletBalanceMarshallerTest {
+public class WalletSummaryMarshallerTest {
     @InjectMocks
-    private WalletBalanceMarshaller classUnderTest;
+    private WalletSummaryMarshaller classUnderTest;
+
+    @Mock
+    private BalanceMarshaller balanceMarshaller;
 
     @Test
     public void testConvert() throws Exception {
@@ -29,14 +33,15 @@ public class WalletBalanceMarshallerTest {
         BigDecimal openOrderValue = BigDecimal.ONE;
         BigDecimal balance = BigDecimal.valueOf(2);
         BigDecimal last = BigDecimal.valueOf(0.00000001);
-        Wallet wallet = new Wallet(currency, balance);
-        WalletBalance expected = new WalletBalance()
+        Balance expectedBalance = new Balance()
                 .setCurrency(currency)
-                .setLastPrice(last)
-                .setBtcValue((balance.add(openOrderValue)).multiply(last))
                 .setOnOrder(openOrderValue)
                 .setAvailable(balance);
-        CurrencyPair currencyPair = new CurrencyPair(currency, WalletBalanceFactory.BTC);
+        WalletSummary expected = new WalletSummary()
+                .setBalance(expectedBalance)
+                .setLastPrice(last)
+                .setBtcValue((balance.add(openOrderValue)).multiply(last));
+        CurrencyPair currencyPair = new CurrencyPair(currency, WalletSummaryFactory.BTC);
         Ticker ticker = new Ticker.Builder()
                 .currencyPair(currencyPair)
                 .last(last)
@@ -45,7 +50,9 @@ public class WalletBalanceMarshallerTest {
         OpenOrder openOrder = new OpenOrder();
         openOrder.setCurrency(currency);
         openOrder.setAmount(openOrderValue);
-        WalletBalance actual = classUnderTest.convert(wallet, openOrder, ticker);
+
+
+        WalletSummary actual = classUnderTest.convert(ticker, expectedBalance);
 
         assertNotNull(actual);
         assertEquals(expected, actual);
