@@ -4,10 +4,13 @@ import com.xeiam.xchange.dto.trade.UserTrade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import work.hoodie.crypto.exchange.monitor.data.common.dao.BalanceSnapshotDao;
+import work.hoodie.crypto.exchange.monitor.data.common.validator.DatabaseConnectionValidator;
+import work.hoodie.crypto.exchange.monitor.domain.BalanceSnapshot;
 import work.hoodie.crypto.exchange.monitor.domain.WalletComparisonSummary;
+import work.hoodie.crypto.exchange.monitor.service.balance.snapshot.BalanceSnapshotRetriever;
 import work.hoodie.crypto.exchange.monitor.service.notification.service.NotifierService;
 import work.hoodie.crypto.exchange.monitor.service.trade.recent.RecentTradesService;
 import work.hoodie.crypto.exchange.monitor.service.wallet.WalletComparisonSummaryRetrieverService;
@@ -27,8 +30,17 @@ public class ExchangeMonitor {
     private WalletComparisonSummaryRetrieverService walletComparisonSummaryRetrieverService;
 
     @Autowired
+    private BalanceSnapshotRetriever balanceSnapshotRetriever;
+
+    @Autowired
     @Qualifier("CorrectNotifierService")
     private NotifierService notifierService;
+
+    @Autowired
+    private BalanceSnapshotDao balanceSnapshotDao;
+
+    @Autowired
+    private DatabaseConnectionValidator databaseConnectionValidator;
 
     @Scheduled(cron = "${monitor.interval:0 1/1 * * * *}")
     public void check() {
@@ -55,5 +67,19 @@ public class ExchangeMonitor {
         }
     }
 
+    @Scheduled(cron = "${snapshot.interval:0 0 0 1/1 * *}")
+    public void snapshot() {
+        try {
+            if(databaseConnectionValidator.isConnected()){
+                log.info("Building snapshot...");
+                BalanceSnapshot currentSnapshot = balanceSnapshotRetriever.getCurrentSnapshot();
+                balanceSnapshotDao.save(currentSnapshot);
+            } else {
+                log.debug("No snapshot because database connected...");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

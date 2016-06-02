@@ -5,7 +5,9 @@ import com.xeiam.xchange.ExchangeSpecification;
 import com.xeiam.xchange.service.polling.account.PollingAccountService;
 import com.xeiam.xchange.service.polling.marketdata.PollingMarketDataService;
 import com.xeiam.xchange.service.polling.trade.PollingTradeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -20,6 +22,9 @@ import work.hoodie.crypto.exchange.monitor.service.trade.config.ExchangeConfig;
 import work.hoodie.crypto.exchange.monitor.service.trade.recent.RecentTradeServiceFinder;
 import work.hoodie.crypto.exchange.monitor.service.trade.recent.RecentTradesService;
 
+import javax.annotation.PostConstruct;
+
+@Slf4j
 @Configuration("Monitor")
 @Import({ExchangeConfig.class, NotificationConfig.class})
 @DependsOn({"Exchange", "Notification"})
@@ -35,6 +40,12 @@ public class MonitorConfig {
 
     @Autowired
     private NotificationTypeFinder notificationTypeFinder;
+    @Value("${monitor.interval:0 1/1 * * * *}")
+    private String monitorInterval;
+    @Value("${summary.interval:0 30 7 * * MON}")
+    private String summaryInterval;
+    @Value("${snapshot.interval:0 0 1/1 * * *}")
+    private String snapshotInterval;
 
 
     @Bean
@@ -71,6 +82,16 @@ public class MonitorConfig {
         } else {
             return slackNotifierService;
         }
+    }
+
+    @PostConstruct
+    public void init() {
+        log.info("---------- Monitor Configuration ---------");
+        log.info("Monitor Interval Cron: " + monitorInterval);
+        log.info("Summary Interval Cron: " + summaryInterval);
+        log.info("Snapshot Interval Cron: " + snapshotInterval);
+        log.info("------------------------------------------");
+
     }
 
 }

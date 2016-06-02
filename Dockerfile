@@ -1,4 +1,4 @@
-FROM java:7
+FROM java:8
 COPY target/exchange-monitor*.jar /usr/src/exchange-monitor.jar
 WORKDIR /usr/src/
 

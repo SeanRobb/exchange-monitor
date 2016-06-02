@@ -2,7 +2,7 @@
 
 ## Description
 
-This project was made to actively notify when a trade is executed on a crypto-exchange.
+This project was made to actively notify when a trade is executed on a crypto-exchange. Also this will save balance snapshots if a database is connected.
 
 ## Exchanges Supported
 
@@ -34,10 +34,11 @@ Only the additional variables for the notification type requested should be set.
 
 1. exchange (String) - This is the exchange name that should be used to query
 2. api_key (String) - This is the api key needed to view the exchange trade history
-3. secret_key (String) - This is the secret needed to pair with the key
-4. monitor_interval (Cron String) - __OPTIONAL__ This is a cron that will be how often your account will be polled for new trades. _(Default: 0 1/1 * * * *)_
-5. summary_interval (Cron String) - __OPTIONAL__ The interval at which a wallet summary will be compiled and sent as a notification.  _(Default: 0 30 7 * * MON)_
-6. notification_test (Boolean) - __OPTIONAL__  This will send a test notification when the program is started.  _(Default: false)_
+3. secret_key (String) - This is the secret needed to pair with the key 
+4. notification_test (Boolean) - __OPTIONAL__  This will send a test notification when the program is started.  _(Default: false)_
+5. monitor_interval (Cron String) - __OPTIONAL__ This is a cron that will be how often your account will be polled for new trades. _(Default: 0 1/1 * * * *)_
+6. summary_interval (Cron String) - __OPTIONAL__ The interval at which a wallet summary will be compiled and sent as a notification.  _(Default: 0 30 7 * * MON)_
+7. snapshot_interval (Cron String) - __OPTIONAL__ The interval at which a snapshot will be taken of your current crypto currency balances.  This functionality requires a database connection. _(Default: 0 0 0 1/1 * *)_
 
 
 ### Additional Slack Specific Environment Variables
@@ -49,6 +50,15 @@ Only the additional variables for the notification type requested should be set.
 3. email_server_password (String) - The paired password for the SMTP email server username
 4. email_server_host (String) - The host for where the SMTP email server is located
 5. email_server_port (Integer) - __OPTIONAL__ This is the port to use for the SMTP email server.   _(Default: 25)_
+
+### Additional Database Environment Variables
+A database is not required.  If a database is connected then a snapshot of balances will be saved in the snapshot collection. Otherwise no snapshot data will be saved off.
+
+1. instance_id (String) - __OPTIONAL__ This is the instance id for this container.  This is used to allow for multiple container to connect to the same mongo database. _(Default: default)_
+
+#### Mongo Specific
+1. mongo_database_host (String) - __OPTIONAL__ The host for where a mongo database is connected. _(Default: mongo)_
+2. mongo_database_port (Integer) - __OPTIONAL__ The port on which to communicate with mongo on. _(Default: 27017)_
 
 
 
@@ -80,6 +90,28 @@ Docker Hub link: https://hub.docker.com/r/seanprobb/exchange-monitor/
     -e email_server_username={SMTP Server Username} \
     -e email_server_password={SMTP Server Password} \
     -e email_address={Notification Email Address} \
+    -d seanprobb/exchange-monitor
+    
+#### For Balance Snapshots  
+
+##### Non Docker Mongo
+    docker run \
+    --name={container name} \
+    -e exchange={exchange name} \
+    {Notification Env Variables} \
+    -e mongo_database_host={mongo database host} \
+    -e mongo_database_port={mongo database port} \
+    -d seanprobb/exchange-monitor
+    
+    
+##### Docker Mongo
+    
+###### Start Exchange Monitor
+    docker run \
+    --name={container name} \
+    -e exchange={exchange name} \
+    {Notification Env Variables} \
+    --link {mongo container name}:{mongo database host} \
     -d seanprobb/exchange-monitor
     
 ## Donations

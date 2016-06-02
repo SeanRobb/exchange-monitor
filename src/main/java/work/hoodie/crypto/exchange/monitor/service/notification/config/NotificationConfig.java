@@ -53,16 +53,11 @@ public class NotificationConfig {
     private String mailUsername;
     @Value("${email.server.password:}")
     private String mailPassword;
-
-    @Autowired
-    private NotificationTypeFinder notificationTypeFinder;
-
     @Autowired
     private NotificationSettingsStringifier notificationSettingsStringifier;
+
     @PostConstruct
     public void init() {
-        NotificationType notificationType = notificationTypeFinder.find();
-
         log.info("------- Notification Configuration -------");
         log.info(notificationSettingsStringifier.getSettings());
         log.info("------------------------------------------");

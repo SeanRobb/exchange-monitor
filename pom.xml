@@ -63,6 +63,14 @@
             <artifactId>mail</artifactId>
             <version>${mail.version}</version>
         </dependency>
+
+        <!-- Spring data mongodb -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
+            <version>1.9.1.RELEASE</version>
+        </dependency>
+
     </dependencies>
 
     <build>
