@@ -24,10 +24,12 @@ public class NotificationTypeFinder {
     public NotificationType find() {
         if (isValidSlack()) {
             return NotificationType.SLACK;
-        } else if(isValidEmail()) {
+        } else if (isValidEmail()) {
             return NotificationType.EMAIL;
-        } else {
+        } else if (isValidNone()) {
             return NotificationType.NONE;
+        } else {
+            throw new RuntimeException("Is not supported notification type");
         }
 
     }
@@ -40,6 +42,12 @@ public class NotificationTypeFinder {
 
     private Boolean isValidSlack() {
         return StringUtils.isNotBlank(slackUrl) && StringUtils.isBlank(emailAddress) &&
+                StringUtils.isBlank(mailHost) && StringUtils.isBlank(mailUsername) &&
+                StringUtils.isBlank(mailPassword) && StringUtils.isBlank(emailAddress);
+    }
+
+    private Boolean isValidNone() {
+        return StringUtils.isBlank(slackUrl) && StringUtils.isBlank(emailAddress) &&
                 StringUtils.isBlank(mailHost) && StringUtils.isBlank(mailUsername) &&
                 StringUtils.isBlank(mailPassword) && StringUtils.isBlank(emailAddress);
     }

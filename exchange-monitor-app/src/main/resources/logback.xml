@@ -9,8 +9,7 @@
         </layout>
     </appender>
 
-    <logger name="work.hoodie.exchange.monitor" level="info"
-            additivity="false">
+    <logger name="work.hoodie.exchange.monitor" level="info" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 

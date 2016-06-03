@@ -2,7 +2,11 @@
 
 ## Description
 
-This project was made to actively notify when a trade is executed on a crypto-exchange. Also this will save balance snapshots if a database is connected.
+This project was made to actively notify when a trade is executed on a 
+crypto-exchange. Also this will save balance snapshots if a database is 
+connected.  This is a very modular project so depending on the 
+environment settings set the program will preform different operations. 
+Hybrid configurations are supported as well.
 
 ## Exchanges Supported
 
@@ -70,7 +74,7 @@ Docker Hub link: https://hub.docker.com/r/seanprobb/exchange-monitor/
 
 ### Run with Docker
 
-#### For Slack Notifications
+#### For Just Slack Notifications
     docker run \
     --name={container name} \
     -e exchange={exchange name} \
@@ -80,7 +84,7 @@ Docker Hub link: https://hub.docker.com/r/seanprobb/exchange-monitor/
     -d seanprobb/exchange-monitor
     
     
-#### For Email Notifications
+#### For Just Email Notifications
     docker run \
     --name={container name} \
     -e exchange={exchange name} \
@@ -92,13 +96,12 @@ Docker Hub link: https://hub.docker.com/r/seanprobb/exchange-monitor/
     -e email_address={Notification Email Address} \
     -d seanprobb/exchange-monitor
     
-#### For Balance Snapshots  
+#### For Just Balance Snapshots  
 
 ##### Non Docker Mongo
     docker run \
     --name={container name} \
     -e exchange={exchange name} \
-    {Notification Env Variables} \
     -e mongo_database_host={mongo database host} \
     -e mongo_database_port={mongo database port} \
     -d seanprobb/exchange-monitor
@@ -110,10 +113,9 @@ Docker Hub link: https://hub.docker.com/r/seanprobb/exchange-monitor/
     docker run \
     --name={container name} \
     -e exchange={exchange name} \
-    {Notification Env Variables} \
     --link {mongo container name}:{mongo database host} \
     -d seanprobb/exchange-monitor
-    
+
 ## Donations
 
 Bitcoin Wallet Address: 1NJhd7rNLZLjmNd2FouRwQB9Fqf5Zv3qzC

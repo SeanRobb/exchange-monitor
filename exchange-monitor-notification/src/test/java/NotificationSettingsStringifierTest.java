@@ -60,7 +60,20 @@ public class NotificationSettingsStringifierTest {
 
         String actualMessage = classUnderTest.getSettings();
 
-        String expectedMessage = "Notification Type: " + NotificationType.SLACK + " "  + slackUrl;
+        String expectedMessage = "Notification Type: " + NotificationType.SLACK + " " + slackUrl;
+
+        assertNotNull(actualMessage);
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    @Test
+    public void testGetSettings_None() {
+
+        when(notificationTypeFinder.find()).thenReturn(NotificationType.NONE);
+
+        String actualMessage = classUnderTest.getSettings();
+
+        String expectedMessage = "Notification Type: " + NotificationType.NONE;
 
         assertNotNull(actualMessage);
         assertEquals(expectedMessage, actualMessage);

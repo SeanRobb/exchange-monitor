@@ -113,6 +113,20 @@ public class NotificationTypeFinderTest {
 
     }
 
+    public void find_returnsNoneAtCorrectTime() {
+        String slackUrl = "";
+        String emailAddress = "";
+        String emailHost = "";
+        String emailUsername = "";
+        String emailPassword = "";
+
+        setVars(slackUrl, emailAddress, emailHost, emailUsername, emailPassword);
+
+        NotificationType actual = notificationTypeFinder.find();
+
+        assertEquals(NotificationType.NONE,actual);
+    }
+
     private void setVars(String slackUrl, String emailAddress, String emailHost, String emailUsername, String emailPassword) {
         ReflectionTestUtils.setField(notificationTypeFinder, "slackUrl", slackUrl);
         ReflectionTestUtils.setField(notificationTypeFinder, "emailAddress", emailAddress);

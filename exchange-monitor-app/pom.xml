@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>exchange-monitor</artifactId>
-        <groupId>work.hoodie.crypto</groupId>
+        <groupId>work.hoodie</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -13,17 +13,17 @@
 
     <dependencies>
         <dependency>
-            <groupId>work.hoodie.crypto</groupId>
+            <groupId>work.hoodie</groupId>
             <artifactId>exchange-monitor-notification</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>work.hoodie.crypto</groupId>
+            <groupId>work.hoodie</groupId>
             <artifactId>exchange-monitor-service</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>work.hoodie.crypto</groupId>
+            <groupId>work.hoodie</groupId>
             <artifactId>exchange-monitor-data</artifactId>
             <version>${project.version}</version>
         </dependency>
