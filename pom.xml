@@ -6,7 +6,15 @@
 
     <groupId>work.hoodie.crypto</groupId>
     <artifactId>exchange-monitor</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>exchange-monitor-data</module>
+        <module>exchange-monitor-common</module>
+        <module>exchange-monitor-notification</module>
+        <module>exchange-monitor-app</module>
+        <module>exchange-monitor-service</module>
+    </modules>
 
     <properties>
         <spring.version>4.2.4.RELEASE</spring.version>
@@ -29,16 +37,6 @@
             <version>${lombok.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.xeiam.xchange</groupId>
-            <artifactId>xchange-core</artifactId>
-            <version>${xchange.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.xeiam.xchange</groupId>
-            <artifactId>xchange-examples</artifactId>
-            <version>${xchange.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <version>${spring-boot.version}</version>
@@ -58,35 +56,13 @@
             <artifactId>spring-context-support</artifactId>
             <version>${spring.version}</version>
         </dependency>
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>${mail.version}</version>
-        </dependency>
-
         <!-- Spring data mongodb -->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-mongodb</artifactId>
             <version>1.9.1.RELEASE</version>
         </dependency>
-
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+
 </project>
