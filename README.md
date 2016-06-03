@@ -37,32 +37,32 @@ One notification type can be configured per instance.
 Only the additional variables for the notification type requested should be set.
 
 1. exchange (String) - This is the exchange name that should be used to query
-2. api_key (String) - This is the api key needed to view the exchange trade history
-3. secret_key (String) - This is the secret needed to pair with the key 
-4. notification_test (Boolean) - __OPTIONAL__  This will send a test notification when the program is started.  _(Default: false)_
-5. monitor_interval (Cron String) - __OPTIONAL__ This is a cron that will be how often your account will be polled for new trades. _(Default: 0 1/1 * * * *)_
-6. summary_interval (Cron String) - __OPTIONAL__ The interval at which a wallet summary will be compiled and sent as a notification.  _(Default: 0 30 7 * * MON)_
-7. snapshot_interval (Cron String) - __OPTIONAL__ The interval at which a snapshot will be taken of your current crypto currency balances.  This functionality requires a database connection. _(Default: 0 0 0 1/1 * *)_
+2. api\_key (String) - This is the api key needed to view the exchange trade history
+3. secret\_key (String) - This is the secret needed to pair with the key 
+4. notification\_test (Boolean) - __OPTIONAL__  This will send a test notification when the program is started.  _(Default: false)_
+5. monitor\_interval (Cron String) - __OPTIONAL__ This is a cron that will be how often your account will be polled for new trades. _(Default: 0 1/1 \* \* \* \*)_
+6. summary\_interval (Cron String) - __OPTIONAL__ The interval at which a wallet summary will be compiled and sent as a notification.  _(Default: 0 30 7 * * MON)_
+7. snapshot\_interval (Cron String) - __OPTIONAL__ The interval at which a snapshot will be taken of your current crypto currency balances.  This functionality requires a database connection. _(Default: 0 0 0 1/1 \* \*)_
 
 
 ### Additional Slack Specific Environment Variables
 1. slack_url (String) - The Slack Webhook Url needed for notification
 
 ### Additional Email Specific Environment Variables
-1. email_address (String) - The email address where the notification should be sent
-2. email_server_username (String) - The SMTP email server username for authentication
-3. email_server_password (String) - The paired password for the SMTP email server username
-4. email_server_host (String) - The host for where the SMTP email server is located
-5. email_server_port (Integer) - __OPTIONAL__ This is the port to use for the SMTP email server.   _(Default: 25)_
+1. email\_address (String) - The email address where the notification should be sent
+2. email\_server\_username (String) - The SMTP email server username for authentication
+3. email\_server\_password (String) - The paired password for the SMTP email server username
+4. email\_server\_host (String) - The host for where the SMTP email server is located
+5. email\_server\_port (Integer) - __OPTIONAL__ This is the port to use for the SMTP email server.   _(Default: 25)_
 
 ### Additional Database Environment Variables
 A database is not required.  If a database is connected then a snapshot of balances will be saved in the snapshot collection. Otherwise no snapshot data will be saved off.
 
-1. instance_id (String) - __OPTIONAL__ This is the instance id for this container.  This is used to allow for multiple container to connect to the same mongo database. _(Default: default)_
+1. instance\_id (String) - __OPTIONAL__ This is the instance id for this container.  This is used to allow for multiple container to connect to the same mongo database. _(Default: default)_
 
 #### Mongo Specific
-1. mongo_database_host (String) - __OPTIONAL__ The host for where a mongo database is connected. _(Default: mongo)_
-2. mongo_database_port (Integer) - __OPTIONAL__ The port on which to communicate with mongo on. _(Default: 27017)_
+1. mongo\_database\_host (String) - __OPTIONAL__ The host for where a mongo database is connected. _(Default: mongo)_
+2. mongo\_database\_port (Integer) - __OPTIONAL__ The port on which to communicate with mongo on. _(Default: 27017)_
 
 
 
