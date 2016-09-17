@@ -28,6 +28,7 @@
             <version>${project.version}</version>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -42,6 +43,31 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--If Docker Hub Authentication problems setup docker config.json with 'docker logon' command-->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.13</version>
+                <configuration>
+                    <baseImage>java:8</baseImage>
+                    <imageName>seanprobb/exchange-monitor</imageName>
+                    <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                    <useConfigFile>true</useConfigFile>
+                    <forceTags>true</forceTags>
+                    <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
 </project>

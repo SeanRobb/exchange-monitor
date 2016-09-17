@@ -8,6 +8,8 @@ import work.hoodie.exchange.monitor.common.WalletComparisonSummary;
 import work.hoodie.exchange.monitor.notification.builder.SlackMessageBuilderService;
 import work.hoodie.exchange.monitor.notification.sender.SlackMessageSenderService;
 
+import java.util.List;
+
 @Component
 public class SlackNotifierService implements NotifierService {
     @Autowired
@@ -20,7 +22,7 @@ public class SlackNotifierService implements NotifierService {
         slackMessageSenderService.send(build);
     }
 
-    public void notify(UserTrade userTrade) {
+    public void notify(List<UserTrade> userTrade) {
         SlackMessage build = slackMessageBuilderService.build(userTrade);
         slackMessageSenderService.send(build);
     }

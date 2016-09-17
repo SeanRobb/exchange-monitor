@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import work.hoodie.exchange.monitor.common.SlackMessage;
 import work.hoodie.exchange.monitor.common.WalletComparisonSummary;
-import work.hoodie.exchange.monitor.notification.builder.MessageBodyBuilderService;
+
+import java.util.List;
 
 @Component
 public class SlackMessageBuilderService {
@@ -18,16 +19,29 @@ public class SlackMessageBuilderService {
 
     private final String icon_emoji = ":moneybag:";
 
-    public SlackMessage build(String message){
+    public SlackMessage build(String message) {
         String username = exchangeSpecification.getExchangeName() + " Monitor";
 
-        return new SlackMessage(message,icon_emoji,username);
+        return new SlackMessage(message, icon_emoji, username);
     }
 
     public SlackMessage build(UserTrade userTrade) {
         String username = exchangeSpecification.getExchangeName() + " Monitor";
 
         String message = messageBodyBuilderService.build(userTrade);
+
+        return new SlackMessage(message, icon_emoji, username);
+    }
+
+    public SlackMessage build(List<UserTrade> userTrade) {
+        String username = exchangeSpecification.getExchangeName() + " Monitor";
+
+        String message = "";
+
+        if (userTrade.size() > 1)
+            message = message.concat(userTrade.size() + " Trades Executed");
+
+        message = message.concat(messageBodyBuilderService.build(userTrade));
 
         return new SlackMessage(message, icon_emoji, username);
     }

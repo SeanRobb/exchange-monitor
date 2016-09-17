@@ -8,10 +8,12 @@ import work.hoodie.exchange.monitor.common.WalletComparison;
 import work.hoodie.exchange.monitor.common.WalletComparisonSummary;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Component
 public class MessageBodyBuilderService {
 
+    public static final String NEW_LINE = "\n";
     private final String purchased = "purchased";
     private final String sold = "sold";
 
@@ -29,12 +31,23 @@ public class MessageBodyBuilderService {
                 " \n Fees Payed: " + feeAmount + " " + feeCurrency;
     }
 
+    public String build(List<UserTrade> userTradeList) {
+        return userTradeList.stream()
+                .map(this::build)
+                .map(NEW_LINE::concat)
+                .map(NEW_LINE::concat)
+                .reduce(String::concat)
+                .orElse("")
+                .replaceFirst(NEW_LINE, "")
+                .replaceFirst(NEW_LINE, "");
+    }
+
     public String build(WalletComparisonSummary walletComparisonSummary) {
         String message = "Summary:\n";
         for (WalletComparison walletComparison : walletComparisonSummary.getWalletComparisons()) {
             message += walletComparison.toString();
         }
-        message += "\n" + walletComparisonSummary.toString();
+        message += NEW_LINE + walletComparisonSummary.toString();
 
         return message;
     }

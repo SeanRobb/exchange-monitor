@@ -51,9 +51,8 @@ public class ExchangeMonitor {
         else
             log.debug("No Trades");
 
-        for (UserTrade trade : history) {
-            notifierService.notify(trade);
-        }
+        if (!history.isEmpty())
+            notifierService.notify(history);
     }
 
     @Scheduled(cron = "${summary.interval:0 30 7 * * MON}")
@@ -70,7 +69,7 @@ public class ExchangeMonitor {
     @Scheduled(cron = "${snapshot.interval:0 0 0 1/1 * *}")
     public void snapshot() {
         try {
-            if(databaseConnectionValidator.isConnected()){
+            if (databaseConnectionValidator.isConnected()) {
                 log.info("Building snapshot...");
                 BalanceSnapshot currentSnapshot = balanceSnapshotRetriever.getCurrentSnapshot();
                 balanceSnapshotDao.save(currentSnapshot);

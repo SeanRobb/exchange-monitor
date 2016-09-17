@@ -8,6 +8,8 @@ import work.hoodie.exchange.monitor.common.WalletComparisonSummary;
 import work.hoodie.exchange.monitor.notification.builder.EmailMessageBuilderService;
 import work.hoodie.exchange.monitor.notification.sender.EmailMessageSenderService;
 
+import java.util.List;
+
 @Component
 public class EmailNotifierService implements NotifierService {
     @Autowired
@@ -20,7 +22,7 @@ public class EmailNotifierService implements NotifierService {
         emailMessageSenderService.send(build);
     }
 
-    public void notify(UserTrade userTrade) {
+    public void notify(List<UserTrade> userTrade) {
         EmailMessage build = emailMessageBuilderService.build(userTrade);
         emailMessageSenderService.send(build);
     }

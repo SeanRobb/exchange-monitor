@@ -33,13 +33,13 @@ public class DataConfig {
     @PostConstruct
     public void init() {
         boolean connected = MongoConnectionValidator.isConnected(mongoTemplate);
-        if(connected){
+        if (connected) {
             log.info("---------- Mongo Configuration -----------");
             log.info("Mongo Host: " + mongoHost);
             log.info("Mongo Port: " + mongoPort);
             log.info("Mongo Connected: " + connected);
             log.info("------------------------------------------");
-        }else {
+        } else {
             log.info("No Database Connected...");
         }
     }

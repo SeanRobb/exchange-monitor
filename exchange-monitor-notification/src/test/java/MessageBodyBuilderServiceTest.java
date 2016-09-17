@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -43,6 +44,41 @@ public class MessageBodyBuilderServiceTest {
                 .build();
 
         String message = classUnderTest.build(userTrade);
+
+        assertNotNull(message);
+    }
+
+    @Test
+    public void testBuild2() throws Exception {
+        UserTrade userTrade1 = new UserTrade.Builder()
+                .type(Order.OrderType.BID)
+                .tradableAmount(BigDecimal.TEN)
+                .currencyPair(CurrencyPair.DOGE_LTC)
+
+                .price(BigDecimal.ONE)
+                .timestamp(new Date())
+                .id("1")
+
+                .feeAmount(BigDecimal.ZERO)
+                .feeCurrency("LTC")
+                .orderId("2")
+                .build();
+
+        UserTrade userTrade2 = new UserTrade.Builder()
+                .type(Order.OrderType.ASK)
+                .tradableAmount(BigDecimal.ONE)
+                .currencyPair(CurrencyPair.BTC_USD)
+
+                .price(BigDecimal.TEN)
+                .timestamp(new Date())
+                .id("3")
+
+                .feeAmount(BigDecimal.ZERO)
+                .feeCurrency("USD")
+                .orderId("2")
+                .build();
+
+        String message = classUnderTest.build(asList(userTrade1, userTrade2));
 
         assertNotNull(message);
     }

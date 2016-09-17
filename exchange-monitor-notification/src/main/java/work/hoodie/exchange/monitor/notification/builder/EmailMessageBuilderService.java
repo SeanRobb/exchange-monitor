@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import work.hoodie.exchange.monitor.common.EmailMessage;
 import work.hoodie.exchange.monitor.common.WalletComparisonSummary;
 
+import java.util.List;
+
 @Component
 public class EmailMessageBuilderService {
 
@@ -23,6 +25,18 @@ public class EmailMessageBuilderService {
 
     public EmailMessage build(UserTrade userTrade) {
         String subject = exchangeSpecification.getExchangeName() + " Monitor Trade Executed";
+        String body = messageBodyBuilderService.build(userTrade);
+
+        return new EmailMessage(fromEmailAddress, toEmailAddress, subject, body);
+    }
+
+    public EmailMessage build(List<UserTrade> userTrade) {
+        String subject;
+        if (userTrade.size() > 1) {
+            subject = exchangeSpecification.getExchangeName() + " Monitor " + userTrade.size() + " Trade Executed";
+        } else {
+            subject = exchangeSpecification.getExchangeName() + " Monitor Trade Executed";
+        }
         String body = messageBodyBuilderService.build(userTrade);
 
         return new EmailMessage(fromEmailAddress, toEmailAddress, subject, body);

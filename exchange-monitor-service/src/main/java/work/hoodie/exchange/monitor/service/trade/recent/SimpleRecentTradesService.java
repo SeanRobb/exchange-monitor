@@ -24,11 +24,13 @@ public class SimpleRecentTradesService implements RecentTradesService {
 
     public List<UserTrade> getHistory() {
         List<UserTrade> userTrades = new ArrayList<UserTrade>();
+
         try {
             Date queryTime = timeRetrieveService.getAndSyncQueryTime();
             DefaultTradeHistoryParamsTimeSpan tradeHistoryParams = new DefaultTradeHistoryParamsTimeSpan(queryTime);
             log.info("Trade search since " + queryTime.toString());
             UserTrades tradeHistory = pollingTradeService.getTradeHistory(tradeHistoryParams);
+
             userTrades = tradeHistory.getUserTrades();
         } catch (IOException e) {
             log.debug("Error When Getting History: ", e);
