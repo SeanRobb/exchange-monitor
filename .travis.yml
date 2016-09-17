@@ -1,5 +1,7 @@
 language: java
 sudo: false
+jdk:
+  - Oracle JDK 8
 script:
  - mvn clean install
  - mvn -f exchange-monitor-app/pom.xml docker:build -DpushImage
