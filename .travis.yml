@@ -1,11 +1,13 @@
 language: java
 sudo: false
 services:
-  - docker
+- docker
 jdk:
-  - oraclejdk8
+- oraclejdk8
 script:
- - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
- - mvn -f exchange-monitor-app/pom.xml docker:build -DpushImage
+- docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+- mvn -f exchange-monitor-app/pom.xml docker:build -DpushImage
 notifications:
-  slack: $SLACK_TOKEN
+  slack:
+    rooms:
+      secure: r4vCyo66kQxGXWIB0FM5LBLuCewdpfrtRbFK4ijZCwPd3We3sI0a1P9wH2KOiNX/bAUSPKbnOqC1bQnOy2QVrEKMrKucV3xiuaOatgGITZYWtxFi/7PuP+LNTeJbEXMobluRTmQlgUhrYhdAVivSQJSHPwuZs1rvA4tlWZPi70QrkAGe4OXKFC/y3iD+agFT2/v0emuudR45Dafea17C2mnyltZmSvW2r62wvHUVmmJ6zBzo7PwNUZo4WEkUK4og+Nte87zkXe7ZOkibysKc8wsyYYcZJ1Hg6VAlu4Q62K5Rz/gffVgflZi5NtZz9QE5X7wkMTwf3LibSWoeUozN9gPbjsmch/T2F5Hokd3jdClLoOAEx1GJKDy1+bjmjlbpNEx7xNgRGRNmkIj+uWAHzWmljCZlv52hH8cJ7S/SvidtdEMGtH5+VAq5xZ5Nny36LDFoRbokJ0wXXDQP6G53C6AALiHLApfeIi04aSq1obMV77jc49zoGZQckxdYJxLL/zHkOKVSo603TBWo2jtwlRo/KYsorG1CzjVhY71LlJsI8+lnSRLWqCJJx3+kpZ1x719yCTnCkmedeCP0GEB3BDz4wAmgiEMWzvZv6rt4Y9o+c9prlBtPRvXHAqfuDULZ1ezEGPzSlplmZPEw4kBFa8FKe+OPmLQhDi/2HJYRcUI=
