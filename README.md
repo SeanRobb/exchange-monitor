@@ -1,5 +1,7 @@
 # Exchange Monitor
 
+[![Build Status](https://travis-ci.org/SeanRobb/exchange-monitor.svg?branch=master)](https://travis-ci.org/SeanRobb/exchange-monitor)
+
 ## Description
 
 This project was made to actively notify when a trade is executed on a 
