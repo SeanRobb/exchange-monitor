@@ -8,4 +8,4 @@ script:
  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
  - mvn -f exchange-monitor-app/pom.xml docker:build -DpushImage
 notifications:
-  slack: workhoodie:NI6Nh7RnL9JxoU1wrgkhqyaN
+  slack: $SLACK_TOKEN
