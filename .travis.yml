@@ -1,3 +1,4 @@
 language: java
 sudo: false
-script: mvn mvn -f exchange-monitor-app/pom.xml clean package docker:build -DpushImage
+install: mvn clean install
+deploy: mvn -f exchange-monitor-app/pom.xml docker:build -DpushImage
