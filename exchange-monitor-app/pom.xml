@@ -62,8 +62,8 @@
                     <useConfigFile>true</useConfigFile>
                     <forceTags>true</forceTags>
                     <imageTags>
-                        <imageTag>${project.version}</imageTag>
-                        <imageTag>latest</imageTag>
+                        <imageTag>${travis.branch}</imageTag>
+                        <imageTag>${travis.tag}</imageTag>
                     </imageTags>
                 </configuration>
             </plugin>
