@@ -62,8 +62,8 @@
                     <useConfigFile>true</useConfigFile>
                     <forceTags>true</forceTags>
                     <imageTags>
-                        <imageTag>${travis.branch}</imageTag>
-                        <imageTag>${travis.tag}</imageTag>
+                        <imageTag>${env.TRAVIS_BRANCH}</imageTag>
+                        <imageTag>${env.TRAVIS_TAG}</imageTag>
                     </imageTags>
                 </configuration>
             </plugin>
