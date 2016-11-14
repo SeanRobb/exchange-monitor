@@ -39,7 +39,7 @@ public class SlackMessageBuilderService {
         String message = "";
 
         if (userTrade.size() > 1)
-            message = message.concat(userTrade.size() + " Trades Executed\n");
+            message = message.concat(userTrade.size() + " Trades Executed\n\n");
 
         message = message.concat(messageBodyBuilderService.build(userTrade));
 
