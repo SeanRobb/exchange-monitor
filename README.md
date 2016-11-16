@@ -15,7 +15,7 @@ Hybrid configurations are supported as well.
 * Poloniex
 * BitFinex
 
-*Additional Exchanges can be added at request*
+*Additional Exchanges can be added at request* 
 
 ## Notification Types
 
