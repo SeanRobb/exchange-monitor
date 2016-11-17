@@ -6,6 +6,8 @@ jdk:
   - oraclejdk8
 script:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - echo "Branch: ${TRAVIS_BRANCH}"
+  - echo "Tag: ${TRAVIS_TAG}"
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then mvn -f exchange-monitor-app/pom.xml docker:build -DpushImage -DdockerImageTag=${TRAVIS_BRANCH} -DdockerImageTag=${TRAVIS_TAG}; fi'
   - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then mvn clean install; fi'
 notifications:
