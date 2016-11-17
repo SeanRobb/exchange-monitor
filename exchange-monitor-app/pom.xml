@@ -52,6 +52,10 @@
                     <baseImage>java:8</baseImage>
                     <imageName>seanprobb/exchange-monitor</imageName>
                     <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+                    <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
