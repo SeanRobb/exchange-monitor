@@ -5,12 +5,7 @@ services:
 jdk:
   - oraclejdk8
 after_success:
-  - 'docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"'
-  - 'echo "Branch: ${TRAVIS_BRANCH}"'
-  - 'echo "Tag: ${TRAVIS_TAG}"'
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" && -n ${TRAVIS_BRANCH} ]; then mvn -f exchange-monitor-app/pom.xml docker:build -DdockerImageTag=${TRAVIS_BRANCH}; fi'
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" && -n ${TRAVIS_BRANCH} ]; then mvn -f exchange-monitor-app/pom.xml docker:build -DdockerImageTag=${TRAVIS_TAG}; fi'
-  - 'mvn -f exchange-monitor-app/pom.xml docker:push'
+  - ./scripts/dockerPush.sh
 notifications:
   slack:
     rooms:
