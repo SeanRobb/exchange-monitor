@@ -46,6 +46,7 @@ public class DataConfig {
 
     @Bean
     public MongoDbFactory mongoDbFactory() throws Exception {
+        log.info("Mongo Client Info - Host: {} Port: {}", mongoHost, mongoPort);
         return new SimpleMongoDbFactory(new MongoClient(mongoHost, mongoPort), EXCHANGE_MONITOR_DB);
     }
 
@@ -53,6 +54,7 @@ public class DataConfig {
     public MongoTemplate mongoTemplate() throws Exception {
         MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory());
         this.mongoTemplate = mongoTemplate;
+        log.info("Mongo Template: {}", mongoTemplate);
         return mongoTemplate;
     }
 

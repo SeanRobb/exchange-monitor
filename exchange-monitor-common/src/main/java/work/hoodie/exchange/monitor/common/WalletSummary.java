@@ -8,9 +8,6 @@ import java.math.BigDecimal;
 @Data
 @Accessors(chain = true)
 public class WalletSummary {
-//    private String currency;
-//    private BigDecimal available;
-//    private BigDecimal onOrder;
 
     private Balance balance;
     private BigDecimal btcValue;
