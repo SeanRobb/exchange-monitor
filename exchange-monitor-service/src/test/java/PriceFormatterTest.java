@@ -2,7 +2,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import work.hoodie.exchange.monitor.service.format.PriceFormatter;
 
 import java.math.BigDecimal;

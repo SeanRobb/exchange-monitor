@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import work.hoodie.exchange.monitor.common.WalletComparison;
 import work.hoodie.exchange.monitor.common.WalletComparisonSummary;
-import work.hoodie.exchange.monitor.service.format.PriceFormatter;
+import work.hoodie.exchange.monitor.notification.formatter.PriceFormatter;
 
 import java.math.BigDecimal;
 import java.util.List;

@@ -1,4 +1,4 @@
-package work.hoodie.exchange.monitor.service.format;
+package work.hoodie.exchange.monitor.notification.formatter;
 
 import org.springframework.stereotype.Component;
 
