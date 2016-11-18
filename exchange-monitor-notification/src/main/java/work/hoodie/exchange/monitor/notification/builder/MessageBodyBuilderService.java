@@ -31,11 +31,13 @@ public class MessageBodyBuilderService {
         BigDecimal feeAmount = userTrade.getFeeAmount();
         String feeCurrency = userTrade.getFeeCurrency();
 
-        String formattedPriceString = priceFormatter.getFormattedPriceString(price, currencyPair.counterSymbol);
+        String formattedPrice = priceFormatter.getFormattedPriceString(price, currencyPair.counterSymbol);
 
-        return tradableAmount + " " + currencyPair.baseSymbol + " " + typeConvert(type) +
-                " for " + formattedPriceString + " " + currencyPair.counterSymbol +
-                NEW_LINE + " Fees Payed: " + feeAmount + " " + feeCurrency;
+        String formattedFee = priceFormatter.getFormattedPriceString(feeAmount, feeCurrency);
+
+        String formattedTradeable = priceFormatter.getFormattedPriceString(tradableAmount, currencyPair.baseSymbol);
+
+        return buildMessage(type, formattedPrice, formattedFee, formattedTradeable);
     }
 
     public String build(List<UserTrade> userTradeList) {
@@ -57,6 +59,10 @@ public class MessageBodyBuilderService {
         message += NEW_LINE + walletComparisonSummary.toString();
 
         return message;
+    }
+
+    private String buildMessage(Order.OrderType type, String price, String fee, String tradeable) {
+        return tradeable + " " + typeConvert(type) + " for " + price + NEW_LINE + " Fees Payed: " + fee;
     }
 
     private String typeConvert(Order.OrderType type) {

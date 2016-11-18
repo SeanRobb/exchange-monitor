@@ -17,9 +17,9 @@ public class PriceFormatterTest {
     @Test
     public void getFormattedPriceString_USD() throws Exception {
 
-        String usd = classUnderTest.getFormattedPriceString(new BigDecimal(1), "USD");
+        String usd = classUnderTest.getFormattedPriceString(new BigDecimal(100), "USD");
 
-        assertEquals("1.00", usd);
+        assertEquals("100.00 USD", usd);
 
     }
 
@@ -28,15 +28,15 @@ public class PriceFormatterTest {
 
         String usdt = classUnderTest.getFormattedPriceString(new BigDecimal(0.1), "USDT");
 
-        assertEquals("0.10", usdt);
+        assertEquals("0.10 USDT", usdt);
 
     }
 
     @Test
     public void getFormattedPriceString_Not_USD() throws Exception {
 
-        String abc = classUnderTest.getFormattedPriceString(new BigDecimal(0.00000100), "ABC");
+        String abc = classUnderTest.getFormattedPriceString(new BigDecimal(100.00000100), "ABC");
 
-        assertEquals("0.00000100", abc);
+        assertEquals("100.00000100 ABC", abc);
     }
 }

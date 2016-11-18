@@ -9,10 +9,14 @@ import java.text.DecimalFormat;
 public class PriceFormatter {
 
     public String getFormattedPriceString(BigDecimal price, String currency) {
-        if(currency.equalsIgnoreCase("USD")||currency.equalsIgnoreCase("USDT")){
-            return new DecimalFormat("0.00").format(price);
+        String pattern;
+
+        if (currency.equalsIgnoreCase("USD") || currency.equalsIgnoreCase("USDT")) {
+            pattern = "0.00";
+        } else {
+            pattern = "0.00000000";
         }
 
-        return new DecimalFormat("0.00000000").format(price);
+        return new DecimalFormat(pattern).format(price) + " " + currency;
     }
 }
