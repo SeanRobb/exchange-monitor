@@ -2,7 +2,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
-import work.hoodie.exchange.monitor.service.format.PriceFormatter;
+import work.hoodie.exchange.monitor.notification.formatter.PriceFormatter;
 
 import java.math.BigDecimal;
 
