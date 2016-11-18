@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import work.hoodie.exchange.monitor.data.validator.MongoConnectionValidator;
 
 import javax.annotation.PostConstruct;
+import java.net.UnknownHostException;
 
 @Slf4j
 @Configuration("Database")
@@ -29,10 +30,31 @@ public class DataConfig {
     private Integer mongoPort;
 
     public MongoTemplate mongoTemplate;
+    private MongoClient mongoClient;
+    private SimpleMongoDbFactory simpleMongoDbFactory;
+
+    public MongoDbFactory mongoDbFactory() throws UnknownHostException {
+        log.info("Mongo Client Info - Host: {} Port: {}", mongoHost, mongoPort);
+        if (mongoClient == null) {
+            mongoClient = new MongoClient(mongoHost, mongoPort);
+        }
+        if (simpleMongoDbFactory == null) {
+            simpleMongoDbFactory = new SimpleMongoDbFactory(mongoClient, EXCHANGE_MONITOR_DB);
+        }
+        return simpleMongoDbFactory;
+    }
+
+    @Bean
+    public MongoTemplate mongoTemplate() throws UnknownHostException {
+        if (this.mongoTemplate == null) {
+            mongoTemplate = new MongoTemplate(mongoDbFactory());
+        }
+        return mongoTemplate;
+    }
 
     @PostConstruct
-    public void init() {
-        boolean connected = MongoConnectionValidator.isConnected(mongoTemplate);
+    public void init() throws UnknownHostException {
+        boolean connected = MongoConnectionValidator.isConnected(mongoTemplate());
         if (connected) {
             log.info("---------- Mongo Configuration -----------");
             log.info("Mongo Host: " + mongoHost);
@@ -42,20 +64,6 @@ public class DataConfig {
         } else {
             log.info("No Database Connected...");
         }
-    }
-
-    @Bean
-    public MongoDbFactory mongoDbFactory() throws Exception {
-        log.info("Mongo Client Info - Host: {} Port: {}", mongoHost, mongoPort);
-        return new SimpleMongoDbFactory(new MongoClient(mongoHost, mongoPort), EXCHANGE_MONITOR_DB);
-    }
-
-    @Bean
-    public MongoTemplate mongoTemplate() throws Exception {
-        MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory());
-        this.mongoTemplate = mongoTemplate;
-        log.info("Mongo Template: {}", mongoTemplate);
-        return mongoTemplate;
     }
 
 }
