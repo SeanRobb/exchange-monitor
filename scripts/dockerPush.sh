@@ -7,10 +7,10 @@ echo "Tag: ${TRAVIS_TAG}"
 
 if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
     if [ -n ${TRAVIS_BRANCH} ]; then
-        mvn -f exchange-monitor-app/pom.xml docker:build -DpushImageTag -DdockerImageTags=${TRAVIS_BRANCH};
+        mvn -f exchange-monitor-app/pom.xml docker:build -DdockerImageTags=${TRAVIS_BRANCH} -DpushImageTag;
     fi
     if [ -n ${TRAVIS_TAG} ]; then
-        mvn -f exchange-monitor-app/pom.xml docker:build -DpushImageTag -DdockerImageTags=${TRAVIS_TAG};
+        mvn -f exchange-monitor-app/pom.xml docker:build -DdockerImageTags=${TRAVIS_TAG} -DpushImageTag;
     fi
     mvn -f exchange-monitor-app/pom.xml docker:build -DpushImageTag
 fi
