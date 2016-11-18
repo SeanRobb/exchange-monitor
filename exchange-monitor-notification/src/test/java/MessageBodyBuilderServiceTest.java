@@ -5,20 +5,27 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import work.hoodie.exchange.monitor.common.Balance;
 import work.hoodie.exchange.monitor.common.WalletComparison;
 import work.hoodie.exchange.monitor.common.WalletComparisonSummary;
 import work.hoodie.exchange.monitor.common.WalletSummary;
 import work.hoodie.exchange.monitor.notification.builder.MessageBodyBuilderService;
+import work.hoodie.exchange.monitor.service.format.PriceFormatter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import static java.util.Arrays.asList;
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 @Slf4j
@@ -27,14 +34,20 @@ public class MessageBodyBuilderServiceTest {
     @InjectMocks
     private MessageBodyBuilderService classUnderTest;
 
+    @Mock
+    private PriceFormatter priceFormatter;
+
     @Test
     public void testBuild() throws Exception {
+        String formattedPrice = "My Amazing Formatted Price" + UUID.randomUUID().toString();
+        BigDecimal price = BigDecimal.ONE;
+        CurrencyPair currencyPair = CurrencyPair.DOGE_LTC;
         UserTrade userTrade = new UserTrade.Builder()
                 .type(Order.OrderType.BID)
                 .tradableAmount(BigDecimal.TEN)
-                .currencyPair(CurrencyPair.DOGE_LTC)
+                .currencyPair(currencyPair)
 
-                .price(BigDecimal.ONE)
+                .price(price)
                 .timestamp(new Date())
                 .id("1")
 
@@ -43,9 +56,14 @@ public class MessageBodyBuilderServiceTest {
                 .orderId("2")
                 .build();
 
+        when(priceFormatter.getFormattedPriceString(price, currencyPair.counterSymbol))
+                .thenReturn(formattedPrice);
+
         String message = classUnderTest.build(userTrade);
 
         assertNotNull(message);
+        verify(priceFormatter).getFormattedPriceString(price, currencyPair.counterSymbol);
+        assertThat(message, containsString(formattedPrice));
     }
 
     @Test

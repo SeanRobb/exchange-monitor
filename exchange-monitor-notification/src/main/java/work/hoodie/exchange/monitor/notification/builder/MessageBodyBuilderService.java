@@ -3,9 +3,11 @@ package work.hoodie.exchange.monitor.notification.builder;
 import com.xeiam.xchange.currency.CurrencyPair;
 import com.xeiam.xchange.dto.Order;
 import com.xeiam.xchange.dto.trade.UserTrade;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import work.hoodie.exchange.monitor.common.WalletComparison;
 import work.hoodie.exchange.monitor.common.WalletComparisonSummary;
+import work.hoodie.exchange.monitor.service.format.PriceFormatter;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,18 +19,23 @@ public class MessageBodyBuilderService {
     private final String purchased = "purchased";
     private final String sold = "sold";
 
+    @Autowired
+    private PriceFormatter priceFormatter;
+
+
     public String build(UserTrade userTrade) {
         Order.OrderType type = userTrade.getType();
         CurrencyPair currencyPair = userTrade.getCurrencyPair();
         BigDecimal price = userTrade.getPrice();
-
-
+        BigDecimal tradableAmount = userTrade.getTradableAmount();
         BigDecimal feeAmount = userTrade.getFeeAmount();
         String feeCurrency = userTrade.getFeeCurrency();
 
-        return userTrade.getTradableAmount() + " " + currencyPair.baseSymbol + " " + typeConvert(type) +
-                " for " + price + " " + currencyPair.counterSymbol +
-                " \n Fees Payed: " + feeAmount + " " + feeCurrency;
+        String formattedPriceString = priceFormatter.getFormattedPriceString(price, currencyPair.counterSymbol);
+
+        return tradableAmount + " " + currencyPair.baseSymbol + " " + typeConvert(type) +
+                " for " + formattedPriceString + " " + currencyPair.counterSymbol +
+                NEW_LINE + " Fees Payed: " + feeAmount + " " + feeCurrency;
     }
 
     public String build(List<UserTrade> userTradeList) {
