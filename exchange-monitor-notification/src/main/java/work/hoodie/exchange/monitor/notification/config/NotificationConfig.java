@@ -4,15 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.client.RestTemplate;
 import work.hoodie.exchange.monitor.notification.NotificationSettingsStringifier;
 import work.hoodie.exchange.monitor.notification.sender.EmailMessageSenderService;
 import work.hoodie.exchange.monitor.notification.sender.SlackMessageSenderService;
+import work.hoodie.exchange.monitor.service.config.ServiceConfig;
 
 import javax.annotation.PostConstruct;
 import java.util.Properties;
@@ -20,6 +18,7 @@ import java.util.Properties;
 @Slf4j
 @Configuration("Notification")
 @ComponentScan("work.hoodie.exchange.monitor.notification")
+@Import(ServiceConfig.class)
 @PropertySource("classpath:/email.properties")
 public class NotificationConfig {
 
