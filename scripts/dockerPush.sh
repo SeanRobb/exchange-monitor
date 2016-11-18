@@ -2,6 +2,7 @@
 
 docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 
+echo "Pull Request: ${TRAVIS_PULL_REQUEST}"
 echo "Branch: ${TRAVIS_BRANCH}"
 echo "Tag: ${TRAVIS_TAG}"
 
