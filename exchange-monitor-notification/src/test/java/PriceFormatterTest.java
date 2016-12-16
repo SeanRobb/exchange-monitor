@@ -39,4 +39,17 @@ public class PriceFormatterTest {
 
         assertEquals("100.00000100 ABC", abc);
     }
+    @Test
+    public void getFormatterPriceString_Null() throws Exception {
+
+        BigDecimal price = new BigDecimal(100.00000100);
+        String abc = classUnderTest.getFormattedPriceString(price, null);
+        assertEquals(price.toString(), abc);
+    }
+    @Test
+    public void getFormatterPriceString_Null_PriceAndCurrency() throws Exception {
+
+        String actual = classUnderTest.getFormattedPriceString(null, null);
+        assertEquals("0", actual);
+    }
 }

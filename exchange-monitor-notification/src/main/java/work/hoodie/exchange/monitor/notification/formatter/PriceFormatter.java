@@ -10,7 +10,12 @@ public class PriceFormatter {
 
     public String getFormattedPriceString(BigDecimal price, String currency) {
         String pattern;
-
+        if (currency == null){
+            if ( price == null ){
+                return "0";
+            }
+            return price.toString();
+        }
         if (currency.equalsIgnoreCase("USD") || currency.equalsIgnoreCase("USDT")) {
             pattern = "0.00";
         } else {
