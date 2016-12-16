@@ -13,7 +13,7 @@ public class RecentTradeServiceFinder {
 
     public RecentTradesService find(ExchangeSpecification exchangeSpecification) {
 
-        if (exchangeSpecification.getExchangeName().equalsIgnoreCase("Bitfinex")) {
+        if (exchangeSpecification.getExchangeName().equalsIgnoreCase("Bitfinex")||exchangeSpecification.getExchangeName().equalsIgnoreCase("Bittrex")) {
             return currencyPairRecentTradeService;
         }
 

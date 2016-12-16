@@ -52,6 +52,6 @@ public class RecentTradeServiceFinderTest {
                 .getExchangeSpecification();
         RecentTradesService recentTradesService = recentTradesServiceFinder.find(exchangeSpecification);
         assertNotNull(recentTradesService);
-        Assert.assertEquals(simpleRecentTradesService,recentTradesService);
+        Assert.assertEquals(currencyPairRecentTradeService,recentTradesService);
     }
 }
