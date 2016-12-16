@@ -1,6 +1,7 @@
 import com.xeiam.xchange.ExchangeFactory;
 import com.xeiam.xchange.ExchangeSpecification;
 import com.xeiam.xchange.bitfinex.v1.BitfinexExchange;
+import com.xeiam.xchange.bittrex.v1.BittrexExchange;
 import com.xeiam.xchange.poloniex.PoloniexExchange;
 import org.junit.Assert;
 import org.junit.Test;
@@ -39,6 +40,15 @@ public class RecentTradeServiceFinderTest {
     public void testFind_BitFinex() throws Exception {
         ExchangeSpecification exchangeSpecification =  ExchangeFactory.INSTANCE
                 .createExchange(new ExchangeSpecification(BitfinexExchange.class))
+                .getExchangeSpecification();
+        RecentTradesService recentTradesService = recentTradesServiceFinder.find(exchangeSpecification);
+        assertNotNull(recentTradesService);
+        Assert.assertEquals(currencyPairRecentTradeService,recentTradesService);
+    }
+    @Test
+    public void testFind_Bittrex() throws Exception {
+        ExchangeSpecification exchangeSpecification =  ExchangeFactory.INSTANCE
+                .createExchange(new ExchangeSpecification(BittrexExchange.class))
                 .getExchangeSpecification();
         RecentTradesService recentTradesService = recentTradesServiceFinder.find(exchangeSpecification);
         assertNotNull(recentTradesService);

@@ -4,6 +4,7 @@ package work.hoodie.exchange.monitor.service;
 import com.xeiam.xchange.Exchange;
 import com.xeiam.xchange.ExchangeFactory;
 import com.xeiam.xchange.bitfinex.v1.BitfinexExchange;
+import com.xeiam.xchange.bittrex.v1.BittrexExchange;
 import com.xeiam.xchange.poloniex.PoloniexExchange;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +21,7 @@ public class ExchangeFinderService {
     public void init() {
         exchanges.add(ExchangeFactory.INSTANCE.createExchange(PoloniexExchange.class.getName()));
         exchanges.add(ExchangeFactory.INSTANCE.createExchange(BitfinexExchange.class.getName()));
+        exchanges.add(ExchangeFactory.INSTANCE.createExchange(BittrexExchange.class.getName()));
 //        exchanges.add(ExchangeFactory.INSTANCE.createExchange(CoinbaseExchange.class.getName()));
     }
 
