@@ -17,7 +17,7 @@
     </modules>
 
     <properties>
-        <spring.version>4.2.4.RELEASE</spring.version>
+        <spring.version>4.3.3.RELEASE</spring.version>
         <spring-boot.version>1.4.1.RELEASE</spring-boot.version>
         <xchange.version>3.1.0</xchange.version>
         <lombok.version>1.16.8</lombok.version>
