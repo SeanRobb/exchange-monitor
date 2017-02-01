@@ -53,6 +53,9 @@ public class ExchangeMonitor {
 
         if (!history.isEmpty())
             notifierService.notify(history);
+
+
+        //
     }
 
     @Scheduled(cron = "${summary.interval:0 30 7 * * MON}")
