@@ -58,8 +58,8 @@ public class ExchangeMonitor {
 
         if (!history.isEmpty())
             notifierService.notify(history);
-//        if (!history.isEmpty() && databaseConnectionValidator.isConnected())
-//            userTradeDao.save(history);
+        if (!history.isEmpty() && databaseConnectionValidator.isConnected())
+            userTradeDao.save(history);
     }
 
     @Scheduled(cron = "${summary.interval:0 30 7 * * MON}")
