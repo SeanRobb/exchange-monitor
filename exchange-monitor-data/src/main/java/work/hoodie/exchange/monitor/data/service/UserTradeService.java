@@ -14,7 +14,7 @@
 //@Component
 //public class UserTradeService {
 //    @Autowired
-//    private UserTradeDao userTradeDao;
+//    private UserTasdfradeDao userTradeDao;
 //    public void save(List<UserTrade> userTrade) {
 //        // marshal list of user trades to new user trades
 //        // save list of trades to mongo
