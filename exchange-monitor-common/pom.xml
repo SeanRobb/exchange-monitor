@@ -10,6 +10,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>exchange-monitor-common</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-core</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+    </dependencies>
 
 
 </project>

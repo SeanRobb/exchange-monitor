@@ -5,6 +5,7 @@ import work.hoodie.exchange.monitor.common.WalletComparisonSummary;
 
 import java.util.List;
 
+
 public interface NotifierService {
     void notify(String message);
 

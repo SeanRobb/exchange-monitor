@@ -17,6 +17,11 @@
             <artifactId>exchange-monitor-common</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.xeiam.xchange</groupId>
+            <artifactId>xchange-core</artifactId>
+            <version>3.1.0</version>
+        </dependency>
     </dependencies>
 
 </project>

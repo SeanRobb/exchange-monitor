@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import work.hoodie.exchange.monitor.common.BalanceSnapshot;
 import work.hoodie.exchange.monitor.common.WalletComparisonSummary;
 import work.hoodie.exchange.monitor.data.dao.BalanceSnapshotDao;
+import work.hoodie.exchange.monitor.data.dao.UserTradeDao;
 import work.hoodie.exchange.monitor.data.validator.DatabaseConnectionValidator;
 import work.hoodie.exchange.monitor.notification.service.NotifierService;
 import work.hoodie.exchange.monitor.service.balance.snapshot.BalanceSnapshotRetriever;
@@ -34,10 +35,14 @@ public class ExchangeMonitor {
 
     @Autowired
     @Qualifier("CorrectNotifierService")
+
     private NotifierService notifierService;
 
     @Autowired
     private BalanceSnapshotDao balanceSnapshotDao;
+
+    @Autowired
+    private UserTradeDao userTradeDao;
 
     @Autowired
     private DatabaseConnectionValidator databaseConnectionValidator;
@@ -53,9 +58,8 @@ public class ExchangeMonitor {
 
         if (!history.isEmpty())
             notifierService.notify(history);
-
-
-        //
+        if (!history.isEmpty() && databaseConnectionValidator.isConnected())
+            userTradeDao.save(history);
     }
 
     @Scheduled(cron = "${summary.interval:0 30 7 * * MON}")

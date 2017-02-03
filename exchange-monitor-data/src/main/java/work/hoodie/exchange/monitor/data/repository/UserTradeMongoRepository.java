@@ -4,8 +4,8 @@
 package work.hoodie.exchange.monitor.data.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-import work.hoodie.exchange.monitor.common.UserTrade;
+import work.hoodie.exchange.monitor.common.RecentUserTrade;
 
 
-public interface UserTradeMongoRepository extends MongoRepository<UserTrade, String> {
+public interface UserTradeMongoRepository extends MongoRepository<RecentUserTrade, String> {
 }

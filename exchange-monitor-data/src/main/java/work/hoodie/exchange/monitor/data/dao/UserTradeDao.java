@@ -1,11 +1,13 @@
 package work.hoodie.exchange.monitor.data.dao;
 
 
-import work.hoodie.exchange.monitor.common.UserTrade;
+import com.xeiam.xchange.dto.trade.UserTrade;
+import work.hoodie.exchange.monitor.common.RecentUserTrade;
+
+import java.util.List;
 
 public interface UserTradeDao {
-
-    UserTrade save(UserTrade userTrade);
+    RecentUserTrade save(List<UserTrade> userTradeList);
 
     void delete(String id);
 
