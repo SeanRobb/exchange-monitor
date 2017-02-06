@@ -15,10 +15,10 @@ import java.util.List;
 public class UserTradeService {
     @Autowired
     private UserTradeDao userTradeDao;
-    public void save(List<UserTrade> userTrade) {
+    public void save(List<RecentUserTrade> recentUserTrades) {
         // marshal list of user trades to new user trades
         // save list of trades to mongo
-        userTradeDao.save(new RecentUserTrade());
+        userTradeDao.save(recentUserTrades);
 
     }
 
