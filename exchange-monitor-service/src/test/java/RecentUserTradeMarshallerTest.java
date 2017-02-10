@@ -1,6 +1,8 @@
 import com.xeiam.xchange.currency.CurrencyPair;
 import com.xeiam.xchange.dto.Order;
 import com.xeiam.xchange.dto.trade.UserTrade;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -10,20 +12,21 @@ import work.hoodie.exchange.monitor.service.trade.recent.RecentUserTradeMarshall
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
+import static java.util.Arrays.asList;
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
-/**
- * Created by ryantodd on 2/3/17.
- */
+@Slf4j
 @RunWith(MockitoJUnitRunner.class)
 public class RecentUserTradeMarshallerTest {
     @InjectMocks
     private RecentUserTradeMarshaller recentUserTradeMarshaller;
 
     @Test
-    public void convertSingle(){
+    public void convertSingle() {
         Order.OrderType orderType = Order.OrderType.BID;
         String id = "XEM";
         CurrencyPair currencyPair = CurrencyPair.BTC_USD;
@@ -42,19 +45,17 @@ public class RecentUserTradeMarshallerTest {
         RecentUserTrade trade = recentUserTradeMarshaller.convert(userTrade);
 
 
-
-
-
         assertNotNull(trade);
-        assertEquals(orderType,trade.getType());
+        assertEquals(orderType, trade.getType());
         assertEquals(id, trade.getTradeId());
-        assertEquals(currencyPair,trade.getCurrencyPair());
-        assertEquals(price,trade.getPrice());
-        assertEquals(timeStamp,trade.getTimestamp());
+        assertEquals(currencyPair, trade.getCurrencyPair());
+        assertEquals(price, trade.getPrice());
+        assertEquals(timeStamp, trade.getTimestamp());
 
     }
+
     @Test
-    public void convertList(){
+    public void convertList() {
         Order.OrderType orderType1 = Order.OrderType.BID;
         String id1 = "XEM";
         CurrencyPair currencyPair1 = CurrencyPair.BTC_USD;
@@ -82,20 +83,26 @@ public class RecentUserTradeMarshallerTest {
                 .price(price2)
                 .timestamp(timeStamp2)
                 .build();
-        RecentUserTrade trade1 = recentUserTradeMarshaller.convert(userTrade1);
-        RecentUserTrade trade2 = recentUserTradeMarshaller.convert(userTrade2);
+
+        List<UserTrade> userTrades = asList(userTrade1, userTrade2);
+
+        List<RecentUserTrade> convert = recentUserTradeMarshaller.convert(userTrades);
 
 
+        Assert.assertNotNull(convert);
+        assertFalse(convert.isEmpty());
 
+        convert.stream()
+                .forEach(recentUserTrade -> {
+                    assertNotNull(convert);
+                    assertEquals(orderType2, recentUserTrade.getType());
+                    assertEquals(id2, recentUserTrade.getTradeId());
+                    assertEquals(currencyPair2, recentUserTrade.getCurrencyPair());
+                    assertEquals(price2, recentUserTrade.getPrice());
+                    assertEquals(timeStamp2, recentUserTrade.getTimestamp());
 
+                });
 
-        assertNotNull(trade1);
-        assertNotNull(trade2);
-        assertEquals(orderType2,trade1.getType());
-        assertEquals(id2, trade1.getTradeId());
-        assertEquals(currencyPair2,trade1.getCurrencyPair());
-        assertEquals(price2,trade1.getPrice());
-        assertEquals(timeStamp2,trade1.getTimestamp());
 
     }
 

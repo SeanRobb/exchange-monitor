@@ -2,31 +2,25 @@ package work.hoodie.exchange.monitor.service.trade.recent;
 
 
 import com.xeiam.xchange.dto.trade.UserTrade;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import work.hoodie.exchange.monitor.common.RecentUserTrade;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by ryantodd on 2/2/17.
- */
+@Slf4j
 @Component
 public class RecentUserTradeMarshaller {
-    public List<RecentUserTrade> convert(List<UserTrade> userTrades) {
-        List<RecentUserTrade> recentUserTrade = new ArrayList<>();
-        for(RecentUserTrade recentTrade : recentUserTrade){
-            for(UserTrade userTrade : userTrades){
-                recentTrade.setTradeId(userTrade.getId());
-                recentTrade.setCurrencyPair(userTrade.getCurrencyPair());
-                recentTrade.setPrice(userTrade.getPrice());
-                recentTrade.setTimestamp(userTrade.getTimestamp());
-                recentTrade.setType(userTrade.getType());
-                recentUserTrade.add(recentTrade);
-            }
 
-        }return recentUserTrade;
+    public List<RecentUserTrade> convert(List<UserTrade> userTrades) {
+
+        List<RecentUserTrade> recentUserTrade = userTrades
+                .stream()
+                .map(this::convert)
+                .collect(Collectors.toList());
+
+        return recentUserTrade;
     }
 
     public RecentUserTrade convert(UserTrade userTrade) {

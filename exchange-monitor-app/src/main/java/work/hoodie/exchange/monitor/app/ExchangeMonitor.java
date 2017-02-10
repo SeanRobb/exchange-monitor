@@ -1,7 +1,6 @@
 package work.hoodie.exchange.monitor.app;
 
 import com.xeiam.xchange.dto.trade.UserTrade;
-import com.xeiam.xchange.dto.trade.UserTrades;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,7 +11,7 @@ import work.hoodie.exchange.monitor.common.RecentUserTrade;
 import work.hoodie.exchange.monitor.common.WalletComparisonSummary;
 import work.hoodie.exchange.monitor.data.dao.BalanceSnapshotDao;
 import work.hoodie.exchange.monitor.data.dao.UserTradeDao;
-import work.hoodie.exchange.monitor.data.service.UserTradeService;
+import work.hoodie.exchange.monitor.service.trade.recent.UserTradeService;
 import work.hoodie.exchange.monitor.data.validator.DatabaseConnectionValidator;
 import work.hoodie.exchange.monitor.notification.service.NotifierService;
 import work.hoodie.exchange.monitor.service.balance.snapshot.BalanceSnapshotRetriever;
@@ -39,8 +38,9 @@ public class ExchangeMonitor {
 
     @Autowired
     @Qualifier("CorrectNotifierService")
-
     private NotifierService notifierService;
+
+    @Autowired
     private UserTradeService userTradeService;
 
     @Autowired

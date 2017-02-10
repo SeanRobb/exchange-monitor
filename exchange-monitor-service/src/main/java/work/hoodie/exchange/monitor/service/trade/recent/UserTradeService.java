@@ -1,4 +1,4 @@
-package work.hoodie.exchange.monitor.data.service;
+package work.hoodie.exchange.monitor.service.trade.recent;
 
 import com.xeiam.xchange.dto.trade.UserTrade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +15,15 @@ import java.util.List;
 public class UserTradeService {
     @Autowired
     private UserTradeDao userTradeDao;
-    public void save(List<RecentUserTrade> recentUserTrades) {
-        // marshal list of user trades to new user trades
-        // save list of trades to mongo
-        userTradeDao.save(recentUserTrades);
 
+    @Autowired
+    private RecentUserTradeMarshaller recentUserTradeMarshaller;
+
+    public void save(List<UserTrade> userTrades) {
+        List<RecentUserTrade> convert = recentUserTradeMarshaller.convert(userTrades);
+        for (RecentUserTrade usuck : convert) {
+            userTradeDao.save(usuck);
+        }
     }
 
 }
